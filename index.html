@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TGR - Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="dot"></span>
+                Tomas <span class="cursor" id="nav-cursor">_</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">MACHINES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+
+        <header class="hero">
+            <div class="big-terminal-anim">
+                <div class="terminal-line" id="terminal-line-container">
+                    <span class="prompt" id="prompt-symbol">~$</span>
+                    <span class="command" id="typed-command"></span><span class="blinking-cursor" id="cursor">_</span>
+                </div>
+            </div>
+
+            <p class="terminal-path">~/who-is/Tomas</p>
+            <h1>
+                IT Student and<br />
+                <span class="text-blue">Pentester</span>
+            </h1>
+
+            <p class="subtitle">
+                4th-year Information Technology student with a strong focus on
+                cybersecurity. Experienced in Linux, Python, and vulnerability
+                assessment, currently honing my skills on
+                <a href="#" class="underline-link">HackTheBox</a> and
+                <a href="#" class="underline-link">TryHackMe</a>.
+            </p>
+
+            <div class="actions">
+                <a href="#" class="btn-primary">View Machines</a>
+                <a href="https://github.com/t-gorrinirech" target="_blank" class="text-link">GitHub</a>
+                <span class="separator">|</span>
+                <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link">LinkedIn</a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h2>45</h2>
+                    <p>HTB MACHINES</p>
+                </div>
+                <div class="stat-card">
+                    <h2>120</h2>
+                    <p>THM POINTS</p>
+                </div>
+                <div class="stat-card">
+                    <h2 class="text-cyan">Top 1%</h2>
+                    <p>GLOBAL RANK</p>
+                </div>
+                <div class="stat-card">
+                    <h2>14</h2>
+                    <p>CERTIFICATIONS</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="achievements">
+            <div class="section-header">
+                <div>
+                    <p class="terminal-path">~/my/recent/achievements</p>
+                    <h2>Machines Completed</h2>
+                </div>
+                <div class="total-count">
+                    <span class="text-muted">Total: 59 machines</span>
+                    <span class="block-cursor"></span>
+                </div>
+            </div>
+
+            <div class="machines-grid">
+                <div class="machine-card">
+                    <div class="card-header">
+                        <span class="platform">HACKTHEBOX</span>
+                        <span class="difficulty easy">EASY</span>
+                    </div>
+                    <h3>Legacy</h3>
+                    <div class="badges">
+                        <span class="badge">Windows</span>
+                        <span class="badge">SMB</span>
+                        <span class="badge">CVE-2008-4250</span>
+                    </div>
+                    <a href="#" class="card-link">View Details &rarr;</a>
+                </div>
+
+                <div class="machine-card">
+                    <div class="card-header">
+                        <span class="platform">TRYHACKME</span>
+                        <span class="difficulty medium">MEDIUM</span>
+                    </div>
+                    <h3>RootMe</h3>
+                    <div class="badges">
+                        <span class="badge">Linux</span>
+                        <span class="badge">Web</span>
+                        <span class="badge">SUID</span>
+                    </div>
+                    <a href="#" class="card-link">View Details &rarr;</a>
+                </div>
+
+                <div class="machine-card">
+                    <div class="card-header">
+                        <span class="platform">HACKTHEBOX</span>
+                        <span class="difficulty hard">HARD</span>
+                    </div>
+                    <h3>Forest</h3>
+                    <div class="badges">
+                        <span class="badge">Active Directory</span>
+                        <span class="badge">Kerberoasting</span>
+                    </div>
+                    <a href="#" class="card-link">View Details &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <div>
+                    <p class="terminal-path">~/network/connections</p>
+                    <h2>Get in Touch</h2>
+                </div>
+            </div>
+            <div class="contact-box">
+                <p class="text-muted">
+                    I'm always open to discussing new projects, opportunities, or just
+                    talking about InfoSec.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:tgorrinirech@gmail.com" class="btn-primary">tgorrinirech@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link"
+                        style="font-size: 1rem; font-weight: 600">LinkedIn Profile &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="copyright">
+                &copy; <span id="year"></span> Tomas G. Rech - Developed with Astro
+            </p>
+            <div class="status">
+                <span class="dot cyan"></span> Status: Updated via GitHub Actions
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Actualizar año
+            document.getElementById("year").textContent = new Date().getFullYear();
+
+            // 2. Parpadeo del logo en la navbar
+            const navCursor = document.getElementById("nav-cursor");
+            setInterval(() => {
+                navCursor.style.opacity = navCursor.style.opacity === "0" ? "1" : "0";
+            }, 600);
+
+            // 3. Animación de terminal gigante "whoami"
+            async function runTerminalAnimation() {
+                const commandEl = document.getElementById("typed-command");
+                const promptSymbol = document.getElementById("prompt-symbol");
+                const cursorEl = document.getElementById("cursor");
+                const textToType = "whoami";
+                const resultText = "Tomas Gorrini Rech";
+
+                while (true) {
+                    // 1. Estado inicial: Mostrar prompt, limpiar texto, restaurar color
+                    promptSymbol.style.display = "inline";
+                    commandEl.textContent = "";
+                    commandEl.classList.remove("is-output");
+                    cursorEl.style.display = "inline";
+
+                    // Pausa inicial
+                    await new Promise((r) => setTimeout(r, 1000));
+
+                    // 2. Escribir "whoami"
+                    for (let i = 0; i < textToType.length; i++) {
+                        commandEl.textContent += textToType.charAt(i);
+                        await new Promise((r) => setTimeout(r, 150));
+                    }
+
+                    // Pausa simulando "pensar" antes del Enter
+                    await new Promise((r) => setTimeout(r, 400));
+
+                    // 3. Simular Enter: Ocultar cursor un instante
+                    cursorEl.style.display = "none";
+                    await new Promise((r) => setTimeout(r, 200));
+
+                    // Reemplazar todo
+                    promptSymbol.style.display = "none";
+                    commandEl.textContent = resultText;
+                    commandEl.classList.add("is-output"); // Para darle el color gris
+
+                    // Mostrar cursor de nuevo al final del nombre
+                    cursorEl.style.display = "inline";
+
+                    // 4. Pausa larga leyendo el resultado antes de reiniciar
+                    await new Promise((r) => setTimeout(r, 4000));
+                }
+            }
+
+            // Iniciar la animación
+            runTerminalAnimation();
+        });
+    </script>
+</body>
+
+</html>

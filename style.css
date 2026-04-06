@@ -1,0 +1,499 @@
+/* Variables de color y fuentes para facilitar el mantenimiento */
+:root {
+    --bg-color: #030303;
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+    --cyan: #00e5ff;
+    --blue: #60a5fa;
+    --card-bg: #0c0c0c;
+    --card-border: #1a1a1a;
+    --easy: #10b981;
+    --medium: #eab308;
+    --hard: #ef4444;
+
+    --font-sans: "Inter", sans-serif;
+    --font-mono: "Fira Code", monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navbar */
+/* Navbar - Actualizada para ser Sticky con fondo suave */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* Efecto "Glassmorphism" (cristalizado) */
+    background-color: rgba(3, 3, 3, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* Para evitar que se pegue justo a los bordes del container al scrollear */
+    margin: 0 -2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.3s ease;
+}
+
+/* Opcional: una pequeña línea inferior sutil para la navbar */
+.navbar:not(:first-child) {
+    border-bottom: 1px solid var(--card-border);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--cyan);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.cursor {
+    color: var(--cyan);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--text-main);
+}
+
+/* Hero Section */
+.hero {
+    margin-top: 4rem;
+}
+
+.terminal-path {
+    font-family: var(--font-mono);
+    color: var(--cyan);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.text-blue {
+    color: var(--blue);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+}
+
+.underline-link {
+    color: var(--text-main);
+    text-decoration: none;
+    border-bottom: 2px solid var(--text-muted);
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+}
+
+.underline-link:hover {
+    border-color: var(--cyan);
+}
+
+/* Botones y Enlaces */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.btn-primary {
+    background-color: var(--cyan);
+    color: #000;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: opacity 0.3s;
+}
+
+.btn-primary:hover {
+    opacity: 0.8;
+}
+
+.text-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.text-link:hover {
+    color: var(--text-main);
+}
+
+.separator {
+    color: #333;
+}
+
+/* Grid de Estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 6rem;
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.stat-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.text-cyan {
+    color: var(--cyan);
+}
+
+.stat-card p {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+}
+
+/* Sección de Logros */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+}
+
+.total-count {
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.block-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 20px;
+    background-color: var(--cyan);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Grid de Máquinas */
+.machines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.machine-card {
+    background-color: #08080c;
+    /* Ligeramente azulado como en la imagen */
+    border: 1px solid #1a1a24;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.machine-card:hover {
+    transform: translateY(-5px);
+    border-color: #333;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.platform {
+    color: var(--text-muted);
+}
+
+.difficulty.easy {
+    color: var(--easy);
+}
+
+.difficulty.medium {
+    color: var(--medium);
+}
+
+.difficulty.hard {
+    color: var(--hard);
+}
+
+.machine-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.badge {
+    background-color: transparent;
+    border: 1px solid #333;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+}
+
+.card-link {
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Responsive básico */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .stats-grid,
+    .machines-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .stats-grid,
+    .machines-grid {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* Sección de Contacto */
+.contact-section {
+    margin-bottom: 6rem;
+}
+
+.contact-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-box p {
+    font-size: 1.1rem;
+}
+
+.contact-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .contact-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+}
+
+/* Scroll suave para la navegación */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animación Terminal Grande (whoami) */
+.big-terminal-anim {
+    font-family: var(--font-mono);
+    /* Reducimos el alto mínimo para que no quede tan centrado/abajo */
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    /* Cambiamos de 'center' a 'flex-start' y agregamos un padding superior */
+    justify-content: flex-start;
+    padding-top: 10vh;
+    /* Ajusta este valor si lo quieres más arriba o más abajo */
+    margin-bottom: 2rem;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+
+    /* Mantenemos un tamaño grande, pero le damos un poco más de margen al vw para que se adapte mejor */
+    font-size: clamp(2.5rem, 6.5vw, 6rem);
+
+    font-weight: 700;
+    line-height: 1.1;
+    min-height: 1.2em;
+
+    /* ¡LA CLAVE AQUÍ! Evita que el texto salte a la línea de abajo */
+    white-space: nowrap;
+
+    /* Si la pantalla es DEMASIADO pequeña (ej. celulares muy angostos), el texto se achicará en vez de desbordar */
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Opcional: añade "..." si de verdad no cabe, aunque con el clamp no debería pasar */
+}
+
+.prompt {
+    color: var(--easy);
+    margin-right: 2vw;
+    transition: opacity 0.3s;
+    /* Transición suave si lo ocultamos */
+}
+
+.command {
+    color: var(--text-main);
+}
+
+.blinking-cursor {
+    color: var(--cyan);
+    margin-left: 1vw;
+    animation: blink 1s step-end infinite;
+}
+
+/* El output ahora comparte estilo con command, pero podemos darle un color distinto si quieres */
+.command.is-output {
+    color: var(--text-muted);
+    /* Opcional: poner el nombre en gris como tenías antes el output */
+}
+
+/* Eliminamos las clases antiguas de .terminal-output ya que no se usarán */
+
+@media (max-width: 768px) {
+    .big-terminal-anim {
+        min-height: 40vh;
+        padding-top: 5vh;
+    }
+}
