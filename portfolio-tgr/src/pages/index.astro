@@ -2,6 +2,15 @@
 // Importamos tus estilos (Astro lo maneja en el servidor)
 import '../styles/style.css';
 import '../data/machines.json';
+import translateIcon from '../assets/translate.png';
+import pythonIcon from '../assets/pythonlogo.png';
+import bashIcon from '../assets/bashlogo.png';
+import linuxIcon from '../assets/linuxlogo.png';
+import nmapIcon from '../assets/nmaplogo.png';
+import cambridgeIcon from '../assets/cambridge.png';
+import hack4uIcon from '../assets/hack4u.png';
+import udemyLogo from '../assets/udemy.png';
+
 ---
 
 <!doctype html>
@@ -24,12 +33,17 @@ import '../data/machines.json';
             <div class="nav-content">
                 <div class="logo">
                     <span class="dot"></span>
-                    Tomas <span class="cursor" id="nav-cursor">_</span>
+                    Tomás <span class="cursor" id="nav-cursor">_</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#achievements_box">MACHINES</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#" data-i18n="nav_home">HOME</a></li>
+                    <li><a href="#achievements_box" data-i18n="nav_machines">MACHINES</a></li>
+                    <li><a href="#certifications" data-i18n="nav_certifications">CERTIFICATIONS</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
+                    <li class="lang-container">
+                        <button id="lang-toggle" class="lang-btn">ES</button> 
+                        <img src={translateIcon.src} alt="Translate" class="lang-icon"  /> 
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -43,47 +57,47 @@ import '../data/machines.json';
             </div>
 
             <div class="actions centered-actions">
-                <a href="#achievements_box" class="btn-primary">View Machines</a>
+                <a href="#achievements_box" class="btn-primary" data-i18n="btn_view">View Machines</a>
                 <a href="https://github.com/t-gorrinirech" target="_blank" class="text-link">GitHub</a>
                 <span class="separator">|</span>
                 <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link">LinkedIn</a>
             </div>
 
-            <p class="terminal-path">~/who-is/Tomas</p>
-            <h1>
+            <p class="terminal-path" data-i18n="path_whois">~/who-is/Tomás</p>
+            <h1 data-i18n="hero_title">
                 IT Student and<br />
                 <span class="text-cyan">Pentester</span>
             </h1>
 
-            <p class="subtitle">
+            <p class="subtitle" data-i18n="hero_subtitle">
                 4th-year Information Technology student with a strong focus on cybersecurity. Experienced in Linux, Python, and vulnerability assessment, currently honing my skills on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a> 
             </p>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h2><img src="../src/assets/pythonlogo.png" width="100px" height="100px"></img></h2>
+                    <h2><img src={pythonIcon.src} alt="Python" width="100px" height="100px" alt="Python"></img></h2>
                     <h3>Python</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src="../src/assets/bashlogo.png" width="100px" height="100px"></img></h2>
+                    <h2><img src={bashIcon.src} alt="Bash" width="100px" height="100px" alt="Bash"></img></h2>
                     <h3>Bash Scripting</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src="../src/assets/linuxlogo.png" width="100px" height="100px"></img></h2>
+                    <h2><img src={linuxIcon.src} alt="Linux" width="100px" height="100px" alt="Linux"></img></h2>
                     <h3>Linux Systems</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src="../src/assets/nmaplogo.png" width="100px" height="100px"></img></h2>
-                    <h3>Offensive Security Tooling</h3>
+                    <h2><img src={nmapIcon.src} alt="Nmap" width="100px" height="100px" alt="Nmap"></img></h2>
+                    <h3 data-i18n="stat_tools">Offensive Security Tooling</h3>
                 </div>
             </div>
         </header>
 
         <section class="achievements" id="achievements_box">
-            <div class="section-header" >
+            <div class="section-header">
                 <div>
-                    <p class="terminal-path">~/my/recent/achievements</p>
-                    <h2>Machines Completed</h2>
+                    <p class="terminal-path" data-i18n="path_achievements">~/my/recent/achievements</p>
+                    <h2 data-i18n="title_machines">Machines Completed</h2>
                 </div>
                 <div class="total-count">
                     <span class="text-muted" id="machines-counter">Total: 0 machines</span>
@@ -93,22 +107,22 @@ import '../data/machines.json';
 
             <div class="filters-container">
                 <div class="filter-group">
-                    <label for="filter-difficulty">Difficulty:</label>
+                    <label for="filter-difficulty" data-i18n="filter_diff">Difficulty:</label>
                     <select id="filter-difficulty" class="custom-select">
-                        <option value="ALL">All</option>
-                        <option value="EASY">Easy</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="HARD">Hard</option>
-                        <option value="INSANE">Insane</option>
+                        <option value="ALL" data-i18n="opt_all">All</option>
+                        <option value="EASY" data-i18n="opt_easy">Easy</option>
+                        <option value="MEDIUM" data-i18n="opt_medium">Medium</option>
+                        <option value="HARD" data-i18n="opt_hard">Hard</option>
+                        <option value="INSANE" data-i18n="opt_insane">Insane</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="filter-os">Operating System:</label>
+                    <label for="filter-os" data-i18n="filter_os">Operating System:</label>
                     <select id="filter-os" class="custom-select">
-                        <option value="ALL">All</option>
+                        <option value="ALL" data-i18n="opt_all_os">All</option>
                         <option value="Windows">Windows</option>
                         <option value="Linux">Linux</option>
-                        <option value="Other">Other</option>
+                        <option value="Other" data-i18n="opt_other">Other</option>
                     </select>
                 </div>
             </div>
@@ -119,7 +133,7 @@ import '../data/machines.json';
                 <div class="carousel-track-container">
                     <div class="machines-track" id="machines-track"></div>
                     <div id="no-results-msg" class="no-results hidden">
-                        <p class="text-muted">No machines found matching the selected filters.</p>
+                        <p class="text-muted" data-i18n="no_results">No machines found matching the selected filters.</p>
                     </div>
                 </div>
 
@@ -127,15 +141,59 @@ import '../data/machines.json';
             </div>
         </section>
 
+        <section class="certifications" id="certifications">
+            <div class="section-header">
+                <div>
+                    <p class="terminal-path" data-i18n="path_certs">~/education/certifications</p>
+                    <h2 data-i18n="title_certs">Certifications</h2>
+                </div>
+            </div>
+
+            <div class="certs-list">
+                <div class="cert-item">
+                    <div class="cert-date">2022</div>
+                    <div class="cert-details">
+                        <h3 data-i18n="cert_1_title">C1 Advanced</h3>
+                        <p class="text-muted" data-i18n="cert_1_issuer">Cambridge University</p>
+                    </div>
+                    <div class="cert-logo">
+                        <img src={cambridgeIcon.src} alt="Cambridge Logo" />
+                    </div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-date">2026</div>
+                    <div class="cert-details">
+                        <h3 data-i18n="cert_2_title">Introduction to Linux</h3>
+                        <p class="text-muted" data-i18n="cert_2_issuer">Hack4u</p>
+                    </div>
+                    <div class="cert-logo">
+                        <img src={hack4uIcon.src} alt="Hack4u Logo"  />
+                    </div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-date">2025</div>
+                    <div class="cert-details">
+                        <h3 data-i18n="cert_3_title">The Git & GitHub Bootcamp</h3>
+                        <p class="text-muted" data-i18n="cert_3_issuer">Udemy</p>
+                    </div>
+                    <div class="cert-logo">
+                        <img src={udemyLogo.src} alt="Udemy Logo" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="contact-section" id="contact">
             <div class="section-header">
                 <div>
-                    <p class="terminal-path">~/network/connections</p>
-                    <h2>Get in Touch</h2>
+                    <p class="terminal-path" data-i18n="path_contact">~/network/connections</p>
+                    <h2 data-i18n="title_contact">Get in Touch</h2>
                 </div>
             </div>
             <div class="contact-box">
-                <p class="text-muted">I'm always open to discussing new projects, opportunities, or just talking about InfoSec.</p>
+                <p class="text-muted" data-i18n="desc_contact">I'm always open to discussing new projects or opportunities.</p>
                 <div class="contact-links">
                     <a href="mailto:tgorrinirech@gmail.com" class="btn-primary">tgorrinirech@gmail.com</a>
                     <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link" style="font-size: 1rem; font-weight: 600;">LinkedIn Profile &rarr;</a>
@@ -145,17 +203,121 @@ import '../data/machines.json';
 
         <footer>
             <p class="copyright">
-                &copy; <span id="year"></span> Tomas G. Rech - Developed with Astro
+                &copy; <span id="year"></span><span data-i18n="footer_dev"> Tomás G. Rech - Developed with Astro</span>
             </p>
             <div class="status">
-                <span class="dot cyan"></span> Status: Updated via GitHub Actions
+                <span class="dot cyan"></span> <span data-i18n="footer_status">Status: Updated via GitHub Actions</span>
             </div>
         </footer>
     </div>
 
     <script>
         import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
-        import machinesData from '../data/machines.json';
+        import machinesData from '../data/machines.json'; 
+
+        // ==========================================
+        // 0. SISTEMA DE TRADUCCIÓN (DICCIONARIO)
+        // ==========================================
+        const translations = {
+            en: {
+                nav_home: "HOME",
+                nav_machines: "MACHINES",
+                nav_contact: "CONTACT",
+                nav_certifications: "CERTIFICATIONS",
+                btn_view: "View Machines",
+                path_whois: "~/who-is/Tomás",
+                hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
+                hero_subtitle: "4th-year Information Technology student with a strong focus on cybersecurity. Experienced in Linux, Python, and vulnerability assessment, currently honing my skills on <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
+                stat_tools: "Offensive Security Tooling",
+                path_achievements: "~/my/recent/achievements",
+                title_machines: "Machines Completed",
+                filter_diff: "Difficulty:",
+                filter_os: "Operating System:",
+                opt_all: "All",
+                opt_all_os: "All",
+                opt_easy: "Easy",
+                opt_medium: "Medium",
+                opt_hard: "Hard",
+                opt_insane: "Insane",
+                opt_other: "Other",
+                no_results: "No machines found matching the selected filters.",
+                
+                // NUEVAS TRADUCCIONES DE CERTIFICACIONES
+                path_certs: "~/education/certifications",
+                title_certs: "Certifications",
+                cert_1_title: "C1 Advanced",
+                cert_1_issuer: "Cambridge University",
+                cert_2_title: "Introduction to Linux",
+                cert_2_issuer: "Hack4u",
+                cert_3_title: "The Git & GitHub Bootcamp",
+                cert_3_issuer: "Udemy",
+
+                path_contact: "~/network/connections",
+                title_contact: "Get in Touch",
+                desc_contact: "I'm always open to discussing new projects or opportunities.",
+                footer_dev: " Tomás G. Rech - Developed with Astro",
+                footer_status: "Status: Updated via GitHub Actions",
+                card_btn: "View Details &rarr;",
+                count_text: "Total: {count} machines"
+            },
+            es: {
+                nav_home: "INICIO",
+                nav_machines: "MÁQUINAS",
+                nav_contact: "CONTACTO",
+                nav_certifications: "CERTIFICACIONES",
+                btn_view: "Ver Máquinas",
+                path_whois: "~/quien-es/Tomás",
+                hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
+                hero_subtitle: "Estudiante de 4to año en Tecnología de la Información con fuerte enfoque en ciberseguridad. Experiencia en Linux, Python y análisis de vulnerabilidades, actualmente perfeccionando mis habilidades en <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
+                stat_tools: "Herramientas Ofensivas",
+                path_achievements: "~/mis/logros/recientes",
+                title_machines: "Máquinas Completadas",
+                filter_diff: "Dificultad:",
+                filter_os: "Sistema Operativo:",
+                opt_all: "Todas",
+                opt_all_os: "Todos",
+                opt_easy: "Fácil",
+                opt_medium: "Medio",
+                opt_hard: "Difícil",
+                opt_insane: "Insane",
+                opt_other: "Otro",
+                no_results: "No se encontraron máquinas con los filtros seleccionados.",
+
+                // NUEVAS TRADUCCIONES DE CERTIFICACIONES
+                path_certs: "~/educación/certificaciones",
+                title_certs: "Certificaciones",
+                cert_1_title: "C1 Advanced",
+                cert_1_issuer: "Universidad de Cambridge",
+                cert_2_title: "Introducción a Linux",
+                cert_2_issuer: "Hack4u",
+                cert_3_title: "Bootcamp de Git & GitHub",
+                cert_3_issuer: "Udemy",
+
+                path_contact: "~/red/conexiones",
+                title_contact: "Contáctame",
+                desc_contact: "Siempre estoy abierto a discutir nuevos proyectos u oportunidades.",
+                footer_dev: " Tomás G. Rech - Desarrollado con Astro",
+                footer_status: "Estado: Actualizado vía GitHub Actions",
+                card_btn: "Ver Detalles &rarr;",
+                count_text: "Total: {count} máquinas"
+            }
+        };
+
+        let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+
+        function updateTexts() {
+            // Actualiza todos los elementos estáticos
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    element.innerHTML = translations[currentLang][key];
+                }
+            });
+
+            // Actualiza el texto del botón (muestra el idioma opuesto)
+            document.getElementById('lang-toggle').textContent = currentLang === 'en' ? 'ES' : 'EN';
+            document.documentElement.lang = currentLang;
+        }
 
         // ==========================================
         // 1. LÓGICA DEL FONDO WEBGL (OGL)
@@ -213,10 +375,6 @@ import '../data/machines.json';
           p = modify0 * p * 2.0;
           amp *= 0.454545;
           mat2 modify1 = rotate(time * 0.02);
-          f += amp * noise(p);
-          p = modify1 * p * 2.0;
-          amp *= 0.454545;
-          mat2 modify2 = rotate(time * 0.08);
           f += amp * noise(p);
           return f;
         }
@@ -390,6 +548,17 @@ import '../data/machines.json';
         // 2. INICIALIZACIÓN GENERAL AL CARGAR DOM
         // ==========================================
         document.addEventListener("DOMContentLoaded", () => {
+            // Aplicar idioma inicial
+            updateTexts();
+
+            // Evento para el botón de traducción
+            document.getElementById('lang-toggle').addEventListener('click', () => {
+                currentLang = currentLang === 'en' ? 'es' : 'en';
+                localStorage.setItem('preferredLanguage', currentLang);
+                updateTexts();
+                renderMachines(); // Volvemos a generar las cartas para actualizar "View Details" y el contador
+            });
+
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -413,7 +582,7 @@ import '../data/machines.json';
                 const promptSymbol = document.getElementById("prompt-symbol");
                 const cursorEl = document.getElementById("cursor");
                 const textToType = "whoami";
-                const resultText = "Tomas Gorrini Rech";
+                const resultText = "Tomás Gorrini Rech";
 
                 while (true) {
                     promptSymbol.style.display = "inline";
@@ -462,7 +631,10 @@ import '../data/machines.json';
 
             function renderMachines() {
                 track.innerHTML = "";
-                counterText.textContent = `Total: ${currentFilteredMachines.length} machines`;
+                
+                // Actualizar el contador con el idioma actual
+                const countString = translations[currentLang].count_text.replace('{count}', currentFilteredMachines.length);
+                counterText.textContent = countString;
 
                 if (currentFilteredMachines.length === 0) {
                     noResultsMsg.classList.remove("hidden");
@@ -472,6 +644,8 @@ import '../data/machines.json';
                 }
 
                 noResultsMsg.classList.add("hidden");
+
+                const viewBtnText = translations[currentLang].card_btn;
 
                 currentFilteredMachines.forEach(machine => {
                     const diffClass = machine.difficulty.toLowerCase();
@@ -488,7 +662,7 @@ import '../data/machines.json';
                         <div class="badges">
                             ${badgesHTML}
                         </div>
-                        <a href="${machine.link}" class="card-link">View Details &rarr;</a>
+                        <a href="${machine.link}" class="card-link">${viewBtnText}</a>
                     `;
                     track.appendChild(card);
                 });
@@ -551,7 +725,7 @@ import '../data/machines.json';
                     updateCarousel();
                 }
             });
-
+            
             renderMachines();
         });
     </script>

@@ -58,5 +58,18 @@
             "CVE-2008-4250"
         ],
         "link": "#"
+    },
+    {
+        "title": "Cap",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "FTP",
+            "SUID",
+            "PCAP"
+        ],
+        "link": "#"
     }
 ]

@@ -1,4 +1,5 @@
 /* Variables de color y fuentes para facilitar el mantenimiento */
+
 :root {
     --bg-color: #030303;
     --text-main: #ffffff;
@@ -10,73 +11,155 @@
     --easy: #10b981;
     --medium: #eab308;
     --hard: #ef4444;
-
     --font-sans: "Inter", sans-serif;
     --font-mono: "Fira Code", monospace;
 }
 
 * {
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
 }
 
 body {
     background-color: var(--bg-color);
+
     color: var(--text-main);
+
     font-family: var(--font-sans);
+
     line-height: 1.5;
 }
 
 .container {
     max-width: 1200px;
+
     margin: 0 auto;
+
     padding: 0 2rem;
 }
 
 /* Navbar - Actualizada para ser Sticky con fondo suave */
+
 .navbar {
     position: fixed;
+
     top: 0;
+
     left: 0;
+
     width: 100%;
+
     z-index: 1000;
+
     background-color: transparent;
+
     padding: 1.5rem 0;
+
     transition: all 0.3s ease;
+
     border-bottom: 1px solid transparent;
 }
 
 .navbar.scrolled {
     background-color: rgba(3, 3, 3, 0.85);
+
     backdrop-filter: blur(10px);
+
     -webkit-backdrop-filter: blur(10px);
+
     border-bottom: 1px solid var(--card-border);
+
     padding: 1rem 0;
 }
 
 .nav-content {
     max-width: 1200px;
+
     margin: 0 auto;
+
     padding: 0 2rem;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+}
+
+/* Botón de Idioma */
+
+.lang-btn {
+    background: transparent;
+
+    border: 0.5px solid var(--cyan);
+
+    color: var(--cyan);
+
+    padding: 0.2rem 0.5rem;
+
+    border-radius: 4px;
+
+    font-family: var(--font-mono);
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    margin-left: -1rem;
+}
+
+.lang-btn:hover {
+    background-color: var(--cyan);
+
+    color: #000;
+}
+
+.lang-container {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    margin-left: 1rem;
+}
+
+/* NUEVO: Controlamos el tamaño del icono para que no desentone */
+
+.lang-icon {
+    width: 30px;
+
+    /* Ajusta este valor si lo ves muy grande o chico */
+
+    height: auto;
 }
 
 .logo {
     font-weight: 700;
+
     font-size: 1.2rem;
+
     display: flex;
+
     align-items: center;
+
     gap: 0.5rem;
 }
 
 .dot {
     width: 10px;
+
     height: 10px;
+
     background-color: var(--cyan);
+
     border-radius: 50%;
+
     display: inline-block;
 }
 
@@ -86,16 +169,25 @@ body {
 
 .nav-links {
     list-style: none;
+
     display: flex;
+
+    align-items: center;
+
     gap: 2rem;
 }
 
 .nav-links a {
     color: var(--text-muted);
+
     text-decoration: none;
+
     font-size: 0.85rem;
+
     font-weight: 600;
+
     letter-spacing: 1px;
+
     transition: color 0.3s;
 }
 
@@ -104,21 +196,28 @@ body {
 }
 
 /* Hero Section */
+
 .hero {
     margin-top: 4rem;
 }
 
 .terminal-path {
     font-family: var(--font-mono);
+
     color: var(--cyan);
+
     margin-bottom: 1rem;
+
     font-size: 1.5rem;
 }
 
 h1 {
     font-size: 4.5rem;
+
     line-height: 1.1;
+
     letter-spacing: -0.02em;
+
     margin-bottom: 1.5rem;
 }
 
@@ -128,16 +227,23 @@ h1 {
 
 .subtitle {
     color: var(--text-muted);
+
     font-size: 1.25rem;
+
     max-width: 800px;
+
     margin-bottom: 2.5rem;
 }
 
 .underline-link {
     color: var(--text-main);
+
     text-decoration: none;
+
     border-bottom: 2px solid var(--text-muted);
+
     padding-bottom: 2px;
+
     transition: border-color 0.3s;
 }
 
@@ -146,32 +252,50 @@ h1 {
 }
 
 /* Botones y Enlaces */
+
 .actions {
     display: flex;
+
     align-items: center;
+
     gap: 1.5rem;
+
     margin-bottom: 4rem;
 }
 
 /* NUEVA CLASE: Centra los botones debajo de la terminal gigante */
+
 .centered-actions {
     justify-content: center;
+
     margin-top: -25vh;
+
     /* Sube los botones para que no queden perdidos al fondo */
+
     margin-bottom: 8rem;
+
     /* Separa los botones del título ~/who-is/Tomas */
+
     position: relative;
+
     z-index: 10;
 }
 
 .btn-primary {
     background-color: var(--cyan);
+
     color: #000;
+
     text-decoration: none;
+
     padding: 0.8rem 1.5rem;
+
     border-radius: 6px;
+
     font-weight: 700;
+
     font-size: 1rem;
+
     transition: opacity 0.3s;
 }
 
@@ -181,7 +305,9 @@ h1 {
 
 .text-link {
     color: var(--text-muted);
+
     text-decoration: none;
+
     transition: color 0.3s;
 }
 
@@ -194,23 +320,32 @@ h1 {
 }
 
 /* Grid de Estadísticas */
+
 .stats-grid {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 1.5rem;
+
     margin-bottom: 6rem;
 }
 
 .stat-card {
     background-color: var(--card-bg);
+
     border: 1px solid var(--card-border);
+
     border-radius: 8px;
+
     padding: 2rem;
+
     text-align: center;
 }
 
 .stat-card h2 {
     font-size: 2.5rem;
+
     margin-bottom: 0.5rem;
 }
 
@@ -220,15 +355,21 @@ h1 {
 
 .stat-card p {
     color: var(--text-muted);
+
     font-size: 0.75rem;
+
     letter-spacing: 2px;
 }
 
 /* Sección de Logros */
+
 .section-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: flex-end;
+
     margin-bottom: 2.5rem;
 }
 
@@ -238,16 +379,23 @@ h1 {
 
 .total-count {
     font-family: var(--font-mono);
+
     display: flex;
+
     align-items: center;
+
     gap: 0.5rem;
 }
 
 .block-cursor {
     display: inline-block;
+
     width: 8px;
+
     height: 20px;
+
     background-color: var(--cyan);
+
     animation: blink 1s step-end infinite;
 }
 
@@ -264,20 +412,30 @@ h1 {
 }
 
 /* Grid de Máquinas */
+
 .machines-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 1.5rem;
+
     margin-bottom: 4rem;
 }
 
 .machine-card {
     background-color: #08080c;
+
     border: 1px solid #1a1a24;
+
     border-radius: 12px;
+
     padding: 2rem;
+
     display: flex;
+
     flex-direction: column;
+
     transition:
         transform 0.2s,
         border-color 0.2s;
@@ -285,15 +443,21 @@ h1 {
 
 .machine-card:hover {
     transform: translateY(-5px);
+
     border-color: #333;
 }
 
 .card-header {
     display: flex;
+
     justify-content: space-between;
+
     font-size: 0.75rem;
+
     font-weight: 700;
+
     letter-spacing: 1px;
+
     margin-bottom: 1.5rem;
 }
 
@@ -315,33 +479,49 @@ h1 {
 
 .machine-card h3 {
     font-size: 2rem;
+
     margin-bottom: 1rem;
 }
 
 .badges {
     display: flex;
+
     gap: 0.5rem;
+
     flex-wrap: wrap;
+
     margin-bottom: 2rem;
+
     flex-grow: 1;
 }
 
 .badge {
     background-color: transparent;
+
     border: 1px solid #333;
+
     color: var(--text-muted);
+
     font-size: 0.75rem;
+
     padding: 0.3rem 0.8rem;
+
     border-radius: 4px;
 }
 
 .card-link {
     color: var(--cyan);
+
     text-decoration: none;
+
     font-weight: 600;
+
     font-size: 0.9rem;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 }
 
@@ -350,23 +530,33 @@ h1 {
 }
 
 /* Footer */
+
 footer {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding: 2rem 0;
+
     border-top: 1px solid var(--card-border);
+
     color: var(--text-muted);
+
     font-size: 0.9rem;
 }
 
 .status {
     display: flex;
+
     align-items: center;
+
     gap: 0.5rem;
 }
 
 /* Responsive básico */
+
 @media (max-width: 1024px) {
     h1 {
         font-size: 3.5rem;
@@ -381,12 +571,15 @@ footer {
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
+
         gap: 1rem;
     }
 
     .section-header {
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 1rem;
     }
 
@@ -401,7 +594,9 @@ footer {
 
     footer {
         flex-direction: column;
+
         gap: 1rem;
+
         text-align: center;
     }
 
@@ -413,17 +608,24 @@ footer {
 }
 
 /* Sección de Contacto */
+
 .contact-section {
     margin-bottom: 6rem;
 }
 
 .contact-box {
     background-color: var(--card-bg);
+
     border: 1px solid var(--card-border);
+
     border-radius: 12px;
+
     padding: 3rem;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 2rem;
 }
 
@@ -433,50 +635,73 @@ footer {
 
 .contact-links {
     display: flex;
+
     align-items: center;
+
     gap: 2rem;
 }
 
 @media (max-width: 768px) {
     .contact-links {
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 1.5rem;
     }
 }
 
 /* Scroll suave para la navegación */
+
 html {
     scroll-behavior: smooth;
 }
 
 /* Animación Terminal Grande (whoami) */
+
 .big-terminal-anim {
     font-family: var(--font-mono);
+
     min-height: 90vh;
+
     margin-top: 230px;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-start;
+
     padding-top: 10vh;
 }
 
 .terminal-line {
     display: flex;
+
     align-items: center;
+
     font-size: clamp(2.5rem, 6.5vw, 6rem);
+
     font-weight: 700;
+
     line-height: 1.1;
+
     min-height: 1.2em;
+
     white-space: nowrap;
+
     max-width: 100%;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
 }
 
 .prompt {
     color: var(--easy);
+
     margin-right: 2vw;
+
     transition: opacity 0.7s;
 }
 
@@ -486,7 +711,9 @@ html {
 
 .blinking-cursor {
     color: var(--cyan);
+
     margin-left: 1vw;
+
     animation: blink 1s step-end infinite;
 }
 
@@ -497,43 +724,64 @@ html {
 @media (max-width: 768px) {
     .big-terminal-anim {
         min-height: 40vh;
+
         padding-top: 5vh;
     }
 }
 
 /* --- FILTROS --- */
+
 .filters-container {
     display: flex;
+
     gap: 2rem;
+
     margin-bottom: 2rem;
+
     padding: 1.5rem;
+
     background-color: var(--card-bg);
+
     border: 1px solid var(--card-border);
+
     border-radius: 8px;
 }
 
 .filter-group {
     display: flex;
+
     align-items: center;
+
     gap: 1rem;
 }
 
 .filter-group label {
     font-size: 0.9rem;
+
     font-weight: 600;
+
     color: var(--text-muted);
 }
 
 .custom-select {
     background-color: var(--bg-color);
+
     color: var(--text-main);
+
     border: 1px solid #333;
+
     padding: 0.5rem 1rem;
+
     border-radius: 4px;
+
     font-family: var(--font-sans);
+
     font-size: 0.9rem;
+
     cursor: pointer;
+
     outline: none;
+
     transition: border-color 0.2s;
 }
 
@@ -543,40 +791,62 @@ html {
 }
 
 /* --- CARRUSEL --- */
+
 .carousel-wrapper {
     position: relative;
+
     display: flex;
+
     align-items: center;
+
     margin-bottom: 4rem;
 }
 
 .carousel-btn {
     background-color: var(--card-bg);
+
     color: var(--cyan);
+
     border: 1px solid var(--card-border);
+
     width: 40px;
+
     height: 40px;
+
     border-radius: 50%;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     font-size: 1.2rem;
+
     font-weight: bold;
+
     cursor: pointer;
+
     position: absolute;
+
     z-index: 10;
+
     transition: all 0.2s ease;
 }
 
 .carousel-btn:hover {
     border-color: var(--cyan);
+
     transform: scale(1.1);
 }
 
 .carousel-btn:disabled {
     opacity: 0.3;
+
     cursor: not-allowed;
+
     border-color: var(--card-border);
+
     transform: none;
 }
 
@@ -590,24 +860,31 @@ html {
 
 .carousel-track-container {
     width: 100%;
+
     overflow: hidden;
+
     padding: 10px 0;
 }
 
 .machines-track {
     display: flex;
+
     gap: 1.5rem;
+
     transition: transform 0.4s ease-in-out;
 }
 
 .machine-card {
     flex: 0 0 calc((100% - 3rem) / 3);
+
     margin-bottom: 0;
 }
 
 .no-results {
     text-align: center;
+
     padding: 3rem 0;
+
     width: 100%;
 }
 
@@ -624,6 +901,7 @@ html {
 @media (max-width: 768px) {
     .filters-container {
         flex-direction: column;
+
         gap: 1rem;
     }
 
@@ -641,13 +919,150 @@ html {
 }
 
 /* FONDO ANIMADO GLOBAL */
+
 .global-bg {
     position: fixed;
+
     top: 0;
+
     left: 0;
+
     width: 100vw;
+
     height: 100vh;
+
     z-index: -10;
+
     pointer-events: none;
+
     overflow: hidden;
+}
+
+/* --- CERTIFICACIONES --- */
+.certifications {
+    margin-bottom: 6rem;
+}
+
+.certs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cert-item {
+    position: relative;
+    /* Necesario para ubicar el logo en celulares */
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid #1a1a24;
+    /* Borde apagado inicial */
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    transition:
+        transform 0.2s ease,
+        border-left-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.cert-item:hover {
+    transform: translateX(10px);
+    /* Efecto de desplazamiento a la derecha */
+    background-color: #0f0f13;
+    border-left-color: var(--cyan);
+    /* Se enciende en turquesa */
+    box-shadow: -5px 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.cert-date {
+    font-family: var(--font-mono);
+    color: var(--easy);
+    /* Verde estilo consola */
+    font-size: 1.1rem;
+    font-weight: 700;
+    min-width: 100px;
+}
+
+.cert-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.cert-details h3 {
+    font-size: 1.3rem;
+    color: var(--text-main);
+}
+
+.cert-details p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* === ESTILOS UNIFICADOS PARA LOS LOGOS === */
+.cert-logo {
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    /* Ancho fijo para todos los logos */
+    height: 70px;
+    /* Alto fijo para todos los logos */
+    flex-shrink: 0;
+    /* Evita que el logo se achique si hay mucho texto */
+}
+
+.cert-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* LA MAGIA: Adapta la imagen al cuadro de 70x70 sin deformarla */
+    opacity: 0.4;
+    /* Apagado por defecto */
+    filter: grayscale(100%);
+    /* En blanco y negro */
+    transition:
+        opacity 0.3s ease,
+        filter 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* Efecto al pasar el mouse por toda la tarjeta */
+.cert-item:hover .cert-logo img {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+    /* Crece un poquitito */
+}
+
+/* Responsive para la lista de certificaciones */
+@media (max-width: 768px) {
+    .cert-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1.2rem;
+        padding-right: 80px;
+        /* Deja espacio para que el logo no pise el texto */
+    }
+
+    .cert-date {
+        min-width: auto;
+        font-size: 0.9rem;
+    }
+
+    /* En celulares, mandamos el logo arriba a la derecha */
+    .cert-logo {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        margin-left: 0;
+        width: 45px;
+        /* Más chico en celulares */
+        height: 45px;
+    }
 }
