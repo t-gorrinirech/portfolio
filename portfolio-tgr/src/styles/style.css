@@ -757,7 +757,7 @@ html {
         display: flex;
     }
 
-    /* Menú Desplegable tipo Dropdown (de arriba hacia abajo) sin ocupar toda la pantalla */
+    /* Menú Desplegable tipo Dropdown */
     .nav-links {
         position: absolute;
         top: 100%;
@@ -805,16 +805,31 @@ html {
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* Evitamos que el hack de márgenes rompa la vista en tablet */
+    /* FIX: Mantener la terminal centrada y sin el hack de márgenes negativos */
     .big-terminal-anim {
-        min-height: 40vh;
-        margin-top: 100px;
-        padding-top: 5vh;
+        min-height: auto;
+        margin-top: 150px;
+        padding-top: 0;
+    }
+
+    /* FIX: Convertimos la terminal en texto normal para que fluya en bloque y el _ no se separe */
+    .terminal-line {
+        display: block;
+        text-align: center;
+        white-space: normal;
+        /* Salto de línea natural en los espacios */
+        line-height: 1.3;
+        overflow: visible;
+    }
+
+    .blinking-cursor {
+        margin-left: 0;
+        /* Lo pegamos al 100% de la última letra para que nunca caiga solo */
     }
 
     .centered-actions {
         margin-top: 2rem;
-        margin-bottom: 4rem;
+        margin-bottom: 5rem;
     }
 
     .section-header {
@@ -894,6 +909,10 @@ html {
         padding: 0 1rem;
     }
 
+    .terminal-line {
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
     h1 {
         font-size: 2.2rem;
     }
@@ -911,11 +930,13 @@ html {
         height: 80px;
     }
 
-    /* Las 3 palabras (botones) centradas y apiladas en celular sin ancho 100% */
+    /* FIX: Botones apilados horizontalmente de manera prolija */
     .actions.centered-actions {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 1.5rem;
         align-items: center;
+        justify-content: center;
         margin-top: 1.5rem;
     }
 
@@ -925,7 +946,8 @@ html {
     }
 
     .separator {
-        display: none;
+        display: block;
+        color: #555;
     }
 
     .section-header h2 {
