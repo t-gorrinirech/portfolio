@@ -37,7 +37,14 @@ import tomas from '../assets/tomas.jpeg';
                     <span class="dot"></span>
                     Tomás <span class="cursor" id="nav-cursor">_</span>
                 </div>
-                <ul class="nav-links">
+                
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-links" id="nav-links">
                     <li><a href="#" data-i18n="nav_home">HOME</a></li>
                     <li><a href="#achievements_box" data-i18n="nav_machines">MACHINES</a></li>
                     <li><a href="#certifications" data-i18n="nav_certifications">CERTIFICATIONS</a></li>
@@ -445,6 +452,25 @@ import tomas from '../assets/tomas.jpeg';
                 localStorage.setItem('preferredLanguage', currentLang);
                 updateTexts();
                 renderMachines(); 
+            });
+
+            // --- Lógica del Menú Hamburguesa ---
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            // Abrir/Cerrar menú
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Cerrar menú al hacer clic en un enlace (muy importante en mobile)
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
             });
 
             // OPTIMIZACIÓN: Navbar Scroll Pasivo para no bloquear el Main Thread
