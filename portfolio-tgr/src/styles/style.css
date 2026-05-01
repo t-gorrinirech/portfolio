@@ -485,14 +485,9 @@ h1 {
 
 .badges {
     display: flex;
-
     gap: 0.5rem;
-
     flex-wrap: wrap;
-
     margin-bottom: 2rem;
-
-    flex-grow: 1;
 }
 
 .badge {
@@ -511,18 +506,13 @@ h1 {
 
 .card-link {
     color: var(--cyan);
-
     text-decoration: none;
-
     font-weight: 600;
-
     font-size: 0.9rem;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
+    margin-top: auto;
 }
 
 .card-link:hover {

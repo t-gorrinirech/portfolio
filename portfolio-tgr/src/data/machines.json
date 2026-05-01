@@ -11,5 +11,18 @@
             "PCAP"
         ],
         "link": "#"
+    },
+    {
+        "title": "Kobold",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "fuzzing",
+            "CVE-2026-23744",
+            "docker-privesc"
+        ],
+        "link": "https://app.hackthebox.com/machines/Kobold"
     }
 ]
