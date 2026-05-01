@@ -1,5 +1,4 @@
 /* Variables de color y fuentes para facilitar el mantenimiento */
-
 :root {
     --bg-color: #030303;
     --text-main: #ffffff;
@@ -11,155 +10,112 @@
     --easy: #10b981;
     --medium: #eab308;
     --hard: #ef4444;
+
     --font-sans: "Inter", sans-serif;
     --font-mono: "Fira Code", monospace;
 }
 
 * {
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
 }
 
 body {
     background-color: var(--bg-color);
-
     color: var(--text-main);
-
     font-family: var(--font-sans);
-
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
-
     margin: 0 auto;
-
     padding: 0 2rem;
 }
 
 /* Navbar - Actualizada para ser Sticky con fondo suave */
-
 .navbar {
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     z-index: 1000;
-
     background-color: transparent;
-
     padding: 1.5rem 0;
-
     transition: all 0.3s ease;
-
     border-bottom: 1px solid transparent;
 }
 
 .navbar.scrolled {
     background-color: rgba(3, 3, 3, 0.85);
-
     backdrop-filter: blur(10px);
-
     -webkit-backdrop-filter: blur(10px);
-
     border-bottom: 1px solid var(--card-border);
-
     padding: 1rem 0;
+}
+
+/* Oscurecer la navbar si se abre el menú en la parte superior de la página */
+.navbar:has(.nav-links.active) {
+    background-color: rgba(3, 3, 3, 0.95);
 }
 
 .nav-content {
     max-width: 1200px;
-
     margin: 0 auto;
-
     padding: 0 2rem;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 }
 
 /* Botón de Idioma */
-
 .lang-btn {
     background: transparent;
-
     border: 0.5px solid var(--cyan);
-
     color: var(--cyan);
-
     padding: 0.2rem 0.5rem;
-
     border-radius: 4px;
-
     font-family: var(--font-mono);
-
     font-weight: 700;
-
     cursor: pointer;
-
     transition: all 0.3s ease;
-
     margin-left: -1rem;
 }
 
 .lang-btn:hover {
     background-color: var(--cyan);
-
     color: #000;
 }
 
 .lang-container {
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
-
     margin-left: 1rem;
 }
 
-/* NUEVO: Controlamos el tamaño del icono para que no desentone */
-
 .lang-icon {
     width: 30px;
-
-    /* Ajusta este valor si lo ves muy grande o chico */
-
     height: auto;
 }
 
 .logo {
     font-weight: 700;
-
     font-size: 1.2rem;
-
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
+    position: relative;
+    z-index: 1002;
 }
 
 .dot {
     width: 10px;
-
     height: 10px;
-
     background-color: var(--cyan);
-
     border-radius: 50%;
-
     display: inline-block;
 }
 
@@ -167,27 +123,21 @@ body {
     color: var(--cyan);
 }
 
+/* --- ESTILOS DE LA NAVBAR --- */
 .nav-links {
     list-style: none;
-
     display: flex;
-
     align-items: center;
-
     gap: 2rem;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-links a {
     color: var(--text-muted);
-
     text-decoration: none;
-
     font-size: 0.85rem;
-
     font-weight: 600;
-
     letter-spacing: 1px;
-
     transition: color 0.3s;
 }
 
@@ -195,30 +145,111 @@ body {
     color: var(--text-main);
 }
 
-/* Hero Section */
+/* Botón Hamburguesa */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
 
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-main);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
 .hero {
-    margin-top: 4rem;
+    margin-top: 0;
+}
+
+/* ========================================================================== */
+/* CÓDIGO ORIGINAL RESTAURADO: Animación Terminal Grande y Botones            */
+/* ========================================================================== */
+.big-terminal-anim {
+    font-family: var(--font-mono);
+    min-height: 90vh;
+    margin-top: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 10vh;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+    font-size: clamp(2.5rem, 6.5vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    min-height: 1.2em;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.centered-actions {
+    justify-content: center;
+    margin-top: -25vh;
+    margin-bottom: 8rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* ========================================================================== */
+
+.prompt {
+    color: var(--easy);
+    margin-right: 2vw;
+    transition: opacity 0.7s;
+}
+
+.command {
+    color: var(--text-main);
+}
+
+.blinking-cursor {
+    color: var(--cyan);
+    margin-left: 1vw;
+    animation: blink 1s step-end infinite;
+}
+
+.command.is-output {
+    color: var(--text-muted);
 }
 
 .terminal-path {
     font-family: var(--font-mono);
-
     color: var(--cyan);
-
     margin-bottom: 1rem;
-
     font-size: 1.5rem;
+    word-wrap: break-word;
 }
 
 h1 {
     font-size: 4.5rem;
-
     line-height: 1.1;
-
     letter-spacing: -0.02em;
-
     margin-bottom: 1.5rem;
+    word-wrap: break-word;
+}
+
+.text-cyan {
+    color: var(--cyan);
 }
 
 .text-blue {
@@ -227,23 +258,16 @@ h1 {
 
 .subtitle {
     color: var(--text-muted);
-
     font-size: 1.25rem;
-
     max-width: 800px;
-
     margin-bottom: 2.5rem;
 }
 
 .underline-link {
     color: var(--text-main);
-
     text-decoration: none;
-
     border-bottom: 2px solid var(--text-muted);
-
     padding-bottom: 2px;
-
     transition: border-color 0.3s;
 }
 
@@ -251,51 +275,14 @@ h1 {
     border-color: var(--cyan);
 }
 
-/* Botones y Enlaces */
-
-.actions {
-    display: flex;
-
-    align-items: center;
-
-    gap: 1.5rem;
-
-    margin-bottom: 4rem;
-}
-
-/* NUEVA CLASE: Centra los botones debajo de la terminal gigante */
-
-.centered-actions {
-    justify-content: center;
-
-    margin-top: -25vh;
-
-    /* Sube los botones para que no queden perdidos al fondo */
-
-    margin-bottom: 8rem;
-
-    /* Separa los botones del título ~/who-is/Tomas */
-
-    position: relative;
-
-    z-index: 10;
-}
-
 .btn-primary {
     background-color: var(--cyan);
-
     color: #000;
-
     text-decoration: none;
-
     padding: 0.8rem 1.5rem;
-
     border-radius: 6px;
-
     font-weight: 700;
-
     font-size: 1rem;
-
     transition: opacity 0.3s;
 }
 
@@ -305,9 +292,7 @@ h1 {
 
 .text-link {
     color: var(--text-muted);
-
     text-decoration: none;
-
     transition: color 0.3s;
 }
 
@@ -320,32 +305,23 @@ h1 {
 }
 
 /* Grid de Estadísticas */
-
 .stats-grid {
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
     gap: 1.5rem;
-
     margin-bottom: 6rem;
 }
 
 .stat-card {
     background-color: var(--card-bg);
-
     border: 1px solid var(--card-border);
-
     border-radius: 8px;
-
     padding: 2rem;
-
     text-align: center;
 }
 
 .stat-card h2 {
     font-size: 2.5rem;
-
     margin-bottom: 0.5rem;
 }
 
@@ -355,21 +331,15 @@ h1 {
 
 .stat-card p {
     color: var(--text-muted);
-
     font-size: 0.75rem;
-
     letter-spacing: 2px;
 }
 
 /* Sección de Logros */
-
 .section-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-end;
-
     margin-bottom: 2.5rem;
 }
 
@@ -379,23 +349,16 @@ h1 {
 
 .total-count {
     font-family: var(--font-mono);
-
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
 }
 
 .block-cursor {
     display: inline-block;
-
     width: 8px;
-
     height: 20px;
-
     background-color: var(--cyan);
-
     animation: blink 1s step-end infinite;
 }
 
@@ -412,30 +375,20 @@ h1 {
 }
 
 /* Grid de Máquinas */
-
 .machines-grid {
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 1.5rem;
-
     margin-bottom: 4rem;
 }
 
 .machine-card {
     background-color: #08080c;
-
     border: 1px solid #1a1a24;
-
     border-radius: 12px;
-
     padding: 2rem;
-
     display: flex;
-
     flex-direction: column;
-
     transition:
         transform 0.2s,
         border-color 0.2s;
@@ -443,21 +396,15 @@ h1 {
 
 .machine-card:hover {
     transform: translateY(-5px);
-
     border-color: #333;
 }
 
 .card-header {
     display: flex;
-
     justify-content: space-between;
-
     font-size: 0.75rem;
-
     font-weight: 700;
-
     letter-spacing: 1px;
-
     margin-bottom: 1.5rem;
 }
 
@@ -479,7 +426,6 @@ h1 {
 
 .machine-card h3 {
     font-size: 2rem;
-
     margin-bottom: 1rem;
 }
 
@@ -492,15 +438,10 @@ h1 {
 
 .badge {
     background-color: transparent;
-
     border: 1px solid #333;
-
     color: var(--text-muted);
-
     font-size: 0.75rem;
-
     padding: 0.3rem 0.8rem;
-
     border-radius: 4px;
 }
 
@@ -519,259 +460,39 @@ h1 {
     text-decoration: underline;
 }
 
-/* Footer */
-
-footer {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 2rem 0;
-
-    border-top: 1px solid var(--card-border);
-
-    color: var(--text-muted);
-
-    font-size: 0.9rem;
-}
-
-.status {
-    display: flex;
-
-    align-items: center;
-
-    gap: 0.5rem;
-}
-
-/* Responsive básico */
-
-@media (max-width: 1024px) {
-    h1 {
-        font-size: 3.5rem;
-    }
-
-    .stats-grid,
-    .machines-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-
-        gap: 1rem;
-    }
-
-    .section-header {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 1rem;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    .stats-grid,
-    .machines-grid {
-        grid-template-columns: 1fr;
-    }
-
-    footer {
-        flex-direction: column;
-
-        gap: 1rem;
-
-        text-align: center;
-    }
-
-    .centered-actions {
-        margin-top: -10vh;
-    }
-
-    /* Ajuste en celulares */
-}
-
-/* Sección de Contacto */
-
-.contact-section {
-    margin-bottom: 6rem;
-}
-
-.contact-box {
-    background-color: var(--card-bg);
-
-    border: 1px solid var(--card-border);
-
-    border-radius: 12px;
-
-    padding: 3rem;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2rem;
-}
-
-.contact-box p {
-    font-size: 1.1rem;
-}
-
-.contact-links {
-    display: flex;
-
-    align-items: center;
-
-    gap: 2rem;
-}
-
-@media (max-width: 768px) {
-    .contact-links {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 1.5rem;
-    }
-}
-
-/* Scroll suave para la navegación */
-
-html {
-    scroll-behavior: smooth;
-}
-
-/* Animación Terminal Grande (whoami) */
-
-.big-terminal-anim {
-    font-family: var(--font-mono);
-
-    min-height: 90vh;
-
-    margin-top: 230px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: flex-start;
-
-    padding-top: 10vh;
-}
-
-.terminal-line {
-    display: flex;
-
-    align-items: center;
-
-    font-size: clamp(2.5rem, 6.5vw, 6rem);
-
-    font-weight: 700;
-
-    line-height: 1.1;
-
-    min-height: 1.2em;
-
-    white-space: nowrap;
-
-    max-width: 100%;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-.prompt {
-    color: var(--easy);
-
-    margin-right: 2vw;
-
-    transition: opacity 0.7s;
-}
-
-.command {
-    color: var(--text-main);
-}
-
-.blinking-cursor {
-    color: var(--cyan);
-
-    margin-left: 1vw;
-
-    animation: blink 1s step-end infinite;
-}
-
-.command.is-output {
-    color: var(--text-muted);
-}
-
-@media (max-width: 768px) {
-    .big-terminal-anim {
-        min-height: 40vh;
-
-        padding-top: 5vh;
-    }
-}
-
 /* --- FILTROS --- */
-
 .filters-container {
     display: flex;
-
     gap: 2rem;
-
     margin-bottom: 2rem;
-
     padding: 1.5rem;
-
     background-color: var(--card-bg);
-
     border: 1px solid var(--card-border);
-
     border-radius: 8px;
 }
 
 .filter-group {
     display: flex;
-
     align-items: center;
-
     gap: 1rem;
 }
 
 .filter-group label {
     font-size: 0.9rem;
-
     font-weight: 600;
-
     color: var(--text-muted);
 }
 
 .custom-select {
     background-color: var(--bg-color);
-
     color: var(--text-main);
-
     border: 1px solid #333;
-
     padding: 0.5rem 1rem;
-
     border-radius: 4px;
-
     font-family: var(--font-sans);
-
     font-size: 0.9rem;
-
     cursor: pointer;
-
     outline: none;
-
     transition: border-color 0.2s;
 }
 
@@ -781,62 +502,40 @@ html {
 }
 
 /* --- CARRUSEL --- */
-
 .carousel-wrapper {
     position: relative;
-
     display: flex;
-
     align-items: center;
-
     margin-bottom: 4rem;
 }
 
 .carousel-btn {
     background-color: var(--card-bg);
-
     color: var(--cyan);
-
     border: 1px solid var(--card-border);
-
     width: 40px;
-
     height: 40px;
-
     border-radius: 50%;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     font-size: 1.2rem;
-
     font-weight: bold;
-
     cursor: pointer;
-
     position: absolute;
-
     z-index: 10;
-
     transition: all 0.2s ease;
 }
 
 .carousel-btn:hover {
     border-color: var(--cyan);
-
     transform: scale(1.1);
 }
 
 .carousel-btn:disabled {
     opacity: 0.3;
-
     cursor: not-allowed;
-
     border-color: var(--card-border);
-
     transform: none;
 }
 
@@ -850,31 +549,25 @@ html {
 
 .carousel-track-container {
     width: 100%;
-
     overflow: hidden;
-
     padding: 10px 0;
 }
 
 .machines-track {
     display: flex;
-
     gap: 1.5rem;
-
     transition: transform 0.4s ease-in-out;
+    will-change: transform;
 }
 
 .machine-card {
     flex: 0 0 calc((100% - 3rem) / 3);
-
     margin-bottom: 0;
 }
 
 .no-results {
     text-align: center;
-
     padding: 3rem 0;
-
     width: 100%;
 }
 
@@ -882,50 +575,22 @@ html {
     display: none;
 }
 
-@media (max-width: 1024px) {
-    .machine-card {
-        flex: 0 0 calc((100% - 1.5rem) / 2);
-    }
-}
-
-@media (max-width: 768px) {
-    .filters-container {
-        flex-direction: column;
-
-        gap: 1rem;
-    }
-
-    .machine-card {
-        flex: 0 0 100%;
-    }
-
-    .carousel-btn.prev {
-        left: 0px;
-    }
-
-    .carousel-btn.next {
-        right: 0px;
-    }
-}
-
 /* FONDO ANIMADO GLOBAL */
-
 .global-bg {
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100vw;
-
     height: 100vh;
-
     z-index: -10;
-
     pointer-events: none;
-
     overflow: hidden;
+}
+
+.global-bg canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover;
 }
 
 /* --- CERTIFICACIONES --- */
@@ -941,13 +606,11 @@ html {
 
 .cert-item {
     position: relative;
-    /* Necesario para ubicar el logo en celulares */
     display: flex;
     align-items: center;
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
     border-left: 4px solid #1a1a24;
-    /* Borde apagado inicial */
     border-radius: 8px;
     padding: 1.5rem 2rem;
     transition:
@@ -955,21 +618,19 @@ html {
         border-left-color 0.2s ease,
         box-shadow 0.2s ease,
         background-color 0.2s ease;
+    will-change: transform;
 }
 
 .cert-item:hover {
     transform: translateX(10px);
-    /* Efecto de desplazamiento a la derecha */
     background-color: #0f0f13;
     border-left-color: var(--cyan);
-    /* Se enciende en turquesa */
     box-shadow: -5px 0 15px rgba(0, 229, 255, 0.1);
 }
 
 .cert-date {
     font-family: var(--font-mono);
     color: var(--easy);
-    /* Verde estilo consola */
     font-size: 1.1rem;
     font-weight: 700;
     min-width: 100px;
@@ -992,52 +653,227 @@ html {
     margin: 0;
 }
 
-/* === ESTILOS UNIFICADOS PARA LOS LOGOS === */
 .cert-logo {
     margin-left: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 70px;
-    /* Ancho fijo para todos los logos */
     height: 70px;
-    /* Alto fijo para todos los logos */
     flex-shrink: 0;
-    /* Evita que el logo se achique si hay mucho texto */
 }
 
 .cert-logo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* LA MAGIA: Adapta la imagen al cuadro de 70x70 sin deformarla */
     opacity: 0.4;
-    /* Apagado por defecto */
     filter: grayscale(100%);
-    /* En blanco y negro */
     transition:
         opacity 0.3s ease,
         filter 0.3s ease,
         transform 0.3s ease;
 }
 
-/* Efecto al pasar el mouse por toda la tarjeta */
 .cert-item:hover .cert-logo img {
     opacity: 1;
     filter: grayscale(0%);
     transform: scale(1.1);
-    /* Crece un poquitito */
 }
 
-/* Responsive para la lista de certificaciones */
+/* Sección de Contacto */
+.contact-section {
+    margin-bottom: 6rem;
+}
+
+.contact-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-box p {
+    font-size: 1.1rem;
+}
+
+.contact-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Scroll suave para la navegación */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================================================== */
+/* MEDIA QUERIES PARA RESPONSIVE DESIGN                                       */
+/* ========================================================================== */
+
+/* --- LAPTOP & TABLET HORIZONTAL (<= 1024px) --- */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .machine-card {
+        flex: 0 0 calc((100% - 1.5rem) / 2);
+    }
+}
+
+/* --- TABLET VERTICAL & MOBILE GRANDE (<= 768px) --- */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* Menú Desplegable tipo Dropdown */
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        background-color: rgba(3, 3, 3, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 0;
+        border-bottom: 0px solid transparent;
+        transition:
+            max-height 0.4s ease,
+            padding 0.4s ease,
+            border-bottom 0.4s ease;
+    }
+
+    .nav-links.active {
+        max-height: 400px;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--card-border);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+
+    .lang-container {
+        margin-left: 0;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* FIX: Mantener la terminal centrada y sin el hack de márgenes negativos */
+    .big-terminal-anim {
+        min-height: auto;
+        margin-top: 150px;
+        padding-top: 0;
+    }
+
+    /* FIX: Convertimos la terminal en texto normal para que fluya en bloque y el _ no se separe */
+    .terminal-line {
+        display: block;
+        text-align: center;
+        white-space: normal;
+        /* Salto de línea natural en los espacios */
+        line-height: 1.3;
+        overflow: visible;
+    }
+
+    .blinking-cursor {
+        margin-left: 0;
+        /* Lo pegamos al 100% de la última letra para que nunca caiga solo */
+    }
+
+    .centered-actions {
+        margin-top: 2rem;
+        margin-bottom: 5rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    .terminal-path {
+        font-size: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .machine-card {
+        flex: 0 0 100%;
+    }
+
+    .carousel-btn.prev {
+        left: 0px;
+    }
+
+    .carousel-btn.next {
+        right: 0px;
+    }
+
     .cert-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
         padding: 1.2rem;
-        padding-right: 80px;
-        /* Deja espacio para que el logo no pise el texto */
+        padding-right: 60px;
     }
 
     .cert-date {
@@ -1045,14 +881,76 @@ html {
         font-size: 0.9rem;
     }
 
-    /* En celulares, mandamos el logo arriba a la derecha */
     .cert-logo {
         position: absolute;
         top: 1.2rem;
         right: 1.2rem;
         margin-left: 0;
-        width: 45px;
-        /* Más chico en celulares */
-        height: 45px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .contact-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* --- MOBILE PEQUEÑO (<= 480px) --- */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .terminal-line {
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-card h2 img {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* FIX: Botones apilados horizontalmente de manera prolija */
+    .actions.centered-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .btn-primary {
+        text-align: center;
+        width: auto;
+    }
+
+    .separator {
+        display: block;
+        color: #555;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
     }
 }

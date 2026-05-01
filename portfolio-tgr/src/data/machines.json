@@ -10,6 +10,7 @@
             "SUID",
             "PCAP"
         ],
+<<<<<<< HEAD
         "link": "#"
     },
     {
@@ -24,5 +25,8 @@
             "docker-privesc"
         ],
         "link": "https://app.hackthebox.com/machines/Kobold"
+=======
+        "link": "https://app.hackthebox.com/machines/Cap?sort_by=created_at&sort_type=desc"
+>>>>>>> ced8301d7637bff1bb3a0f12834aa75f231f235f
     }
 ]
