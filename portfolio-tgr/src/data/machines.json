@@ -10,8 +10,7 @@
             "SUID",
             "PCAP"
         ],
-<<<<<<< HEAD
-        "link": "#"
+        "link": "https://app.hackthebox.com/machines/Cap"
     },
     {
         "title": "Kobold",
@@ -25,8 +24,19 @@
             "docker-privesc"
         ],
         "link": "https://app.hackthebox.com/machines/Kobold"
-=======
-        "link": "https://app.hackthebox.com/machines/Cap?sort_by=created_at&sort_type=desc"
->>>>>>> ced8301d7637bff1bb3a0f12834aa75f231f235f
+    },
+    {
+        "title": "Silentium",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "CVE-2025-58434",
+            "CVE-2025-59528",
+            "CVE-2025-8110",
+            "ssh"
+        ],
+        "link": "https://app.hackthebox.com/machines/Silentium"
     }
 ]
