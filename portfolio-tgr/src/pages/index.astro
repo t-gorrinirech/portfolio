@@ -484,6 +484,23 @@ import tomas from '../assets/tomas.jpeg';
                 renderMachines(); 
             });
 
+            const grid = document.querySelector(".stats-grid");
+
+            if (grid) {
+                grid.addEventListener("mousemove", (e) => {
+                    // Obtenemos las dimensiones y posición de la grilla
+                    const rect = grid.getBoundingClientRect();
+                    
+                    // Calculamos X e Y relativos al contenedor
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    // Le pasamos las coordenadas al CSS
+                    grid.style.setProperty("--mouse-x", `${x}px`);
+                    grid.style.setProperty("--mouse-y", `${y}px`);
+                });
+            }
+
             // --- Lógica del Menú Hamburguesa ---
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('nav-links');

@@ -319,16 +319,45 @@ h1 {
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    /* 6 en línea para Desktop */
     gap: 0;
     margin-bottom: 6rem;
     border-radius: 12px;
-    /* Eliminamos el borde exterior e interior */
     border: none;
-    /* Contenedor general flotante */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+    /* IMPORTANTE para contener el efecto */
     overflow: hidden;
-    /* Mantiene las esquinas redondeadas generales */
+}
+
+.stats-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* Copia el borde redondeado del padre */
+    padding: 2px;
+    /* Grosor del borde iluminado */
+    /* Este gradiente usará las variables JS para moverse */
+    background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+            var(--cyan),
+            transparent 40%);
+    /* Truco de CSS Masks: Oculta el centro y solo deja pintado el 'padding' (el borde) */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 20;
+    /* Se pone por encima de todo */
+    pointer-events: none;
+    /* Evita que el borde bloquee los clicks */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Solo mostramos el borde brillante cuando pasamos el mouse por la grilla */
+.stats-grid:hover::before {
+    opacity: 1;
 }
 
 .stat-card {
@@ -363,7 +392,8 @@ h1 {
 .stat-card:hover {
     background-color: #16161d;
     z-index: 10;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+    /* Solo dejamos una sombra profunda para que parezca que la tarjeta se eleva, sin glow cyan acá */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
 }
 
 /* LA CAJA CUADRADA INTERIOR (Iconos) */
