@@ -321,71 +321,86 @@ h1 {
     grid-template-columns: repeat(6, 1fr);
     /* 6 en línea para Desktop */
     gap: 0;
-    /* Sin espacio para que los bordes se toquen */
-    background-color: transparent;
     margin-bottom: 6rem;
-    /* Borde exterior de toda la grilla */
-    border: 1px solid var(--card-border);
     border-radius: 12px;
+    /* Eliminamos el borde exterior e interior */
+    border: none;
+    /* Contenedor general flotante */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    /* Mantiene las esquinas redondeadas generales */
 }
 
 .stat-card {
-    background-color: transparent;
-    border-right: 1px solid var(--card-border);
+    /* FONDO GRIS PARA TODA LA TARJETA */
+    background-color: #0e0e11;
+    /* Un gris sutil para diferenciar del fondo puro */
     padding: 3rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    transition: background-color 0.3s ease;
+    position: relative;
+    border: none;
+    /* CHAU LÍNEAS */
+
+    /* SOMBRAS PARA SIMULAR SEPARACIÓN */
+    /* Proyectamos la sombra hacia la IZQUIERDA (-20px) para que caiga sobre la tarjeta anterior */
+    box-shadow: -20px 0 30px rgba(0, 0, 0, 0.7);
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        z-index 0s;
+    z-index: 1;
 }
 
-/* El último elemento de la fila no lleva borde derecho */
-.stat-card:last-child {
-    border-right: none;
+/* La primera tarjeta no debe proyectar sombra hacia afuera de la grilla */
+.stat-card:first-child {
+    box-shadow: none;
 }
 
-/* Leve iluminación al pasar el mouse por toda la tarjeta */
+/* Efecto al pasar el mouse: iluminar la tarjeta y traerla al frente */
 .stat-card:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: #16161d;
+    z-index: 10;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
 }
 
-/* LA CAJA CUADRADA CON SOMBRA */
+/* LA CAJA CUADRADA INTERIOR (Iconos) */
+/* LA CAJA CONTENEDORA DE LOS ÍCONOS (Ahora transparente) */
 .icon-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 110px;
-    height: 110px;
-    background-color: var(--card-bg);
-    border-radius: 16px;
-    /* Cuadrado con puntas redondeadas */
-    margin-bottom: 1.5rem;
-    /* Sombra profunda para el efecto de la imagen de referencia */
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2rem;
+    /* Eliminamos background-color, border-radius y box-shadow de acá */
+    transition: transform 0.3s ease;
 }
 
-/* Efecto hover sobre la caja cuadrada */
+/* Efecto hover: solo eleva el contenedor, SIN el borde cyan */
 .stat-card:hover .icon-box {
-    transform: translateY(-8px);
-    box-shadow:
-        0 20px 40px rgba(0, 229, 255, 0.08),
-        inset 0 0 0 1px rgba(0, 229, 255, 0.2);
+    transform: translateY(-6px);
 }
 
-/* Control del tamaño de la imagen dentro de la caja */
+/* Tamaño de las imágenes y transición para la sombra */
 .icon-box img {
-    width: 55px !important;
-    height: 55px !important;
+    width: 50px !important;
+    height: 50px !important;
     object-fit: contain;
+    transition: filter 0.3s ease;
+    /* Transición suave para la sombra */
 }
 
+/* LA SOMBRITA EN LA IMAGEN AL HACER HOVER */
+.stat-card:hover .icon-box img {
+    /* Usamos drop-shadow en lugar de box-shadow para que la sombra siga 
+       la forma transparente del logo y no haga un cuadrado */
+    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.8));
+}
+
+/* TEXTO CHIQUITO DENTRO DEL CUADRO GRIS */
 .stat-card h3 {
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -394,6 +409,7 @@ h1 {
     text-transform: uppercase;
     text-align: center;
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Sección de Logros */
@@ -805,17 +821,19 @@ html {
     }
 
     .stat-card {
-        border-bottom: 1px solid var(--card-border);
+        /* En tablet, las sombras deben separar hacia la izquierda y hacia arriba (-15px en X e Y) */
+        box-shadow: -15px -15px 30px rgba(0, 0, 0, 0.7);
     }
 
-    /* Quitamos el borde derecho del 3er y 6to elemento */
-    .stat-card:nth-child(3n) {
-        border-right: none;
+    /* Quitamos la sombra izquierda para el primer elemento de cada fila (1 y 4) */
+    .stat-card:nth-child(3n + 1) {
+        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+        /* Solo proyecta arriba */
     }
 
-    /* Quitamos el borde inferior de la última fila (los últimos 3) */
-    .stat-card:nth-last-child(-n + 3) {
-        border-bottom: none;
+    /* La primerísima tarjeta no proyecta sombra ni arriba ni a la izquierda */
+    .stat-card:first-child {
+        box-shadow: none;
     }
 
     .machine-card {
@@ -999,42 +1017,37 @@ html {
     }
 
     .stat-card {
-        border-right: 1px solid var(--card-border);
-        border-bottom: 1px solid var(--card-border);
-        padding: 2rem 0.5rem;
+        padding: 2.5rem 0.5rem;
+        /* Sombra diagonal (izquierda y arriba) */
+        box-shadow: -15px -15px 30px rgba(0, 0, 0, 0.7);
     }
 
-    /* Reseteamos las reglas de la tablet */
-    .stat-card:nth-child(3n) {
-        border-right: 1px solid var(--card-border);
+    /* Reseteamos la regla que venía de tablet */
+    .stat-card:nth-child(3n + 1) {
+        box-shadow: -15px -15px 30px rgba(0, 0, 0, 0.7);
     }
 
-    .stat-card:nth-last-child(-n + 3) {
-        border-bottom: 1px solid var(--card-border);
+    /* Aplicamos la nueva regla para 2 columnas: los impares no tienen sombra izquierda */
+    .stat-card:nth-child(2n + 1) {
+        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+        /* Solo arriba */
     }
 
-    /* Aplicamos reglas para 2 columnas */
-    .stat-card:nth-child(2n) {
-        border-right: none;
+    .stat-card:first-child {
+        box-shadow: none;
     }
 
-    /* Sin borde derecho en los pares */
-    .stat-card:nth-last-child(-n + 2) {
-        border-bottom: none;
-    }
-
-    /* Sin borde inferior en los últimos 2 */
-
-    /* Achicamos la caja cuadrada un poco para que no quede gigante en celulares */
+    /* Achicamos la caja cuadrada en celular para que haya buen aire */
     .icon-box {
-        width: 90px;
-        height: 90px;
-        border-radius: 12px;
+        width: 80px;
+        height: 80px;
+        border-radius: 14px;
+        margin-bottom: 1.5rem;
     }
 
     .icon-box img {
-        width: 45px !important;
-        height: 45px !important;
+        width: 40px !important;
+        height: 40px !important;
     }
 
     /* FIX: Botones apilados horizontalmente de manera prolija */
