@@ -313,35 +313,87 @@ h1 {
     color: #333;
 }
 
-/* Grid de Estadísticas */
+/* ========================================== */
+/* GRID DE ESTADÍSTICAS / HERRAMIENTAS        */
+/* ========================================== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    /* 6 en línea para Desktop */
+    gap: 0;
+    /* Sin espacio para que los bordes se toquen */
+    background-color: transparent;
     margin-bottom: 6rem;
+    /* Borde exterior de toda la grilla */
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .stat-card {
+    background-color: transparent;
+    border-right: 1px solid var(--card-border);
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: background-color 0.3s ease;
+}
+
+/* El último elemento de la fila no lleva borde derecho */
+.stat-card:last-child {
+    border-right: none;
+}
+
+/* Leve iluminación al pasar el mouse por toda la tarjeta */
+.stat-card:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* LA CAJA CUADRADA CON SOMBRA */
+.icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 110px;
     background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center;
+    border-radius: 16px;
+    /* Cuadrado con puntas redondeadas */
+    margin-bottom: 1.5rem;
+    /* Sombra profunda para el efecto de la imagen de referencia */
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.stat-card h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+/* Efecto hover sobre la caja cuadrada */
+.stat-card:hover .icon-box {
+    transform: translateY(-8px);
+    box-shadow:
+        0 20px 40px rgba(0, 229, 255, 0.08),
+        inset 0 0 0 1px rgba(0, 229, 255, 0.2);
 }
 
-.text-cyan {
-    color: var(--cyan);
+/* Control del tamaño de la imagen dentro de la caja */
+.icon-box img {
+    width: 55px !important;
+    height: 55px !important;
+    object-fit: contain;
 }
 
-.stat-card p {
+.stat-card h3 {
     color: var(--text-muted);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
 }
 
 /* Sección de Logros */
@@ -748,7 +800,22 @@ html {
     }
 
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 arriba, 3 abajo */
+    }
+
+    .stat-card {
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    /* Quitamos el borde derecho del 3er y 6to elemento */
+    .stat-card:nth-child(3n) {
+        border-right: none;
+    }
+
+    /* Quitamos el borde inferior de la última fila (los últimos 3) */
+    .stat-card:nth-last-child(-n + 3) {
+        border-bottom: none;
     }
 
     .machine-card {
@@ -927,16 +994,47 @@ html {
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2x2 */
     }
 
     .stat-card {
-        padding: 1.5rem;
+        border-right: 1px solid var(--card-border);
+        border-bottom: 1px solid var(--card-border);
+        padding: 2rem 0.5rem;
     }
 
-    .stat-card h2 img {
-        width: 80px;
-        height: 80px;
+    /* Reseteamos las reglas de la tablet */
+    .stat-card:nth-child(3n) {
+        border-right: 1px solid var(--card-border);
+    }
+
+    .stat-card:nth-last-child(-n + 3) {
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    /* Aplicamos reglas para 2 columnas */
+    .stat-card:nth-child(2n) {
+        border-right: none;
+    }
+
+    /* Sin borde derecho en los pares */
+    .stat-card:nth-last-child(-n + 2) {
+        border-bottom: none;
+    }
+
+    /* Sin borde inferior en los últimos 2 */
+
+    /* Achicamos la caja cuadrada un poco para que no quede gigante en celulares */
+    .icon-box {
+        width: 90px;
+        height: 90px;
+        border-radius: 12px;
+    }
+
+    .icon-box img {
+        width: 45px !important;
+        height: 45px !important;
     }
 
     /* FIX: Botones apilados horizontalmente de manera prolija */

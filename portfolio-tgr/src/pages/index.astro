@@ -11,7 +11,10 @@ import nmapIcon from '../assets/nmaplogo.png';
 import cambridgeIcon from '../assets/cambridge.png';
 import hack4uIcon from '../assets/hack4u.png';
 import udemyLogo from '../assets/udemy.png';
+import burpLogo from '../assets/burplogo.svg.png';
+import wireLogo from '../assets/wirelogo.svg.png';
 import tomas from '../assets/tomas.jpeg';
+
 
 ---
 
@@ -86,24 +89,44 @@ import tomas from '../assets/tomas.jpeg';
             </h1>
 
             <p class="subtitle" data-i18n="hero_subtitle">
-                4th-year Information Technology student with a strong focus on cybersecurity. Experienced in Linux, Python, and vulnerability assessment, currently honing my skills on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a> 
+                I am a 4th-year IT student at UADE with a dedicated focus on Web Pentesting and Red Teaming. I am an active security researcher on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, where I focus on mastering vulnerability enumeration and exploitation chains. I bring a bilingual edge with a Cambridge C1 Advanced certification, enabling me to collaborate effectively in international environments and document technical findings with precision  
             </p>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h2><img src={pythonIcon.src} alt="Python" width="100" height="100" decoding="async"></img></h2>
+                    <div class="icon-box">
+                        <img src={pythonIcon.src} alt="Python" width="100" height="100" decoding="async" />
+                    </div>
                     <h3>Python</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src={bashIcon.src} alt="Bash" width="100" height="100" decoding="async"></img></h2>
+                    <div class="icon-box">
+                        <img src={bashIcon.src} alt="Bash" width="100" height="100" decoding="async" />
+                    </div>
                     <h3>Bash Scripting</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src={linuxIcon.src} alt="Linux" width="100" height="100" decoding="async"></img></h2>
+                    <div class="icon-box">
+                        <img src={linuxIcon.src} alt="Linux" width="100" height="100" decoding="async" />
+                    </div>
                     <h3>Linux Systems</h3>
                 </div>
                 <div class="stat-card">
-                    <h2><img src={nmapIcon.src} alt="Nmap" width="100" height="100" decoding="async"></img></h2>
+                    <div class="icon-box">
+                        <img src={burpLogo.src} alt="Burp Suite" width="100" height="100" decoding="async" />
+                    </div>
+                    <h3>Burp Suite</h3>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box">
+                        <img src={wireLogo.src} alt="Wireshark" width="100" height="100" decoding="async" />
+                    </div>
+                    <h3>Wireshark</h3>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box">
+                        <img src={nmapIcon.src} alt="Nmap" width="100" height="100" decoding="async" />
+                    </div>
                     <h3 data-i18n="stat_tools">Offensive Security Tooling</h3>
                 </div>
             </div>
@@ -239,7 +262,7 @@ import tomas from '../assets/tomas.jpeg';
                 nav_home: "HOME", nav_machines: "MACHINES", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
-                hero_subtitle: "4th-year Information Technology student with a strong focus on cybersecurity. Experienced in Linux, Python, and vulnerability assessment, currently honing my skills on <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
+                hero_subtitle: 'I am a 4th-year IT student at UADE with a dedicated focus on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I am an active security researcher on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, where I focus on mastering <strong>vulnerability enumeration</strong> and <strong>exploitation chains</strong>. I bring a bilingual edge with a <strong>Cambridge C1 Advanced</strong> certification, enabling me to collaborate effectively in international environments and document technical findings with precision',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
                 title_machines: "Machines Completed", filter_diff: "Difficulty:", filter_os: "Operating System:",
                 opt_all: "All", opt_all_os: "All", opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", opt_insane: "Insane", opt_other: "Other",
@@ -257,7 +280,7 @@ import tomas from '../assets/tomas.jpeg';
                 nav_home: "INICIO", nav_machines: "MÁQUINAS", nav_contact: "CONTACTO", nav_certifications: "CERTIFICACIONES",
                 btn_view: "CV", path_whois: "~/quien-es/Tomás",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
-                hero_subtitle: "Estudiante de 4to año en Tecnología de la Información con fuerte enfoque en ciberseguridad. Experiencia en Linux, Python y análisis de vulnerabilidades, actualmente perfeccionando mis habilidades en <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
+                hero_subtitle: 'Soy estudiante de 4to año de IT en la UADE, con un enfoque dedicado en <strong>Web Pentesting</strong> y <strong>Red Teaming</strong>. Como investigador de seguridad activo en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, me concentro en perfeccionar la <strong>enumeración de vulnerabilidades</strong> y el desarrollo de <strong>cadenas de explotación</strong>. Cuento con un perfil bilingüe respaldado por la certificación <strong>Cambridge C1 Advanced</strong>, lo que me permite colaborar eficazmente en entornos internacionales y documentar hallazgos técnicos con precisión',
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
                 title_machines: "Máquinas Completadas", filter_diff: "Dificultad:", filter_os: "Sistema Operativo:",
                 opt_all: "Todas", opt_all_os: "Todos", opt_easy: "Fácil", opt_medium: "Medio", opt_hard: "Difícil", opt_insane: "Insane", opt_other: "Otro",
