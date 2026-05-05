@@ -190,6 +190,16 @@ import tomas from '../assets/tomas.jpeg';
 
             <div class="certs-list">
                 <div class="cert-item">
+                    <div class="cert-date" id="cert-ongoing">ONGOING</div>
+                    <div class="cert-details">
+                        <h3 data-i18n="cert_4_title">Introduction to Hacking</h3>
+                        <p class="text-muted" data-i18n="cert_4_issuer">Hack4u</p>
+                    </div>
+                    <div class="cert-logo">
+                        <img src={hack4uIcon.src} alt="Cambridge Logo" loading="lazy" decoding="async" />
+                    </div>
+                </div>
+                <div class="cert-item">
                     <div class="cert-date">2022</div>
                     <div class="cert-details">
                         <h3 data-i18n="cert_1_title">C1 Advanced</h3>
@@ -262,7 +272,7 @@ import tomas from '../assets/tomas.jpeg';
                 nav_home: "HOME", nav_machines: "MACHINES", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
-                hero_subtitle: 'I am a 4th-year IT student at UADE with a dedicated focus on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I am an active security researcher on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, where I focus on mastering <strong>vulnerability enumeration</strong> and <strong>exploitation chains</strong>. I bring a bilingual edge with a <strong>Cambridge C1 Advanced</strong> certification, enabling me to collaborate effectively in international environments and document technical findings with precision',
+                hero_subtitle: 'I am a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a> with a dedicated focus on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I am an active security researcher on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, where I focus on mastering <strong>vulnerability enumeration</strong> and <strong>exploitation chains</strong>. I bring a bilingual edge with a <strong>Cambridge C1 Advanced</strong> certification, enabling me to collaborate effectively in international environments and document technical findings with precision',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
                 title_machines: "Machines Completed", filter_diff: "Difficulty:", filter_os: "Operating System:",
                 opt_all: "All", opt_all_os: "All", opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", opt_insane: "Insane", opt_other: "Other",
@@ -271,6 +281,7 @@ import tomas from '../assets/tomas.jpeg';
                 cert_1_title: "C1 Advanced", cert_1_issuer: "Cambridge University",
                 cert_2_title: "Introduction to Linux", cert_2_issuer: "Hack4u",
                 cert_3_title: "The Git & GitHub Bootcamp", cert_3_issuer: "Udemy",
+                cert_4_title: "Introduction to Hacking", cert_4_issuer: "Hack4u",
                 path_contact: "~/network/connections", title_contact: "Get in Touch",
                 desc_contact: "I'm always open to discussing new projects or opportunities.",
                 footer_dev: " Tomás G. Rech - Developed with Astro", footer_status: "Status: Updated via GitHub",
@@ -289,8 +300,9 @@ import tomas from '../assets/tomas.jpeg';
                 cert_1_title: "C1 Advanced", cert_1_issuer: "Universidad de Cambridge",
                 cert_2_title: "Introducción a Linux", cert_2_issuer: "Hack4u",
                 cert_3_title: "Bootcamp de Git & GitHub", cert_3_issuer: "Udemy",
+                cert_4_title: "Introducción al Hacking", cert_4_issuer: "Hack4u",
                 path_contact: "~/red/conexiones", title_contact: "Contáctame",
-                desc_contact: "Siempre estoy abierto a discutir nuevos proyectos u oportunidades.",
+                desc_contact: "Siempre estoy abierto a tener una conversación acerca de  nuevos proyectos u oportunidades.",
                 footer_dev: " Tomás G. Rech - Desarrollado con Astro", footer_status: "Estado: Actualizado vía GitHub",
                 card_btn: "Ver Detalles &rarr;", count_text: "Total: {count} máquinas"
             }

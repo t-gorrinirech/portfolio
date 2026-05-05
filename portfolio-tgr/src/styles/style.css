@@ -788,6 +788,10 @@ h1 {
     transform: scale(1.1);
 }
 
+#cert-ongoing {
+    color: var(--medium);
+}
+
 /* Sección de Contacto */
 .contact-section {
     margin-bottom: 6rem;
