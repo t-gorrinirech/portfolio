@@ -8,7 +8,8 @@
             "Linux",
             "FTP",
             "SUID",
-            "PCAP"
+            "PCAP",
+            "IDOR"
         ],
         "link": "https://app.hackthebox.com/machines/Cap"
     },
@@ -35,8 +36,23 @@
             "CVE-2025-58434",
             "CVE-2025-59528",
             "CVE-2025-8110",
-            "ssh"
+            "SSH"
         ],
         "link": "https://app.hackthebox.com/machines/Silentium"
+    },
+    {
+        "title": "Facts",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "CVE-2025-2304",
+            "AWS S3",
+            "SSH Key Cracking",
+            "facter-privesc",
+            "path traversal"
+        ],
+        "link": "https://app.hackthebox.com/machines/Facts"
     }
 ]
