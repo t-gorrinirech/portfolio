@@ -2,6 +2,7 @@
 // Importamos tus estilos (Astro lo maneja en el servidor)
 import '../styles/style.css';
 import '../data/machines.json';
+import pdfIcon from '../assets/pdf-icon.svg';
 import translateIcon from '../assets/translate.png';
 import pythonIcon from '../assets/pythonlogo.png';
 import bashIcon from '../assets/bashlogo.png';
@@ -65,8 +66,14 @@ import tomas from '../assets/tomas.jpeg';
                 </div>
             </div>
 
-            <div class="actions centered-actions">
-                <a href="#achievements_box" class="btn-primary" data-i18n="btn_view">View Machines</a>
+             <div class="actions centered-actions">
+                <!-- Reemplazamos la etiqueta <a> por un <button> con ID -->
+                <button id="resume-btn" class="btn-primary">
+                    <!-- El data-i18n va directo al span -->
+                    <span data-i18n="btn_view">CV</span>
+                    <img src={pdfIcon.src} alt="PDF" width="20" height="20" />
+                </button>
+                
                 <a href="https://github.com/t-gorrinirech" target="_blank" class="text-link">GitHub</a>
                 <span class="separator">|</span>
                 <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link">LinkedIn</a>
@@ -230,7 +237,7 @@ import tomas from '../assets/tomas.jpeg';
         const translations = {
             en: {
                 nav_home: "HOME", nav_machines: "MACHINES", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
-                btn_view: "View Machines", path_whois: "~/who-is/Tomás",
+                btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: "4th-year Information Technology student with a strong focus on cybersecurity. Experienced in Linux, Python, and vulnerability assessment, currently honing my skills on <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
@@ -248,7 +255,7 @@ import tomas from '../assets/tomas.jpeg';
             },
             es: {
                 nav_home: "INICIO", nav_machines: "MÁQUINAS", nav_contact: "CONTACTO", nav_certifications: "CERTIFICACIONES",
-                btn_view: "Ver Máquinas", path_whois: "~/quien-es/Tomás",
+                btn_view: "CV", path_whois: "~/quien-es/Tomás",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: "Estudiante de 4to año en Tecnología de la Información con fuerte enfoque en ciberseguridad. Experiencia en Linux, Python y análisis de vulnerabilidades, actualmente perfeccionando mis habilidades en <a href=\"https://app.hackthebox.com\" target=\"_blank\" class=\"underline-link\">HackTheBox</a>",
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
@@ -625,7 +632,65 @@ import tomas from '../assets/tomas.jpeg';
             });
             
             renderMachines();
+
+        // ==========================================
+            // LÓGICA DEL MODAL DE CV
+            // ==========================================
+            const resumeBtn = document.getElementById('resume-btn');
+            const modalOverlay = document.getElementById('resume-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const resumeFrame = document.getElementById('resume-frame');
+
+            function openModal() {
+                // Asigna el PDF correcto según el idioma actual leyendo desde /public
+                const pdfFile = currentLang === 'en' ? '/cv_english.pdf' : '/cv_spanish.pdf';
+                resumeFrame.src = pdfFile;
+                
+                // Muestra el modal y bloquea el scroll del fondo
+                modalOverlay.classList.remove('hidden-modal');
+                document.body.style.overflow = 'hidden'; 
+            }
+
+            function closeModal() {
+                // Oculta el modal y restaura el scroll
+                modalOverlay.classList.add('hidden-modal');
+                document.body.style.overflow = ''; 
+                
+                // Limpia el iframe después de la transición (300ms) para que no quede cargado
+                setTimeout(() => {
+                    resumeFrame.src = '';
+                }, 300);
+            }
+
+            // Eventos
+            resumeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Cierra el modal al hacer click afuera de la caja principal (en el fondo oscurecido)
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Opcional pero de buena práctica: cerrar con la tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden-modal')) {
+                    closeModal();
+                }
+            });
         });
     </script>
+
+    <div id="resume-modal" class="modal-overlay hidden-modal">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">&times;</button>
+            <iframe id="resume-frame" src="" frameborder="0" title="Resume"></iframe>
+        </div>
+    </div>
 </body>
 </html>
