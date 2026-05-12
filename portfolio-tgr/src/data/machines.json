@@ -20,9 +20,9 @@
         "os": "Linux",
         "badges": [
             "Linux",
-            "fuzzing",
+            "Fuzzing",
             "CVE-2026-23744",
-            "docker-privesc"
+            "Docker-privesc"
         ],
         "link": "https://app.hackthebox.com/machines/Kobold"
     },
@@ -50,9 +50,23 @@
             "CVE-2025-2304",
             "AWS S3",
             "SSH Key Cracking",
-            "facter-privesc",
-            "path traversal"
+            "Facter-privesc",
+            "Path Traversal"
         ],
         "link": "https://app.hackthebox.com/machines/Facts"
+    },
+    {
+        "title": "CCTV",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "Time-Based Blind SQLI",
+            "CVE-2025-60787",
+            "Hash Cracking",
+            "SSH Tunneling"
+        ],
+        "link": "https://app.hackthebox.com/machines/CCTV"
     }
 ]
