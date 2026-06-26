@@ -13,6 +13,8 @@ import hack4uIcon from '../assets/hack4u.png';
 import udemyLogo from '../assets/udemy.png';
 import caidoLogo from '../assets/caido-removebg-preview.png';
 import wireLogo from '../assets/wirelogo.svg.png';
+import hackeroneIcon from '../assets/hackeronelogo.png';
+import yeswehackIcon from '../assets/yeswehacklogo.png';
 import tomas from '../assets/tomas.jpeg';
 
 
@@ -50,7 +52,7 @@ import tomas from '../assets/tomas.jpeg';
 
                 <ul class="nav-links" id="nav-links">
                     <li><a href="#" data-i18n="nav_home">HOME</a></li>
-                    <li><a href="#achievements_box" data-i18n="nav_machines">MACHINES</a></li>
+                    <li><a href="#experience" data-i18n="nav_experience">EXPERIENCE</a></li>
                     <li><a href="#certifications" data-i18n="nav_certifications">CERTIFICATIONS</a></li>
                     <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
                     <li class="lang-container">
@@ -131,6 +133,63 @@ import tomas from '../assets/tomas.jpeg';
                 </div>
             </div>
         </header>
+
+        <section class="experience" id="experience">
+            <div class="section-header">
+                <div>
+                    <p class="terminal-path" data-i18n="path_experience">~/var/log/experience</p>
+                    <h2 data-i18n="title_experience">Experience</h2>
+                </div>
+            </div>
+
+            <div class="experience-grid">
+                <!-- Arriba (ancho completo): Trabajo Profesional -->
+                <div class="exp-block exp-block-full">
+                    <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
+                    <div class="exp-card exp-card-empty">
+                        <p class="text-muted" data-i18n="exp_professional_desc">// First professional pentest engagement with a real client — coming soon.</p>
+                    </div>
+                </div>
+
+                <!-- Fila inferior: Bug Bounty (izq) | Proyectos Personales (der) -->
+                <div class="exp-row">
+                    <div class="exp-block">
+                        <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_bugbounty">Bug Bounty</span></h3>
+                        <div class="exp-card">
+                            <p class="text-muted" data-i18n="exp_bugbounty_desc">Active bug bounty hunter under the handle <strong>tgxrech</strong> on:</p>
+                            <ul class="exp-accounts">
+                                <li>
+                                    <img src={hackeroneIcon.src} alt="HackerOne" class="exp-account-icon" decoding="async" />
+                                    <div class="exp-account-text">
+                                        <span class="exp-platform">HackerOne</span>
+                                        <a href="https://hackerone.com/tgxrech?type=user" target="_blank" class="underline-link">tgxrech</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src={yeswehackIcon.src} alt="YesWeHack" class="exp-account-icon" decoding="async" />
+                                    <div class="exp-account-text">
+                                        <span class="exp-platform">YesWeHack</span>
+                                        <a href="https://yeswehack.com/hunters/tgxrech#latest-hacktivity" target="_blank" class="underline-link">tgxrech</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="exp-block">
+                        <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_projects">Personal Projects</span></h3>
+                        <div class="projects-list">
+                            <div class="project-item project-item-empty">
+                                <div class="project-info">
+                                    <h4 data-i18n="proj_placeholder_title">Working on some stuff...</h4>
+                                    <p class="text-muted" data-i18n="proj_placeholder_desc">Scripts and tools are on the way. Check back soon.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section class="achievements" id="achievements_box">
             <div class="section-header">
@@ -269,8 +328,13 @@ import tomas from '../assets/tomas.jpeg';
         // ==========================================
         const translations = {
             en: {
-                nav_home: "HOME", nav_machines: "MACHINES", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
+                nav_home: "HOME", nav_machines: "MACHINES", nav_experience: "EXPERIENCE", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
+                path_experience: "~/var/log/experience", title_experience: "Experience",
+                exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Active bug bounty hunter under the handle <strong>tgxrech</strong> on:",
+                exp_professional: "Professional Work", exp_professional_desc: "// First professional pentest engagement with a real client — coming soon.",
+                exp_projects: "Personal Projects",
+                proj_placeholder_title: "Working on some stuff...", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a> with a strong focus on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I\'m an active practitioner on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, learning how things work under the hood while mastering <strong>vulnerability enumeration</strong> and <strong>exploitation chains</strong>. I am also fully comfortable working in international teams thanks to my <strong>C1 English level</strong>, which allows me to document technical findings with precision',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
@@ -289,8 +353,13 @@ import tomas from '../assets/tomas.jpeg';
                 card_btn: "View Details &rarr;", count_text: "Total: {count} machines"
             },
             es: {
-                nav_home: "INICIO", nav_machines: "MÁQUINAS", nav_contact: "CONTACTO", nav_certifications: "CERTIFICACIONES",
+                nav_home: "INICIO", nav_machines: "MÁQUINAS", nav_experience: "EXPERIENCIA", nav_contact: "CONTACTO", nav_certifications: "CERTIFICACIONES",
                 btn_view: "CV", path_whois: "~/quien-es/Tomás",
+                path_experience: "~/var/log/experiencia", title_experience: "Experiencia",
+                exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Cazador activo de bug bounty bajo el usuario <strong>tgxrech</strong> en:",
+                exp_professional: "Trabajo Profesional", exp_professional_desc: "// Primer trabajo profesional de pentest con un cliente real — próximamente.",
+                exp_projects: "Proyectos Personales",
+                proj_placeholder_title: "Trabajando en algunas cosas...", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, con un fuerte enfoque en <strong>Web Pentesting</strong> y <strong>Red Teaming</strong>. Participo activamente en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, aprendiendo cómo funcionan las cosas a bajo nivel mientras domino la <strong>enumeración de vulnerabilidades</strong> y el desarrollo de <strong>cadenas de explotación</strong>. Además, me siento totalmente cómodo trabajando en equipos internacionales gracias a mi <strong>nivel C1 de ingles</strong>, lo que me permite documentar técnicamente y con precisión',
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
