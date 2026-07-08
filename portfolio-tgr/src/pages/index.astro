@@ -1,7 +1,7 @@
 ---
 // Importamos tus estilos (Astro lo maneja en el servidor)
 import '../styles/style.css';
-import '../data/machines.json';
+import machinesData from '../data/machines.json';
 import pdfIcon from '../assets/pdf-icon.svg';
 import translateIcon from '../assets/translate.png';
 import pythonIcon from '../assets/pythonlogo.png';
@@ -31,6 +31,14 @@ import tomas from '../assets/tomas.jpeg';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Resolve the `ogl` bare import for the inline module script below. The script is
+         kept `is:inline` on purpose so Astro never generates its processed-script dev URL
+         (`index.astro?astro&type=script...`), whose unescaped `&` breaks the first load in
+         Chrome. `ogl` is vendored to /vendor/ogl.js (see public/) so this works in dev+build. -->
+    <script type="importmap" is:inline>
+        { "imports": { "ogl": "/vendor/ogl.js" } }
+    </script>
 </head>
 
 <body>
@@ -319,9 +327,13 @@ import tomas from '../assets/tomas.jpeg';
         </footer>
     </div>
 
-    <script>
+    <!-- Machines data injected server-side, read by the inline script below (keeps the
+         script `is:inline` so no processed-script dev URL is generated). -->
+    <script type="application/json" id="machines-data" is:inline set:html={JSON.stringify(machinesData).replace(/</g, '\\u003c')}></script>
+
+    <script is:inline type="module">
         import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
-        import machinesData from '../data/machines.json'; 
+        const machinesData = JSON.parse(document.getElementById('machines-data').textContent);
 
         // ==========================================
         // 0. SISTEMA DE TRADUCCIÓN (DICCIONARIO)
