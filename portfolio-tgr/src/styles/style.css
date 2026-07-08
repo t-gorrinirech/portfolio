@@ -13,6 +13,9 @@
 
     --font-sans: "Inter", sans-serif;
     --font-mono: "Fira Code", monospace;
+
+    /* El sitio es dark-only: arregla scrollbars, inputs y select nativos */
+    color-scheme: dark;
 }
 
 * {
@@ -27,6 +30,50 @@ body {
     font-family: var(--font-sans);
     line-height: 1.5;
     overflow-x: hidden;
+}
+
+/* Evita el delay de doble-tap y controla el highlight en mobile */
+a,
+button,
+select,
+[data-doc],
+.doc-thumb,
+.doc-strip {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.2);
+}
+
+/* Foco visible y consistente para teclado (no aparece al hacer click) */
+:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Enlace para saltar al contenido (accesibilidad de teclado) */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 2000;
+    background-color: var(--cyan);
+    color: #000;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* Títulos: evita viudas/huérfanas */
+h1,
+h2,
+h3 {
+    text-wrap: balance;
 }
 
 .container {
@@ -44,7 +91,7 @@ body {
     z-index: 1000;
     background-color: transparent;
     padding: 1.5rem 0;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, padding 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
     border-bottom: 1px solid transparent;
 }
 
@@ -80,7 +127,7 @@ body {
     font-family: var(--font-mono);
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin-left: -1rem;
 }
 
@@ -129,7 +176,7 @@ body {
     display: flex;
     align-items: center;
     gap: 2rem;
-    transition: all 0.3s ease-in-out;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
 
 .nav-links a {
@@ -161,7 +208,7 @@ body {
     height: 3px;
     background-color: var(--text-main);
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Hero Section */
@@ -599,12 +646,11 @@ h1 {
     font-family: var(--font-sans);
     font-size: 0.9rem;
     cursor: pointer;
-    outline: none;
     transition: border-color 0.2s;
 }
 
-.custom-select:focus,
-.custom-select:hover {
+.custom-select:hover,
+.custom-select:focus-visible {
     border-color: var(--cyan);
 }
 
@@ -631,7 +677,7 @@ h1 {
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .carousel-btn:hover {
@@ -1181,6 +1227,24 @@ footer {
 /* Scroll suave para la navegación */
 html {
     scroll-behavior: smooth;
+    /* Compensa la navbar fija cuando se salta a una sección con ancla (#experience, etc.) */
+    scroll-padding-top: 90px;
+}
+
+/* Respeta la preferencia del sistema de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ========================================================================== */
@@ -1525,6 +1589,8 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* El scroll dentro del modal no arrastra el fondo */
+    overscroll-behavior: contain;
     opacity: 1;
     visibility: visible;
     transition:

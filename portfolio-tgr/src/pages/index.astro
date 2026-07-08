@@ -28,6 +28,7 @@ import tomas from '../assets/tomas.jpeg';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030303" />
     <title>Tomas G. Rech | Pentester</title>
     <link rel="icon" href={tomas.src} type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,12 +45,13 @@ import tomas from '../assets/tomas.jpeg';
 </head>
 
 <body>
+    <a href="#main" class="skip-link" data-i18n="skip_link">Skip to content</a>
     <div id="faulty-terminal-bg" class="global-bg"></div>
 
     <div class="container">
         <nav class="navbar" id="navbar">
             <div class="nav-content">
-                <div class="logo">
+                <div class="logo" translate="no">
                     <span class="dot"></span>
                     Tomás <span class="cursor" id="nav-cursor">_</span>
                 </div>
@@ -67,15 +69,15 @@ import tomas from '../assets/tomas.jpeg';
                     <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
                     <li class="lang-container">
                         <button id="lang-toggle" class="lang-btn">ES</button> 
-                        <img src={translateIcon.src} alt="Translate" class="lang-icon" decoding="async" /> 
+                        <img src={translateIcon.src} alt="" width="30" height="30" class="lang-icon" decoding="async" aria-hidden="true" />
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <header class="hero">
+        <header class="hero" id="main">
             <div class="big-terminal-anim">
-                <div class="terminal-line" id="terminal-line-container">
+                <div class="terminal-line" id="terminal-line-container" translate="no">
                     <span class="prompt" id="prompt-symbol">~$</span>
                     <span class="command" id="typed-command"></span><span class="blinking-cursor" id="cursor">_</span>
                 </div>
@@ -86,7 +88,7 @@ import tomas from '../assets/tomas.jpeg';
                 <button id="resume-btn" class="btn-primary">
                     <!-- El data-i18n va directo al span -->
                     <span data-i18n="btn_view">CV</span>
-                    <img src={pdfIcon.src} alt="PDF" width="20" height="20" />
+                    <img src={pdfIcon.src} alt="" width="20" height="20" aria-hidden="true" />
                 </button>
                 
                 <a href="https://github.com/t-gorrinirech" target="_blank" class="text-link">GitHub</a>
@@ -104,7 +106,7 @@ import tomas from '../assets/tomas.jpeg';
                 I'm a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with <strong>CVSS 3.1</strong>), and I hunt bugs on <strong>HackerOne</strong> and <strong>YesWeHack</strong>. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is <strong>C1</strong> level, so I'm comfortable on international teams and I can write clear, detailed reports.
             </p>
 
-            <div class="stats-grid">
+            <div class="stats-grid" translate="no">
                 <div class="stat-card">
                     <div class="icon-box">
                         <img src={pythonIcon.src} alt="Python" width="100" height="100" decoding="async" />
@@ -158,12 +160,12 @@ import tomas from '../assets/tomas.jpeg';
                     <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
                     <div class="exp-card exp-doc-card">
                         <button class="doc-thumb" data-doc="/redacted_writeup.pdf" aria-label="Preview security audit report">
-                            <img src={reportThumb.src} alt="Security audit report preview" class="doc-thumb-img" loading="lazy" decoding="async" />
+                            <img src={reportThumb.src} alt="" width="140" height="140" class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
                         </button>
                         <div class="doc-actions">
                             <button class="btn-primary doc-btn" data-doc="/redacted_writeup.pdf">
                                 <span data-i18n="btn_preview">Preview</span>
-                                <img src={pdfIcon.src} alt="" width="18" height="18" />
+                                <img src={pdfIcon.src} alt="" width="18" height="18" aria-hidden="true" />
                             </button>
                             <a class="doc-btn doc-btn-outline" href="/redacted_writeup.pdf" download>
                                 <span data-i18n="btn_download">Download</span>
@@ -181,27 +183,27 @@ import tomas from '../assets/tomas.jpeg';
                             <p class="text-muted" data-i18n="exp_bugbounty_desc">Active bug bounty hunter under the handle <strong>tgxrech</strong> on:</p>
                             <ul class="exp-accounts">
                                 <li>
-                                    <img src={hackeroneIcon.src} alt="HackerOne" class="exp-account-icon" decoding="async" />
+                                    <img src={hackeroneIcon.src} alt="" width="42" height="42" class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
                                     <div class="exp-account-text">
-                                        <span class="exp-platform">HackerOne</span>
-                                        <a href="https://hackerone.com/tgxrech?type=user" target="_blank" class="underline-link">tgxrech</a>
+                                        <span class="exp-platform" translate="no">HackerOne</span>
+                                        <a href="https://hackerone.com/tgxrech?type=user" target="_blank" rel="noopener" class="underline-link" translate="no">tgxrech</a>
                                     </div>
                                 </li>
                                 <li>
-                                    <img src={yeswehackIcon.src} alt="YesWeHack" class="exp-account-icon" decoding="async" />
+                                    <img src={yeswehackIcon.src} alt="" width="42" height="42" class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
                                     <div class="exp-account-text">
-                                        <span class="exp-platform">YesWeHack</span>
-                                        <a href="https://yeswehack.com/hunters/tgxrech#latest-hacktivity" target="_blank" class="underline-link">tgxrech</a>
+                                        <span class="exp-platform" translate="no">YesWeHack</span>
+                                        <a href="https://yeswehack.com/hunters/tgxrech#latest-hacktivity" target="_blank" rel="noopener" class="underline-link" translate="no">tgxrech</a>
                                     </div>
                                 </li>
                             </ul>
 
                             <button class="doc-strip" data-doc="/openredirect_writeup.pdf" aria-label="Preview Open Redirect writeup">
                                 <span class="doc-strip-thumb">
-                                    <img src={writeupThumb.src} alt="" class="doc-thumb-img" loading="lazy" decoding="async" />
+                                    <img src={writeupThumb.src} alt="" width="96" height="72" class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
                                 </span>
                                 <span class="doc-strip-info">
-                                    <span class="doc-strip-title" data-i18n="bb_writeup_title">Open Redirect (CWE-601) Writeup</span>
+                                    <span class="doc-strip-title" data-i18n="bb_writeup_title" translate="no">Open Redirect (CWE-601) Writeup</span>
                                     <span class="doc-strip-hint" data-i18n="bb_writeup_hint">Click to preview</span>
                                 </span>
                             </button>
@@ -213,7 +215,7 @@ import tomas from '../assets/tomas.jpeg';
                         <div class="projects-list">
                             <div class="project-item project-item-empty">
                                 <div class="project-info">
-                                    <h4 data-i18n="proj_placeholder_title">Working on some stuff...</h4>
+                                    <h4 data-i18n="proj_placeholder_title">Working on some stuff…</h4>
                                     <p class="text-muted" data-i18n="proj_placeholder_desc">Scripts and tools are on the way. Check back soon.</p>
                                 </div>
                             </div>
@@ -287,7 +289,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_4_issuer" target="_blank">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={hack4uIcon.src} alt="Cambridge Logo" loading="lazy" decoding="async" />
+                        <img src={hack4uIcon.src} alt="Hack4u Logo" width="70" height="70" loading="lazy" decoding="async" />
                     </div>
                 </div>
                 <div class="cert-item">
@@ -297,7 +299,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://www.cambridgeenglish.org/exams-and-tests/qualifications/advanced/" class="underline-link" data-i18n="cert_1_issuer" target="_blank">Cambridge University</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={cambridgeIcon.src} alt="Cambridge Logo" loading="lazy" decoding="async" />
+                        <img src={cambridgeIcon.src} alt="Cambridge Logo" width="70" height="70" loading="lazy" decoding="async" />
                     </div>
                 </div>
 
@@ -308,7 +310,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_2_issuer" target="_blank">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={hack4uIcon.src} alt="Hack4u Logo" loading="lazy" decoding="async" />
+                        <img src={hack4uIcon.src} alt="Hack4u Logo" width="70" height="70" loading="lazy" decoding="async" />
                     </div>
                 </div>
 
@@ -316,10 +318,10 @@ import tomas from '../assets/tomas.jpeg';
                     <div class="cert-date">2025</div>
                     <div class="cert-details">
                         <h3 data-i18n="cert_3_title">The Git & GitHub Bootcamp</h3>
-                        <p class="text-muted"><a href="https://www.udemy.com" class="underline-link" https://www.udemy.com target="_blank">Udemy</a></p>
+                        <p class="text-muted"><a href="https://www.udemy.com" class="underline-link" target="_blank" rel="noopener">Udemy</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={udemyLogo.src} alt="Udemy Logo" loading="lazy" decoding="async" />
+                        <img src={udemyLogo.src} alt="Udemy Logo" width="70" height="70" loading="lazy" decoding="async" />
                     </div>
                 </div>
             </div>
@@ -365,6 +367,7 @@ import tomas from '../assets/tomas.jpeg';
         const translations = {
             en: {
                 nav_home: "HOME", nav_machines: "MACHINES", nav_experience: "EXPERIENCE", nav_contact: "CONTACT", nav_certifications: "CERTIFICATIONS",
+                skip_link: "Skip to content",
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 path_experience: "~/var/log/experience", title_experience: "Experience",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Active bug bounty hunter under the handle <strong>tgxrech</strong> on:",
@@ -372,7 +375,7 @@ import tomas from '../assets/tomas.jpeg';
                 btn_preview: "Preview", btn_download: "Download",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click to preview",
                 exp_projects: "Personal Projects",
-                proj_placeholder_title: "Working on some stuff...", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
+                proj_placeholder_title: "Working on some stuff…", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on <strong>Web Pentesting</strong> and <strong>Red Teaming</strong>. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with <strong>CVSS 3.1</strong>), and I hunt bugs on <strong>HackerOne</strong> and <strong>YesWeHack</strong>. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is <strong>C1</strong> level, so I\'m comfortable on international teams and I can write clear, detailed reports.',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
@@ -392,6 +395,7 @@ import tomas from '../assets/tomas.jpeg';
             },
             es: {
                 nav_home: "INICIO", nav_machines: "MÁQUINAS", nav_experience: "EXPERIENCIA", nav_contact: "CONTACTO", nav_certifications: "CERTIFICACIONES",
+                skip_link: "Saltar al contenido",
                 btn_view: "CV", path_whois: "~/quien-es/Tomás",
                 path_experience: "~/var/log/experiencia", title_experience: "Experiencia",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Cazador activo de bug bounty bajo el usuario <strong>tgxrech</strong> en:",
@@ -399,7 +403,7 @@ import tomas from '../assets/tomas.jpeg';
                 btn_preview: "Vista previa", btn_download: "Descargar",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click para previsualizar",
                 exp_projects: "Proyectos Personales",
-                proj_placeholder_title: "Trabajando en algunas cosas...", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
+                proj_placeholder_title: "Trabajando en algunas cosas…", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, enfocado en <strong>Web Pentesting</strong> y <strong>Red Teaming</strong>. Recientemente realicé una <strong>auditoría de seguridad</strong> completa para un cliente real de e-commerce (39 hallazgos, evaluados con <strong>CVSS 3.1</strong>), y hago bug bounty en <strong>HackerOne</strong> y <strong>YesWeHack</strong>. Practico constantemente en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, encadenando vulnerabilidades desde la enumeración hasta la explotación. Mi inglés es nivel <strong>C1</strong>, por lo que me manejo bien en equipos internacionales, pudiendo escribir informes claros y detallados.',
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
@@ -513,7 +517,7 @@ import tomas from '../assets/tomas.jpeg';
             return [((num >> 16) & 255) / 255, ((num >> 8) & 255) / 255, (num & 255) / 255];
         }
 
-        function initBackgroundGL() {
+        function initBackgroundGL(reduceMotion = false) {
             const container = document.getElementById('faulty-terminal-bg');
             if (!container) return;
 
@@ -571,7 +575,17 @@ import tomas from '../assets/tomas.jpeg';
             let rafId;
             let loadAnimationStart = 0;
             const timeOffset = Math.random() * 100;
-            
+
+            // Movimiento reducido: renderiza un solo frame estático y no arranca el loop.
+            if (reduceMotion) {
+                program.uniforms.uUsePageLoadAnimation.value = 0;
+                program.uniforms.uPageLoadProgress.value = 1;
+                program.uniforms.iTime.value = timeOffset;
+                renderer.render({ scene: mesh });
+                container.appendChild(gl.canvas);
+                return;
+            }
+
             // OPTIMIZACIÓN: No renderizar si el usuario cambia de pestaña
             let isTabVisible = true;
             document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
@@ -600,6 +614,10 @@ import tomas from '../assets/tomas.jpeg';
         // ==========================================
         document.addEventListener("DOMContentLoaded", () => {
             updateTexts();
+
+            // Respeta prefers-reduced-motion para las animaciones controladas por JS
+            // (el fondo WebGL, el tipeo de la terminal y el parpadeo del cursor).
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             document.getElementById('lang-toggle').addEventListener('click', () => {
                 currentLang = currentLang === 'en' ? 'es' : 'en';
                 localStorage.setItem('preferredLanguage', currentLang);
@@ -656,11 +674,13 @@ import tomas from '../assets/tomas.jpeg';
                 }
             }, { passive: true });   
             
-            initBackgroundGL();
+            initBackgroundGL(reduceMotion);
             document.getElementById("year").textContent = new Date().getFullYear();
 
             const navCursor = document.getElementById("nav-cursor");
-            setInterval(() => { navCursor.style.opacity = navCursor.style.opacity === "0" ? "1" : "0"; }, 600);
+            if (!reduceMotion) {
+                setInterval(() => { navCursor.style.opacity = navCursor.style.opacity === "0" ? "1" : "0"; }, 600);
+            }
 
             async function runTerminalAnimation() {
                 const commandEl = document.getElementById("typed-command");
@@ -689,7 +709,15 @@ import tomas from '../assets/tomas.jpeg';
                     await new Promise((r) => setTimeout(r, 4000));
                 }
             }
-            runTerminalAnimation();
+            if (reduceMotion) {
+                // Sin tipeo: mostramos el resultado final directamente.
+                document.getElementById("prompt-symbol").style.display = "none";
+                const staticCmd = document.getElementById("typed-command");
+                staticCmd.textContent = "Tomás Gorrini Rech";
+                staticCmd.classList.add("is-output");
+            } else {
+                runTerminalAnimation();
+            }
 
             const track = document.getElementById("machines-track");
             const btnPrev = document.getElementById("carousel-prev");
@@ -805,10 +833,14 @@ import tomas from '../assets/tomas.jpeg';
             const resumeFrame = document.getElementById('resume-frame');
 
             // Abre el modal con cualquier PDF (CV, informe profesional, writeup de bug bounty)
+            let lastFocusedBeforeModal = null;
             function openModal(pdfFile) {
+                lastFocusedBeforeModal = document.activeElement;
                 resumeFrame.src = pdfFile;
                 modalOverlay.classList.remove('hidden-modal');
                 document.body.style.overflow = 'hidden';
+                // Mueve el foco al modal (accesibilidad de teclado)
+                closeModalBtn.focus();
             }
 
             // En mobile los <iframe> de PDF no scrollean (los navegadores muestran solo la
@@ -826,6 +858,11 @@ import tomas from '../assets/tomas.jpeg';
                 // Oculta el modal y restaura el scroll
                 modalOverlay.classList.add('hidden-modal');
                 document.body.style.overflow = '';
+
+                // Devuelve el foco al elemento que abrió el modal
+                if (lastFocusedBeforeModal && lastFocusedBeforeModal.focus) {
+                    lastFocusedBeforeModal.focus();
+                }
 
                 // Limpia el iframe después de la transición (300ms) para que no quede cargado
                 setTimeout(() => {
@@ -869,7 +906,7 @@ import tomas from '../assets/tomas.jpeg';
     <div id="resume-modal" class="modal-overlay hidden-modal">
         <div class="modal-content">
             <button id="close-modal" class="close-btn">&times;</button>
-            <iframe id="resume-frame" src="" frameborder="0" title="Resume"></iframe>
+            <iframe id="resume-frame" src="" frameborder="0" title="Document preview"></iframe>
         </div>
     </div>
 </body>
