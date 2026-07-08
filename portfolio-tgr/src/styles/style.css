@@ -972,6 +972,170 @@ h1 {
     color: var(--cyan);
 }
 
+/* --- TARJETA DE DOCUMENTO (Trabajo Profesional): thumbnail + acciones + resumen --- */
+.exp-doc-card {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+/* Thumbnail cuadrado, borroso (teaser) */
+.doc-thumb {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    padding: 0;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #05050a;
+    position: relative;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.doc-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: blur(4px) brightness(0.85);
+    transform: scale(1.06);
+    /* evita bordes nítidos por el blur */
+    transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.doc-thumb::after {
+    /* icono de "abrir" superpuesto */
+    content: "⤢";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.doc-thumb:hover {
+    border-color: var(--cyan);
+}
+
+.doc-thumb:hover::after {
+    opacity: 1;
+}
+
+.doc-thumb:hover .doc-thumb-img {
+    filter: blur(2px) brightness(1);
+}
+
+/* Botones apilados: preview arriba, download abajo */
+.doc-actions {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.7rem;
+    min-width: 140px;
+}
+
+.doc-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+}
+
+.doc-btn-outline {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.doc-btn-outline:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    cursor: pointer;
+}
+
+.doc-summary {
+    flex: 1 1 0;
+    align-self: center;
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* --- TIRA DE DOCUMENTO (Bug Bounty writeup): thumbnail largo + título, clickeable --- */
+.doc-strip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    background: #05050a;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.doc-strip:hover {
+    border-color: var(--cyan);
+    transform: translateX(4px);
+    box-shadow: -5px 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.doc-strip-thumb {
+    flex-shrink: 0;
+    width: 96px;
+    height: 72px;
+    overflow: hidden;
+    border-right: 1px solid var(--card-border);
+}
+
+.doc-strip-thumb .doc-thumb-img {
+    filter: blur(3px) brightness(0.85);
+    transform: scale(1.1);
+}
+
+.doc-strip:hover .doc-strip-thumb .doc-thumb-img {
+    filter: blur(1.5px) brightness(1);
+}
+
+.doc-strip-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.5rem 1rem 0.5rem 0;
+    min-width: 0;
+}
+
+.doc-strip-title {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.doc-strip-hint {
+    font-size: 0.8rem;
+    color: var(--cyan);
+}
+
 /* Sección de Contacto */
 .contact-section {
     margin-bottom: 6rem;
@@ -1216,6 +1380,27 @@ html {
     .exp-card,
     .project-item {
         padding: 1.2rem 1.5rem;
+    }
+
+    /* La tarjeta de documento se apila: thumbnail + botones en fila, resumen debajo */
+    .exp-doc-card {
+        flex-wrap: wrap;
+        gap: 1.2rem;
+    }
+
+    .doc-thumb {
+        width: 110px;
+        height: 110px;
+    }
+
+    .doc-actions {
+        min-width: 0;
+        flex: 1 1 140px;
+    }
+
+    .doc-summary {
+        flex-basis: 100%;
+        align-self: flex-start;
     }
 
     .exp-accounts {

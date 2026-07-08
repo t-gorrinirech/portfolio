@@ -15,6 +15,8 @@ import caidoLogo from '../assets/caido-removebg-preview.png';
 import wireLogo from '../assets/wirelogo.svg.png';
 import hackeroneIcon from '../assets/hackeronelogo.png';
 import yeswehackIcon from '../assets/yeswehacklogo.png';
+import reportThumb from '../assets/thumb_report.jpg';
+import writeupThumb from '../assets/thumb_writeup.jpg';
 import tomas from '../assets/tomas.jpeg';
 
 
@@ -154,8 +156,20 @@ import tomas from '../assets/tomas.jpeg';
                 <!-- Arriba (ancho completo): Trabajo Profesional -->
                 <div class="exp-block exp-block-full">
                     <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
-                    <div class="exp-card exp-card-empty">
-                        <p class="text-muted" data-i18n="exp_professional_desc">// First professional pentest engagement with a real client — coming soon.</p>
+                    <div class="exp-card exp-doc-card">
+                        <button class="doc-thumb" data-doc="/redacted_writeup.pdf" aria-label="Preview security audit report">
+                            <img src={reportThumb.src} alt="Security audit report preview" class="doc-thumb-img" loading="lazy" decoding="async" />
+                        </button>
+                        <div class="doc-actions">
+                            <button class="btn-primary doc-btn" data-doc="/redacted_writeup.pdf">
+                                <span data-i18n="btn_preview">Preview</span>
+                                <img src={pdfIcon.src} alt="" width="18" height="18" />
+                            </button>
+                            <a class="doc-btn doc-btn-outline" href="/redacted_writeup.pdf" download>
+                                <span data-i18n="btn_download">Download</span>
+                            </a>
+                        </div>
+                        <p class="doc-summary text-muted" data-i18n="exp_professional_desc">Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.</p>
                     </div>
                 </div>
 
@@ -181,6 +195,16 @@ import tomas from '../assets/tomas.jpeg';
                                     </div>
                                 </li>
                             </ul>
+
+                            <button class="doc-strip" data-doc="/openredirect_writeup.pdf" aria-label="Preview Open Redirect writeup">
+                                <span class="doc-strip-thumb">
+                                    <img src={writeupThumb.src} alt="" class="doc-thumb-img" loading="lazy" decoding="async" />
+                                </span>
+                                <span class="doc-strip-info">
+                                    <span class="doc-strip-title" data-i18n="bb_writeup_title">Open Redirect (CWE-601) Writeup</span>
+                                    <span class="doc-strip-hint" data-i18n="bb_writeup_hint">Click to preview</span>
+                                </span>
+                            </button>
                         </div>
                     </div>
 
@@ -344,7 +368,9 @@ import tomas from '../assets/tomas.jpeg';
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 path_experience: "~/var/log/experience", title_experience: "Experience",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Active bug bounty hunter under the handle <strong>tgxrech</strong> on:",
-                exp_professional: "Professional Work", exp_professional_desc: "// First professional pentest engagement with a real client — coming soon.",
+                exp_professional: "Professional Work", exp_professional_desc: "Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.",
+                btn_preview: "Preview", btn_download: "Download",
+                bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click to preview",
                 exp_projects: "Personal Projects",
                 proj_placeholder_title: "Working on some stuff...", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
@@ -369,7 +395,9 @@ import tomas from '../assets/tomas.jpeg';
                 btn_view: "CV", path_whois: "~/quien-es/Tomás",
                 path_experience: "~/var/log/experiencia", title_experience: "Experiencia",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Cazador activo de bug bounty bajo el usuario <strong>tgxrech</strong> en:",
-                exp_professional: "Trabajo Profesional", exp_professional_desc: "// Primer trabajo profesional de pentest con un cliente real — próximamente.",
+                exp_professional: "Trabajo Profesional", exp_professional_desc: "Entregué un informe completo de auditoría de seguridad para un E-Commerce argentino, documentando 39 vulnerabilidades (13 Críticas, 8 Altas según CVSS 3.1), con análisis de causa raíz, evidencia técnica y medidas de remediación accionables para cada hallazgo.",
+                btn_preview: "Vista previa", btn_download: "Descargar",
+                bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click para previsualizar",
                 exp_projects: "Proyectos Personales",
                 proj_placeholder_title: "Trabajando en algunas cosas...", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
@@ -776,31 +804,36 @@ import tomas from '../assets/tomas.jpeg';
             const closeModalBtn = document.getElementById('close-modal');
             const resumeFrame = document.getElementById('resume-frame');
 
-            function openModal() {
-                // Asigna el PDF correcto según el idioma actual leyendo desde /public
-                const pdfFile = currentLang === 'en' ? '/cv_english.pdf' : '/cv_spanish.pdf';
+            // Abre el modal con cualquier PDF (CV, informe profesional, writeup de bug bounty)
+            function openModal(pdfFile) {
                 resumeFrame.src = pdfFile;
-                
-                // Muestra el modal y bloquea el scroll del fondo
                 modalOverlay.classList.remove('hidden-modal');
-                document.body.style.overflow = 'hidden'; 
+                document.body.style.overflow = 'hidden';
             }
 
             function closeModal() {
                 // Oculta el modal y restaura el scroll
                 modalOverlay.classList.add('hidden-modal');
-                document.body.style.overflow = ''; 
-                
+                document.body.style.overflow = '';
+
                 // Limpia el iframe después de la transición (300ms) para que no quede cargado
                 setTimeout(() => {
                     resumeFrame.src = '';
                 }, 300);
             }
 
-            // Eventos
+            // El CV depende del idioma actual y se lee desde /public
             resumeBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                openModal();
+                openModal(currentLang === 'en' ? '/cv_english.pdf' : '/cv_spanish.pdf');
+            });
+
+            // Cualquier elemento con data-doc="/archivo.pdf" abre ese PDF en el modal
+            document.querySelectorAll('[data-doc]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal(el.getAttribute('data-doc'));
+                });
             });
 
             closeModalBtn.addEventListener('click', closeModal);
