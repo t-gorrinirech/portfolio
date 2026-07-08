@@ -281,9 +281,11 @@ h3 {
 
 .terminal-path {
     font-family: var(--font-mono);
-    color: var(--cyan);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+    /* Eyebrow/kicker: pequeño y tenue, no compite con el H2 */
+    color: rgba(0, 229, 255, 0.65);
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
     word-wrap: break-word;
 }
 
@@ -740,6 +742,19 @@ h1 {
     overflow: hidden;
 }
 
+/* Scrim: mantiene el fondo como una textura sutil y asegura legibilidad del contenido.
+   Más transparente arriba (se ve el efecto en el hero), más oscuro al bajar. */
+.global-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(3, 3, 3, 0.15) 0%,
+            rgba(3, 3, 3, 0.55) 55%,
+            rgba(3, 3, 3, 0.8) 100%);
+    pointer-events: none;
+}
+
 .global-bg canvas {
     width: 100vw !important;
     height: 100vh !important;
@@ -841,6 +856,16 @@ h1 {
 /* --- EXPERIENCIA --- */
 .experience {
     margin-bottom: 6rem;
+}
+
+/* --- DIVISIÓN DE SECCIONES: hairline + ritmo consistente (estilo Geist) --- */
+.experience,
+.achievements,
+.certifications,
+.contact-section {
+    padding-top: 5rem;
+    border-top: 1px solid var(--card-border);
+    margin-bottom: 5rem;
 }
 
 /* Estructura distinta al resto: fila ancha arriba + dos columnas abajo */
@@ -1379,7 +1404,7 @@ html {
     }
 
     .terminal-path {
-        font-size: 1.2rem;
+        font-size: 0.8rem;
     }
 
     .subtitle {
