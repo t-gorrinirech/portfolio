@@ -642,6 +642,15 @@ import tomas from '../assets/tomas.jpeg';
                 });
             }
 
+            // --- Spotlight en las cards de Experiencia ---
+            document.querySelectorAll(".exp-card, .project-item").forEach((card) => {
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                    card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                });
+            });
+
             // --- Lógica del Menú Hamburguesa ---
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('nav-links');
