@@ -1494,6 +1494,10 @@ html {
         /* Salto de línea natural en los espacios */
         line-height: 1.3;
         overflow: visible;
+        /* Reservamos 2 líneas de alto (em, escala con el font-size actual) para que cuando
+           el texto pase de "whoami" a "Tomás Gorrini Rech" (más largo, puede ocupar 2 líneas)
+           el espacio ya esté listo y no empuje el resto de la página hacia abajo. */
+        min-height: 2.6em;
     }
 
     .blinking-cursor {
@@ -1663,6 +1667,10 @@ html {
         border-radius: 0;
         box-shadow: none;
         margin-bottom: 4rem;
+        /* El navegador dibuja un recuadro de "tap highlight" por defecto en cualquier
+           elemento que reciba toques; como manejamos el drag a mano, lo desactivamos. */
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
     }
 
     .stat-card {
@@ -1676,6 +1684,10 @@ html {
         transform-origin: top center;
         transition: background-color 0.3s ease;
         will-change: transform;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     .stat-card.is-active {

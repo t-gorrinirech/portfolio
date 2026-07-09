@@ -786,7 +786,10 @@ import tomas from '../assets/tomas.jpeg';
                 // una velocidad exagerada); promediar sobre una ventana reciente es mucho más estable.
                 let moveHistory = [];
                 const VELOCITY_WINDOW_MS = 80;
-                const MAX_VELOCITY = 26; // px/frame, evita que un pico ruidoso mande el carrusel a volar
+                const MAX_VELOCITY = 34; // px/frame, evita que un pico ruidoso mande el carrusel a volar
+                // El drag se amplifica un poco: así no hace falta arrastrar el dedo casi un
+                // ancho de card entero para pasar a la siguiente, se siente más sensible/liviano.
+                const DRAG_MULTIPLIER = 1.4;
 
                 function onPointerDown(e) {
                     if (!active) return;
@@ -824,7 +827,7 @@ import tomas from '../assets/tomas.jpeg';
                         moveHistory.shift();
                     }
 
-                    offset = startOffset - dx;
+                    offset = startOffset - dx * DRAG_MULTIPLIER;
                     render();
                 }
 
