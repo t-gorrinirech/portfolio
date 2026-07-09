@@ -829,6 +829,11 @@ h1 {
     text-align: center;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    /* Sin esto, Safari/iOS espera ~300ms antes de disparar el click, por si
+       el segundo toque de un doble-tap es para hacer zoom. "manipulation"
+       le avisa al navegador que este elemento no hace zoom, así el tap
+       responde al toque. */
+    touch-action: manipulation;
     transition: color 0.25s ease;
 }
 
@@ -966,25 +971,33 @@ h1 {
     background-color: #0f0f13;
 }
 
-/* Electric Border: réplica en canvas 2D del efecto de @BalintFerenczy
-   (ver el bloque setupCertElectricBorders en el script). El canvas dibuja
-   el contorno ruidoso/animado; estos divs son el glow estático detrás/encima. */
-.cert-eb-canvas-container {
+/* Electric Border (ver setupCertElectricBorders en el script). Misma técnica
+   de radial-gradient enmascarado que .stats-grid::before de arriba: el
+   border-radius nativo siempre queda perfecto en las esquinas, a diferencia
+   de trazar la línea a mano con ruido en un canvas (se veía "cuadrada"). */
+.cert-eb-background-glow {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    border-radius: inherit;
     pointer-events: none;
-    z-index: 2;
+    z-index: -1;
+    transform: scale(1.04);
+    filter: blur(20px);
     opacity: 0;
+    background: linear-gradient(-30deg, #7df9ff, transparent, #22d3ee);
     transition: opacity 0.25s ease;
 }
 
-.cert-eb-canvas {
-    display: block;
+/* El 0.1 es a propósito (ajustado a mano): el bloom de fondo tiene que ser
+   sutil, no tapar la card. El JS solo prende/apaga vía esta clase, nunca
+   pisa el opacity con un style inline. */
+.cert-eb-background-glow.is-visible {
+    opacity: 0.1;
 }
 
-.cert-eb-layers {
+/* Aro estático completo: solo en hover real de desktop (queda prendido
+   entero mientras dura el hover, sin animación). */
+.cert-eb-static-ring {
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -995,8 +1008,7 @@ h1 {
 }
 
 .cert-eb-glow-1,
-.cert-eb-glow-2,
-.cert-eb-background-glow {
+.cert-eb-glow-2 {
     position: absolute;
     inset: 0;
     border-radius: inherit;
@@ -1005,21 +1017,34 @@ h1 {
 }
 
 .cert-eb-glow-1 {
-    border: 2px solid rgba(125, 249, 255, 0.6);
+    border: 1.5px solid rgba(125, 249, 255, 0.6);
     filter: blur(1px);
 }
 
 .cert-eb-glow-2 {
-    border: 2px solid #7df9ff;
+    border: 1.5px solid #7df9ff;
     filter: blur(4px);
 }
 
-.cert-eb-background-glow {
-    z-index: -1;
-    transform: scale(1.04);
-    filter: blur(20px);
-    opacity: 0.1;
-    background: linear-gradient(-30deg, #7df9ff, transparent, #22d3ee);
+/* Punto de luz que viaja el perímetro (mobile, modo automático): un único
+   radial-gradient movido vía --eb-spot-x/--eb-spot-y (seteadas en JS por
+   frame), enmascarado para que solo se vea como un aro fino, no un círculo
+   relleno. Grosor bajo (1.5px) a propósito, más fino que el aro estático. */
+.cert-eb-spot {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: radial-gradient(80px circle at var(--eb-spot-x, 50%) var(--eb-spot-y, 0%), #7df9ff, transparent 70%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .cert-date {
