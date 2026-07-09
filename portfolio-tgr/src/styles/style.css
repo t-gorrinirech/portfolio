@@ -96,7 +96,11 @@ h3 {
     z-index: 1000;
     background-color: transparent;
     padding: 1.5rem 0;
-    transition: background-color 0.3s ease, padding 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        padding 0.3s ease,
+        border-color 0.3s ease,
+        backdrop-filter 0.3s ease;
     border-bottom: 1px solid transparent;
 }
 
@@ -132,7 +136,9 @@ h3 {
     font-family: var(--font-mono);
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 .lang-btn:hover {
@@ -201,7 +207,9 @@ h3 {
     display: flex;
     align-items: center;
     gap: 2rem;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    transition:
+        max-height 0.3s ease-in-out,
+        padding 0.3s ease-in-out;
 }
 
 .nav-links a {
@@ -233,7 +241,9 @@ h3 {
     height: 3px;
     background-color: var(--text-main);
     border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
 }
 
 /* Hero Section */
@@ -731,7 +741,10 @@ h1 {
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
 }
 
 .carousel-btn:hover {
@@ -776,6 +789,105 @@ h1 {
     text-align: center;
     padding: 3rem 0;
     width: 100%;
+}
+
+/* Paginación numerada del carrusel de máquinas: solo existe en mobile
+   (donde el carrusel se maneja arrastrando en vez de con flechas). Es una
+   "cadena" con TODOS los números; el viewport recorta a 5 y el track se
+   traslada para mostrar la ventana correcta (ver renderPagination en el JS). */
+.machines-pagination {
+    position: relative;
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Solo el viewport recorta (a 5 números); el círculo vive afuera de él a
+   propósito para que su glow/ping no se corte en ningún borde. */
+.machines-pagination-viewport {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.machines-pagination-track {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.machines-pagination-number {
+    position: relative;
+    z-index: 1;
+    width: 1.75rem;
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.25s ease;
+}
+
+.machines-pagination-number.active {
+    color: #04141a;
+    font-weight: 700;
+}
+
+/* Círculo de selección: hermano del viewport (no vive adentro), posicionado
+   a mano en JS con translateX. Así el glow/ping puede desbordar libre en
+   cualquier dirección — arriba, abajo y a los costados — sin que el
+   overflow:hidden que recorta los números se lo corte.
+   El diseño (gradiente + glow + anillo tipo "radar ping") busca leerse como
+   un panel interactivo que invita a deslizar, no solo un indicador plano. */
+.machines-pagination-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 28%,
+            #b8f2ff 0%,
+            var(--cyan) 50%,
+            #0891b2 100%);
+    box-shadow:
+        0 0 10px 1px rgba(98, 208, 234, 0.6),
+        inset 0 1px 2px rgba(255, 255, 255, 0.6),
+        inset 0 -3px 4px rgba(0, 40, 50, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.machines-pagination-circle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--cyan);
+    animation: machinesPaginationPing 2.4s ease-out infinite;
+}
+
+@keyframes machinesPaginationPing {
+    0% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .machines-pagination-circle::after {
+        animation: none;
+        display: none;
+    }
 }
 
 .hidden {
@@ -826,26 +938,88 @@ h1 {
 
 .cert-item {
     position: relative;
+    isolation: isolate;
     display: flex;
     align-items: center;
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-left: 4px solid #1a1a24;
     border-radius: 8px;
     padding: 1.5rem 2rem;
     transition:
         transform 0.2s ease,
-        border-left-color 0.2s ease,
-        box-shadow 0.2s ease,
         background-color 0.2s ease;
     will-change: transform;
 }
 
-.cert-item:hover {
-    transform: translateX(10px);
+@media (hover: hover) {
+    .cert-item:hover {
+        transform: translateX(10px);
+        background-color: #0f0f13;
+    }
+}
+
+/* Mobile: no hay hover real, así que el "hover" lo dispara solo el JS
+   (setupCertElectricBorders), saltando de card en card. Ahí no queremos el
+   translateX de mover hacia la derecha, sino que la card crezca un poco. */
+.cert-item.auto-hover {
+    transform: scale(1.035);
     background-color: #0f0f13;
-    border-left-color: var(--cyan);
-    box-shadow: -5px 0 15px rgba(0, 229, 255, 0.1);
+}
+
+/* Electric Border: réplica en canvas 2D del efecto de @BalintFerenczy
+   (ver el bloque setupCertElectricBorders en el script). El canvas dibuja
+   el contorno ruidoso/animado; estos divs son el glow estático detrás/encima. */
+.cert-eb-canvas-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.cert-eb-canvas {
+    display: block;
+}
+
+.cert-eb-layers {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.cert-eb-glow-1,
+.cert-eb-glow-2,
+.cert-eb-background-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.cert-eb-glow-1 {
+    border: 2px solid rgba(125, 249, 255, 0.6);
+    filter: blur(1px);
+}
+
+.cert-eb-glow-2 {
+    border: 2px solid #7df9ff;
+    filter: blur(4px);
+}
+
+.cert-eb-background-glow {
+    z-index: -1;
+    transform: scale(1.04);
+    filter: blur(20px);
+    opacity: 0.1;
+    background: linear-gradient(-30deg, #7df9ff, transparent, #22d3ee);
 }
 
 .cert-date {
@@ -895,7 +1069,18 @@ h1 {
         transform 0.3s ease;
 }
 
-.cert-item:hover .cert-logo img {
+@media (hover: hover) {
+    .cert-item:hover .cert-logo img {
+        opacity: 1;
+        filter: grayscale(0%);
+        transform: scale(1.1);
+    }
+}
+
+/* Mobile: la foto se enciende junto con el borde eléctrico automático, no
+   con el tap (los navegadores táctiles "pegan" el :hover al tocar, por eso
+   la regla de arriba está encerrada en @media (hover: hover) y no dispara acá). */
+.cert-item.auto-hover .cert-logo img {
     opacity: 1;
     filter: grayscale(0%);
     transform: scale(1.1);
@@ -975,10 +1160,12 @@ h1 {
 
 /* Overlay del spotlight (reemplaza el bordecito del hover) */
 .exp-card::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+            var(--spotlight-color),
+            transparent 80%);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -1002,7 +1189,7 @@ h1 {
 }
 
 /* El contenido queda por encima del glow */
-.exp-card > * {
+.exp-card>* {
     position: relative;
     z-index: 1;
 }
@@ -1090,10 +1277,12 @@ h1 {
 
 /* Overlay del spotlight (reemplaza el bordecito del hover) */
 .project-item::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+            var(--spotlight-color),
+            transparent 80%);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -1116,7 +1305,7 @@ h1 {
 }
 
 /* El contenido queda por encima del glow */
-.project-item > * {
+.project-item>* {
     position: relative;
     z-index: 1;
 }
@@ -1171,7 +1360,9 @@ h1 {
     cursor: pointer;
     background: #05050a;
     position: relative;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .doc-thumb-img {
@@ -1182,7 +1373,9 @@ h1 {
     filter: blur(4px) brightness(0.85);
     transform: scale(1.06);
     /* evita bordes nítidos por el blur */
-    transition: filter 0.25s ease, transform 0.25s ease;
+    transition:
+        filter 0.25s ease,
+        transform 0.25s ease;
 }
 
 .doc-thumb::after {
@@ -1240,7 +1433,9 @@ h1 {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .doc-btn-outline:hover {
@@ -1270,7 +1465,10 @@ h1 {
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .doc-strip:hover {
@@ -1446,7 +1644,9 @@ html {
         visibility: hidden;
         pointer-events: none;
         counter-reset: nav-item;
-        transition: opacity 0.35s ease, visibility 0.35s ease;
+        transition:
+            opacity 0.35s ease,
+            visibility 0.35s ease;
     }
 
     .nav-links.active {
@@ -1459,7 +1659,9 @@ html {
     .nav-links li {
         opacity: 0;
         transform: translateY(24px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease;
     }
 
     .nav-links.active li {
@@ -1467,11 +1669,25 @@ html {
         transform: translateY(0);
     }
 
-    .nav-links.active li:nth-child(1) { transition-delay: 0.08s; }
-    .nav-links.active li:nth-child(2) { transition-delay: 0.14s; }
-    .nav-links.active li:nth-child(3) { transition-delay: 0.20s; }
-    .nav-links.active li:nth-child(4) { transition-delay: 0.26s; }
-    .nav-links.active li:nth-child(5) { transition-delay: 0.32s; }
+    .nav-links.active li:nth-child(1) {
+        transition-delay: 0.08s;
+    }
+
+    .nav-links.active li:nth-child(2) {
+        transition-delay: 0.14s;
+    }
+
+    .nav-links.active li:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    .nav-links.active li:nth-child(4) {
+        transition-delay: 0.26s;
+    }
+
+    .nav-links.active li:nth-child(5) {
+        transition-delay: 0.32s;
+    }
 
     .nav-links a {
         display: flex;
@@ -1595,14 +1811,23 @@ html {
 
     .machine-card {
         flex: 0 0 100%;
+        cursor: grab;
     }
 
-    .carousel-btn.prev {
-        left: 0px;
+    .machine-card:active {
+        cursor: grabbing;
     }
 
+    /* En mobile el carrusel de máquinas se maneja arrastrando, no con flechas */
+    .carousel-btn.prev,
     .carousel-btn.next {
-        right: 0px;
+        display: none;
+    }
+
+    .machines-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.25rem;
     }
 
     .cert-item {
@@ -1742,7 +1967,9 @@ html {
         color: #000;
         box-shadow: 0 8px 24px rgba(0, 229, 255, 0.35);
         z-index: 900;
-        transition: opacity 0.25s ease, transform 0.25s ease;
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
     }
 
     .mail-fab:active {

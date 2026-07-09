@@ -68,5 +68,47 @@
             "SSH Tunneling"
         ],
         "link": "https://app.hackthebox.com/machines/CCTV"
+    },
+    {
+        "title": "CCTV",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "Time-Based Blind SQLI",
+            "CVE-2025-60787",
+            "Hash Cracking",
+            "SSH Tunneling"
+        ],
+        "link": "https://app.hackthebox.com/machines/CCTV"
+    },
+    {
+        "title": "CCTV",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "Time-Based Blind SQLI",
+            "CVE-2025-60787",
+            "Hash Cracking",
+            "SSH Tunneling"
+        ],
+        "link": "https://app.hackthebox.com/machines/CCTV"
+    },
+    {
+        "title": "CCTV",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "Linux",
+        "badges": [
+            "Linux",
+            "Time-Based Blind SQLI",
+            "CVE-2025-60787",
+            "Hash Cracking",
+            "SSH Tunneling"
+        ],
+        "link": "https://app.hackthebox.com/machines/CCTV"
     }
 ]

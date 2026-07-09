@@ -281,6 +281,13 @@ import tomas from '../assets/tomas.jpeg';
 
                 <button class="carousel-btn next" id="carousel-next" aria-label="Next machines">&gt;</button>
             </div>
+
+            <div class="machines-pagination" id="machines-pagination" aria-hidden="true">
+                <span class="machines-pagination-circle" id="machines-pagination-circle"></span>
+                <div class="machines-pagination-viewport" id="machines-pagination-viewport">
+                    <div class="machines-pagination-track" id="machines-pagination-track"></div>
+                </div>
+            </div>
         </section>
 
         <section class="certifications" id="certifications">
@@ -1004,6 +1011,7 @@ import tomas from '../assets/tomas.jpeg';
             const filterOS = document.getElementById("filter-os");
             const counterText = document.getElementById("machines-counter");
             const noResultsMsg = document.getElementById("no-results-msg");
+            const machinesPagination = document.getElementById("machines-pagination");
 
             let currentFilteredMachines = [...machinesData];
             let currentIndex = 0;
@@ -1072,6 +1080,93 @@ import tomas from '../assets/tomas.jpeg';
                 } else {
                     track.style.transform = `translateX(0px)`;
                 }
+                renderPagination();
+            }
+
+            // Paginación numerada (solo mobile): una "cadena" horizontal con TODOS los
+            // números (no solo los 5 visibles). El viewport recorta a 5 slots y el
+            // track se traslada para mostrar la ventana correcta. El círculo de
+            // selección es HERMANO del viewport (no vive adentro, así el overflow:hidden
+            // que recorta los números no le corta el glow/ping). Su posición se
+            // recalcula a mano en cada render como "dónde arranca el viewport +
+            // posición local dentro de la ventana visible", así que igual se mueve en
+            // sincro con la cadena: cuando la ventana avanza 1 slot y currentIndex
+            // también avanza 1, la posición local no cambia y el círculo queda
+            // VISUALMENTE quieto en el medio. Cerca del principio/final la ventana no
+            // se mueve (clampeada), así que ahí el círculo sí se desliza libremente
+            // entre números, como pediste.
+            const paginationViewport = document.getElementById("machines-pagination-viewport");
+            const paginationTrack = document.getElementById("machines-pagination-track");
+            const paginationCircle = document.getElementById("machines-pagination-circle");
+            const PAGINATION_TRANSITION = "transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)";
+            const PAGINATION_WINDOW = 5;
+            let paginationNumberSpans = [];
+
+            function goToMachine(index) {
+                if (index === currentIndex || !currentFilteredMachines.length) return;
+                currentIndex = Math.max(0, Math.min(index, currentFilteredMachines.length - 1));
+                track.style.transition = MACH_SETTLE_TRANSITION;
+                track.style.transform = `translateX(${-currentIndex * machCellWidth()}px)`;
+                btnPrev.disabled = currentIndex === 0;
+                btnNext.disabled = currentIndex >= Math.max(0, currentFilteredMachines.length - cardsPerView);
+                renderPagination();
+            }
+
+            function renderPagination() {
+                const total = currentFilteredMachines.length;
+                if (total === 0) {
+                    paginationTrack.querySelectorAll(".machines-pagination-number").forEach(el => el.remove());
+                    paginationNumberSpans = [];
+                    return;
+                }
+
+                // (Re)construye los números solo si cambió el total (cambio de filtro),
+                // no en cada movimiento: así los mismos <span> persisten y se puede
+                // animar el paso de uno a otro en vez de recrearlos.
+                if (paginationNumberSpans.length !== total) {
+                    paginationTrack.querySelectorAll(".machines-pagination-number").forEach(el => el.remove());
+                    paginationNumberSpans = [];
+                    for (let i = 0; i < total; i++) {
+                        const span = document.createElement("span");
+                        span.className = "machines-pagination-number";
+                        span.textContent = i + 1;
+                        span.dataset.index = i;
+                        span.addEventListener("click", () => {
+                            notifyUserInteraction();
+                            goToMachine(i);
+                        });
+                        paginationTrack.appendChild(span);
+                        paginationNumberSpans.push(span);
+                    }
+                }
+
+                paginationNumberSpans.forEach((span, i) => {
+                    span.classList.toggle("active", i === currentIndex);
+                });
+
+                const windowSize = Math.min(PAGINATION_WINDOW, total);
+                const half = Math.floor(windowSize / 2);
+                // Centrado siempre, salvo cerca del principio/final: ahí el clamp
+                // fija la ventana en 0 o en total-windowSize y el círculo se mueve
+                // libre dentro de esa ventana fija.
+                const start = Math.min(Math.max(currentIndex - half, 0), total - windowSize);
+
+                const firstNumber = paginationNumberSpans[0];
+                const gap = parseFloat(getComputedStyle(paginationTrack).gap) || 0;
+                const slotStep = firstNumber.offsetWidth + gap;
+
+                paginationViewport.style.width = `${windowSize * firstNumber.offsetWidth + (windowSize - 1) * gap}px`;
+                paginationTrack.style.transition = PAGINATION_TRANSITION;
+                paginationTrack.style.transform = `translateX(${-start * slotStep}px)`;
+
+                // El círculo vive AFUERA del viewport recortado (es hermano, no hijo),
+                // así el glow/ping puede desbordar libre en cualquier dirección sin que
+                // el overflow:hidden del viewport lo corte. Su posición se calcula a
+                // mano: dónde arranca el viewport (por el centrado) + qué tan a la
+                // derecha está la máquina activa dentro de la ventana visible actual.
+                const localSlot = currentIndex - start;
+                paginationCircle.style.transition = PAGINATION_TRANSITION;
+                paginationCircle.style.transform = `translateX(${paginationViewport.offsetLeft + localSlot * slotStep}px)`;
             }
 
             filterDiff.addEventListener("change", applyFilters);
@@ -1088,21 +1183,449 @@ import tomas from '../assets/tomas.jpeg';
                 }
             });
 
+            // --- Drag del carrusel de máquinas en mobile (1 card a la vez, sin flechas) ---
+            let machDragActive = false;
+            let machDragging = false;
+            let machAxisLocked = null;
+            let machPointerId = null;
+            let machStartX = 0;
+            let machStartY = 0;
+            let machBaseTranslate = 0;
+            let machLastX = 0;
+            let machMoveHistory = [];
+            const MACH_VELOCITY_WINDOW_MS = 80;
+            const MACH_SWIPE_RATIO = 0.18; // % del ancho de card para cambiar de máquina
+            const MACH_FLICK_VELOCITY = 0.5; // px/ms
+            // Ease suave sin overshoot: llegar a la card con un movimiento controlado,
+            // no un snap/imán brusco (mismo criterio que el carrusel de tecnologías).
+            const MACH_SETTLE_TRANSITION = "transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1)";
+
+            function machCellWidth() {
+                const cardWidth = track.children[0].getBoundingClientRect().width;
+                const gap = parseFloat(getComputedStyle(track).gap) || 0;
+                return cardWidth + gap;
+            }
+
+            function machOnPointerDown(e) {
+                if (!machDragActive || currentFilteredMachines.length === 0) return;
+                notifyUserInteraction();
+                machDragging = true;
+                machAxisLocked = null;
+                machPointerId = e.pointerId;
+                machStartX = machLastX = e.clientX;
+                machStartY = e.clientY;
+                machBaseTranslate = -currentIndex * machCellWidth();
+                machMoveHistory = [{ t: performance.now(), x: machStartX }];
+                track.style.transition = "none";
+            }
+
+            function machOnPointerMove(e) {
+                if (!machDragging || e.pointerId !== machPointerId) return;
+                const dx = e.clientX - machStartX;
+                const dy = e.clientY - machStartY;
+
+                if (machAxisLocked === null) {
+                    if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+                    machAxisLocked = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+                    if (machAxisLocked === "x") track.setPointerCapture(machPointerId);
+                }
+                if (machAxisLocked !== "x") return;
+
+                e.preventDefault();
+                const now = performance.now();
+                machLastX = e.clientX;
+                machMoveHistory.push({ t: now, x: e.clientX });
+                while (machMoveHistory.length > 1 && now - machMoveHistory[0].t > MACH_VELOCITY_WINDOW_MS) {
+                    machMoveHistory.shift();
+                }
+
+                const total = currentFilteredMachines.length;
+                const cellWidth = machCellWidth();
+                const minTranslate = -(total - 1) * cellWidth;
+                const maxTranslate = 0;
+                let next = machBaseTranslate + dx;
+                // Rubber-band: si arrastrás más allá de la primera/última máquina,
+                // la card cede pero con resistencia, no como una pared dura.
+                if (next > maxTranslate) next = maxTranslate + (next - maxTranslate) * 0.35;
+                if (next < minTranslate) next = minTranslate + (next - minTranslate) * 0.35;
+                track.style.transform = `translateX(${next}px)`;
+            }
+
+            function machOnPointerUp(e) {
+                if (!machDragging || e.pointerId !== machPointerId) return;
+                machDragging = false;
+                const wasAxisX = machAxisLocked === "x";
+                machAxisLocked = null;
+                track.style.transition = MACH_SETTLE_TRANSITION;
+
+                if (!wasAxisX) {
+                    track.style.transform = `translateX(${-currentIndex * machCellWidth()}px)`;
+                    return;
+                }
+
+                const total = currentFilteredMachines.length;
+                const cellWidth = machCellWidth();
+                const dx = machLastX - machStartX;
+                const oldest = machMoveHistory[0];
+                const newest = machMoveHistory[machMoveHistory.length - 1];
+                const dt = Math.max(newest.t - oldest.t, 1);
+                const velocity = (newest.x - oldest.x) / dt; // px/ms
+
+                const swipeThreshold = cellWidth * MACH_SWIPE_RATIO;
+                if ((dx < -swipeThreshold || velocity < -MACH_FLICK_VELOCITY) && currentIndex < total - 1) {
+                    currentIndex++;
+                } else if ((dx > swipeThreshold || velocity > MACH_FLICK_VELOCITY) && currentIndex > 0) {
+                    currentIndex--;
+                }
+
+                track.style.transform = `translateX(${-currentIndex * cellWidth}px)`;
+                btnPrev.disabled = currentIndex === 0;
+                btnNext.disabled = currentIndex >= Math.max(0, total - cardsPerView);
+                renderPagination();
+            }
+
+            function setupMachDrag() {
+                if (machDragActive) return;
+                machDragActive = true;
+                track.style.touchAction = "pan-y";
+                track.addEventListener("pointerdown", machOnPointerDown);
+                track.addEventListener("pointermove", machOnPointerMove);
+                track.addEventListener("pointerup", machOnPointerUp);
+                track.addEventListener("pointercancel", machOnPointerUp);
+                startAutoplay();
+            }
+
+            function teardownMachDrag() {
+                if (!machDragActive) return;
+                machDragActive = false;
+                track.style.touchAction = "";
+                track.style.transition = "";
+                track.removeEventListener("pointerdown", machOnPointerDown);
+                track.removeEventListener("pointermove", machOnPointerMove);
+                track.removeEventListener("pointerup", machOnPointerUp);
+                track.removeEventListener("pointercancel", machOnPointerUp);
+                stopAutoplayFully();
+            }
+
+            // --- Autoplay del carrusel de máquinas en mobile ---
+            // Avanza 1 máquina cada 10s. Cualquier interacción del usuario con las
+            // cards (arrastrar o tocar un número de la paginación) pausa el autoplay
+            // por 1 minuto completo; cada nueva interacción reinicia esa cuenta desde
+            // cero. Si pasa el minuto entero sin que toque nada, retoma el ciclo de 10s.
+            const AUTOPLAY_INTERVAL_MS = 10000;
+            const AUTOPLAY_PAUSE_MS = 60000;
+            let autoplayIntervalId = null;
+            let autoplayPauseTimeoutId = null;
+
+            function autoplayTick() {
+                const total = currentFilteredMachines.length;
+                if (total < 2) return;
+                goToMachine((currentIndex + 1) % total);
+            }
+
+            function startAutoplay() {
+                if (reduceMotion || autoplayIntervalId !== null) return;
+                autoplayIntervalId = setInterval(autoplayTick, AUTOPLAY_INTERVAL_MS);
+            }
+
+            function stopAutoplay() {
+                if (autoplayIntervalId !== null) {
+                    clearInterval(autoplayIntervalId);
+                    autoplayIntervalId = null;
+                }
+            }
+
+            function notifyUserInteraction() {
+                if (reduceMotion) return;
+                stopAutoplay();
+                if (autoplayPauseTimeoutId !== null) clearTimeout(autoplayPauseTimeoutId);
+                autoplayPauseTimeoutId = setTimeout(() => {
+                    autoplayPauseTimeoutId = null;
+                    startAutoplay();
+                }, AUTOPLAY_PAUSE_MS);
+            }
+
+            function stopAutoplayFully() {
+                stopAutoplay();
+                if (autoplayPauseTimeoutId !== null) {
+                    clearTimeout(autoplayPauseTimeoutId);
+                    autoplayPauseTimeoutId = null;
+                }
+            }
+
             // OPTIMIZACIÓN: Debounce resize para el carrusel
             let carruselResizeTimer;
             window.addEventListener("resize", () => {
                 clearTimeout(carruselResizeTimer);
                 carruselResizeTimer = setTimeout(() => {
                     if (getCardsPerView() !== cardsPerView) {
-                        currentIndex = 0; 
+                        currentIndex = 0;
                         updateCarousel();
                     }
+                    if (getCardsPerView() === 1) setupMachDrag();
+                    else teardownMachDrag();
                 }, 150);
             });
-            
-            renderMachines();
 
-        // ==========================================
+            renderMachines();
+            if (getCardsPerView() === 1) setupMachDrag();
+
+            // ==========================================
+            // ELECTRIC BORDER: hover de las certificaciones
+            // ==========================================
+            // Réplica en canvas 2D + vanilla JS de un efecto de borde "eléctrico"
+            // con ruido (inspirado en un componente React con canvas de
+            // @BalintFerenczy, https://codepen.io/BalintFerenczy/pen/KwdoyEN).
+            // No se puede usar el componente React/CSS original tal cual: este
+            // sitio no bundlea imports npm dentro del script is:inline (ver nota
+            // sobre `ogl` más arriba), así que la lógica de ruido y el loop de
+            // dibujo están portados a mano.
+            // En desktop (hover real) el efecto corre solo mientras el mouse está
+            // encima de la card. En mobile no hay hover, así que en vez de eso el
+            // efecto va saltando solo de certificado en certificado cada 2s, en
+            // loop infinito — y ahí, en vez del translateX(10px) del hover de
+            // mouse, la card se agranda un poquito (clase .auto-hover).
+            (function setupCertElectricBorders() {
+                const certItems = document.querySelectorAll('.cert-item');
+                if (!certItems.length) return;
+
+                const supportsHover = window.matchMedia('(hover: hover)').matches;
+                const perCard = [];
+
+                function randomHash(x) {
+                    const v = Math.sin(x * 12.9898) * 43758.5453;
+                    return v - Math.floor(v);
+                }
+
+                function noise2D(x, y) {
+                    const i = Math.floor(x);
+                    const j = Math.floor(y);
+                    const fx = x - i;
+                    const fy = y - j;
+                    const a = randomHash(i + j * 57);
+                    const b = randomHash(i + 1 + j * 57);
+                    const c = randomHash(i + (j + 1) * 57);
+                    const d = randomHash(i + 1 + (j + 1) * 57);
+                    const ux = fx * fx * (3 - 2 * fx);
+                    const uy = fy * fy * (3 - 2 * fy);
+                    return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy;
+                }
+
+                function octavedNoise(x, octaves, lacunarity, gain, baseAmplitude, baseFrequency, time, seed, baseFlatness) {
+                    let y = 0;
+                    let amplitude = baseAmplitude;
+                    let frequency = baseFrequency;
+                    for (let i = 0; i < octaves; i++) {
+                        let octaveAmplitude = amplitude;
+                        if (i === 0) octaveAmplitude *= baseFlatness;
+                        y += octaveAmplitude * noise2D(frequency * x + seed * 100, time * frequency * 0.3);
+                        frequency *= lacunarity;
+                        amplitude *= gain;
+                    }
+                    return y;
+                }
+
+                function getCornerPoint(cx, cy, radius, startAngle, arcLength, progress) {
+                    const angle = startAngle + progress * arcLength;
+                    return { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
+                }
+
+                function getRoundedRectPoint(t, left, top, width, height, radius) {
+                    const straightWidth = width - 2 * radius;
+                    const straightHeight = height - 2 * radius;
+                    const cornerArc = (Math.PI * radius) / 2;
+                    const totalPerimeter = 2 * straightWidth + 2 * straightHeight + 4 * cornerArc;
+                    const distance = t * totalPerimeter;
+                    let acc = 0;
+
+                    if (distance <= acc + straightWidth) {
+                        const p = (distance - acc) / straightWidth;
+                        return { x: left + radius + p * straightWidth, y: top };
+                    }
+                    acc += straightWidth;
+
+                    if (distance <= acc + cornerArc) {
+                        const p = (distance - acc) / cornerArc;
+                        return getCornerPoint(left + width - radius, top + radius, radius, -Math.PI / 2, Math.PI / 2, p);
+                    }
+                    acc += cornerArc;
+
+                    if (distance <= acc + straightHeight) {
+                        const p = (distance - acc) / straightHeight;
+                        return { x: left + width, y: top + radius + p * straightHeight };
+                    }
+                    acc += straightHeight;
+
+                    if (distance <= acc + cornerArc) {
+                        const p = (distance - acc) / cornerArc;
+                        return getCornerPoint(left + width - radius, top + height - radius, radius, 0, Math.PI / 2, p);
+                    }
+                    acc += cornerArc;
+
+                    if (distance <= acc + straightWidth) {
+                        const p = (distance - acc) / straightWidth;
+                        return { x: left + width - radius - p * straightWidth, y: top + height };
+                    }
+                    acc += straightWidth;
+
+                    if (distance <= acc + cornerArc) {
+                        const p = (distance - acc) / cornerArc;
+                        return getCornerPoint(left + radius, top + height - radius, radius, Math.PI / 2, Math.PI / 2, p);
+                    }
+                    acc += cornerArc;
+
+                    if (distance <= acc + straightHeight) {
+                        const p = (distance - acc) / straightHeight;
+                        return { x: left, y: top + height - radius - p * straightHeight };
+                    }
+                    acc += straightHeight;
+
+                    const p = (distance - acc) / cornerArc;
+                    return getCornerPoint(left + radius, top + radius, radius, Math.PI, Math.PI / 2, p);
+                }
+
+                const EB_COLOR = "#7df9ff";
+                const EB_SPEED = 0.8;
+                const EB_CHAOS = 0.03;
+                const EB_THICKNESS = 2;
+                const EB_BORDER_RADIUS = 8; // coincide con el border-radius del .cert-item
+                const EB_OCTAVES = 10;
+                const EB_LACUNARITY = 1.6;
+                const EB_GAIN = 0.7;
+                const EB_FREQUENCY = 10;
+                const EB_BASE_FLATNESS = 0;
+                // Escalados hacia abajo respecto al ejemplo original: nuestras cards
+                // son tiras horizontales angostas, no cajas grandes, así que un
+                // desplazamiento/offset de 60px se vería desproporcionado.
+                const EB_DISPLACEMENT = 10;
+                const EB_BORDER_OFFSET = 16;
+
+                certItems.forEach(item => {
+                    const canvasWrap = document.createElement("div");
+                    canvasWrap.className = "cert-eb-canvas-container";
+                    const canvas = document.createElement("canvas");
+                    canvas.className = "cert-eb-canvas";
+                    canvasWrap.appendChild(canvas);
+
+                    const layers = document.createElement("div");
+                    layers.className = "cert-eb-layers";
+                    layers.innerHTML = '<div class="cert-eb-glow-1"></div><div class="cert-eb-glow-2"></div><div class="cert-eb-background-glow"></div>';
+
+                    item.appendChild(layers);
+                    item.appendChild(canvasWrap);
+
+                    const ctx = canvas.getContext("2d");
+                    let width = 0;
+                    let height = 0;
+                    let rafId = null;
+                    let time = 0;
+                    let lastFrameTime = 0;
+                    let hovering = false;
+
+                    function updateSize() {
+                        const rect = item.getBoundingClientRect();
+                        width = rect.width + EB_BORDER_OFFSET * 2;
+                        height = rect.height + EB_BORDER_OFFSET * 2;
+                        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                        canvas.width = width * dpr;
+                        canvas.height = height * dpr;
+                        canvas.style.width = `${width}px`;
+                        canvas.style.height = `${height}px`;
+                    }
+
+                    function draw(currentTime) {
+                        if (!hovering) return;
+                        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                        const deltaTime = lastFrameTime ? (currentTime - lastFrameTime) / 1000 : 0;
+                        time += deltaTime * EB_SPEED;
+                        lastFrameTime = currentTime;
+
+                        ctx.setTransform(1, 0, 0, 1, 0, 0);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.scale(dpr, dpr);
+                        ctx.strokeStyle = EB_COLOR;
+                        ctx.lineWidth = EB_THICKNESS;
+                        ctx.lineCap = "round";
+                        ctx.lineJoin = "round";
+
+                        const left = EB_BORDER_OFFSET;
+                        const top = EB_BORDER_OFFSET;
+                        const borderWidth = width - EB_BORDER_OFFSET * 2;
+                        const borderHeight = height - EB_BORDER_OFFSET * 2;
+                        const maxRadius = Math.min(borderWidth, borderHeight) / 2;
+                        const radius = Math.min(EB_BORDER_RADIUS, maxRadius);
+
+                        const approxPerimeter = 2 * (borderWidth + borderHeight) + 2 * Math.PI * radius;
+                        const sampleCount = Math.max(8, Math.floor(approxPerimeter / 2));
+
+                        ctx.beginPath();
+                        for (let i = 0; i <= sampleCount; i++) {
+                            const progress = i / sampleCount;
+                            const point = getRoundedRectPoint(progress, left, top, borderWidth, borderHeight, radius);
+                            const xNoise = octavedNoise(progress * 8, EB_OCTAVES, EB_LACUNARITY, EB_GAIN, EB_CHAOS, EB_FREQUENCY, time, 0, EB_BASE_FLATNESS);
+                            const yNoise = octavedNoise(progress * 8, EB_OCTAVES, EB_LACUNARITY, EB_GAIN, EB_CHAOS, EB_FREQUENCY, time, 1, EB_BASE_FLATNESS);
+                            const dx = point.x + xNoise * EB_DISPLACEMENT;
+                            const dy = point.y + yNoise * EB_DISPLACEMENT;
+                            if (i === 0) ctx.moveTo(dx, dy);
+                            else ctx.lineTo(dx, dy);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+
+                        rafId = requestAnimationFrame(draw);
+                    }
+
+                    function start() {
+                        if (hovering) return;
+                        hovering = true;
+                        updateSize();
+                        lastFrameTime = 0;
+                        canvasWrap.style.opacity = "1";
+                        layers.style.opacity = "1";
+                        rafId = requestAnimationFrame(draw);
+                    }
+
+                    function stop() {
+                        hovering = false;
+                        canvasWrap.style.opacity = "0";
+                        layers.style.opacity = "0";
+                        if (rafId !== null) {
+                            cancelAnimationFrame(rafId);
+                            rafId = null;
+                        }
+                    }
+
+                    if (supportsHover) {
+                        item.addEventListener("mouseenter", start);
+                        item.addEventListener("mouseleave", stop);
+                    }
+                    perCard.push({ item, start, stop });
+
+                    const ro = new ResizeObserver(() => {
+                        if (hovering) updateSize();
+                    });
+                    ro.observe(item);
+                });
+
+                // Mobile/touch: no hay hover real, así que el efecto se dispara solo,
+                // saltando de card en card cada 2s en loop infinito.
+                if (!supportsHover && !reduceMotion && perCard.length) {
+                    let activeIdx = -1;
+                    function activateNext() {
+                        if (activeIdx >= 0) {
+                            perCard[activeIdx].item.classList.remove("auto-hover");
+                            perCard[activeIdx].stop();
+                        }
+                        activeIdx = (activeIdx + 1) % perCard.length;
+                        perCard[activeIdx].item.classList.add("auto-hover");
+                        perCard[activeIdx].start();
+                    }
+                    activateNext();
+                    setInterval(activateNext, 2000);
+                }
+            })();
+
+            // ==========================================
             // LÓGICA DEL MODAL DE CV
             // ==========================================
             const resumeBtn = document.getElementById('resume-btn');
