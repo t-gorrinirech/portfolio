@@ -472,12 +472,16 @@ h1 {
     box-shadow: none;
 }
 
-/* Efecto al pasar el mouse: iluminar la tarjeta y traerla al frente */
-.stat-card:hover {
-    background-color: #16161d;
-    z-index: 10;
-    /* Solo dejamos una sombra profunda para que parezca que la tarjeta se eleva, sin glow cyan acá */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+/* Efecto al pasar el mouse: iluminar la tarjeta y traerla al frente.
+   Solo en dispositivos que realmente tienen hover (mouse): en touch, ":hover" se
+   simula al tocar y se queda "pegado" hasta el próximo toque en otro lado. */
+@media (hover: hover) {
+    .stat-card:hover {
+        background-color: #16161d;
+        z-index: 10;
+        /* Solo dejamos una sombra profunda para que parezca que la tarjeta se eleva, sin glow cyan acá */
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+    }
 }
 
 /* LA CAJA CUADRADA INTERIOR (Iconos) */
@@ -493,9 +497,11 @@ h1 {
     transition: transform 0.3s ease;
 }
 
-/* Efecto hover: solo eleva el contenedor, SIN el borde cyan */
-.stat-card:hover .icon-box {
-    transform: translateY(-6px);
+/* Efecto hover: solo eleva el contenedor, SIN el borde cyan (solo con mouse) */
+@media (hover: hover) {
+    .stat-card:hover .icon-box {
+        transform: translateY(-6px);
+    }
 }
 
 /* Tamaño de las imágenes y transición para la sombra */
@@ -507,11 +513,13 @@ h1 {
     /* Transición suave para la sombra */
 }
 
-/* LA SOMBRITA EN LA IMAGEN AL HACER HOVER */
-.stat-card:hover .icon-box img {
-    /* Usamos drop-shadow en lugar de box-shadow para que la sombra siga 
-       la forma transparente del logo y no haga un cuadrado */
-    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.8));
+/* LA SOMBRITA EN LA IMAGEN AL HACER HOVER (solo con mouse) */
+@media (hover: hover) {
+    .stat-card:hover .icon-box img {
+        /* Usamos drop-shadow en lugar de box-shadow para que la sombra siga
+           la forma transparente del logo y no haga un cuadrado */
+        filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.8));
+    }
 }
 
 /* TEXTO CHIQUITO DENTRO DEL CUADRO GRIS */

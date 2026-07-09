@@ -696,7 +696,12 @@ import tomas from '../assets/tomas.jpeg';
                 function measure() {
                     if (!cards.length) return;
                     containerWidth = grid.clientWidth;
-                    cardWidth = cards[0].getBoundingClientRect().width;
+                    // offsetWidth = tamaño de layout (caja intrínseca), NO se ve afectado por
+                    // el "transform: scale()" que aplicamos en render(). getBoundingClientRect()
+                    // sí lo refleja, así que si mide justo cuando una card está achicada por la
+                    // animación, corrompe cellWidth/totalWidth para siempre (esa era la causa de
+                    // los saltos erráticos al re-medir en un resize).
+                    cardWidth = cards[0].offsetWidth;
                     cellWidth = cardWidth + GAP;
                     totalWidth = cellWidth * cardCount;
                     const tallest = Math.max(...cards.map((c) => c.offsetHeight));
@@ -714,8 +719,11 @@ import tomas from '../assets/tomas.jpeg';
                         if (pos > totalWidth / 2) pos -= totalWidth;
 
                         const distRatio = Math.min(Math.abs(pos) / cellWidth, 1);
-                        const scale = 1 - distRatio * 0.22;
-                        const opacity = 1 - distRatio * 0.65;
+                        const scale = 1 - distRatio * 0.16;
+                        // El fondo de la card (#0e0e11) es casi igual al fondo de la página (#030303):
+                        // si bajamos demasiado la opacidad, la caja directamente desaparece y solo
+                        // queda flotando el texto. Con un piso de ~0.75 sigue leyéndose la caja.
+                        const opacity = 1 - distRatio * 0.25;
                         const left = containerWidth / 2 - cardWidth / 2 + pos;
 
                         card.style.transform = `translateX(${left}px) scale(${scale})`;
@@ -745,7 +753,7 @@ import tomas from '../assets/tomas.jpeg';
                 function tick() {
                     if (phase === "momentum") {
                         offset += velocity;
-                        velocity *= 0.94;
+                        velocity *= 0.82;
                         render();
                         if (Math.abs(velocity) < 0.5) {
                             phase = "snap";
@@ -760,7 +768,7 @@ import tomas from '../assets/tomas.jpeg';
                             stopLoop();
                             return;
                         }
-                        offset += diff * 0.22;
+                        offset += diff * 0.3;
                         render();
                         rafId = requestAnimationFrame(tick);
                     }
@@ -773,6 +781,13 @@ import tomas from '../assets/tomas.jpeg';
                     }
                 }
 
+                // Historial corto de {tiempo, x} para estimar la velocidad de soltada.
+                // Usar solo el último delta puntual es ruidoso (un solo salto grande dispara
+                // una velocidad exagerada); promediar sobre una ventana reciente es mucho más estable.
+                let moveHistory = [];
+                const VELOCITY_WINDOW_MS = 80;
+                const MAX_VELOCITY = 26; // px/frame, evita que un pico ruidoso mande el carrusel a volar
+
                 function onPointerDown(e) {
                     if (!active) return;
                     dragging = true;
@@ -783,6 +798,7 @@ import tomas from '../assets/tomas.jpeg';
                     startOffset = offset;
                     lastT = performance.now();
                     velocity = 0;
+                    moveHistory = [{ t: lastT, x: startX }];
                     stopLoop();
                 }
 
@@ -800,10 +816,13 @@ import tomas from '../assets/tomas.jpeg';
 
                     e.preventDefault();
                     const now = performance.now();
-                    const dt = Math.max(now - lastT, 1);
-                    velocity = ((e.clientX - lastX) / dt) * -16; // px/frame aprox (16ms), signo invertido = drag natural
                     lastX = e.clientX;
                     lastT = now;
+                    moveHistory.push({ t: now, x: e.clientX });
+                    // Solo necesitamos la ventana reciente para estimar velocidad al soltar
+                    while (moveHistory.length > 1 && now - moveHistory[0].t > VELOCITY_WINDOW_MS) {
+                        moveHistory.shift();
+                    }
 
                     offset = startOffset - dx;
                     render();
@@ -813,6 +832,11 @@ import tomas from '../assets/tomas.jpeg';
                     if (!dragging || e.pointerId !== pointerId) return;
                     dragging = false;
                     if (dragAxisLocked === "x") {
+                        const oldest = moveHistory[0];
+                        const newest = moveHistory[moveHistory.length - 1];
+                        const dt = Math.max(newest.t - oldest.t, 1);
+                        let v = ((newest.x - oldest.x) / dt) * -16;
+                        velocity = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, v));
                         startLoop("momentum");
                     }
                     dragAxisLocked = null;
