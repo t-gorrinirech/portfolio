@@ -32,6 +32,11 @@ body {
     overflow-x: hidden;
 }
 
+/* Bloquea el scroll del body mientras el menú mobile a pantalla completa está abierto */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Evita el delay de doble-tap y controla el highlight en mobile */
 a,
 button,
@@ -128,7 +133,6 @@ h3 {
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: -1rem;
 }
 
 .lang-btn:hover {
@@ -140,7 +144,6 @@ h3 {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-left: 1rem;
 }
 
 .lang-icon {
@@ -148,7 +151,29 @@ h3 {
     height: auto;
 }
 
+/* Agrupa nav-links + controles a la derecha de la navbar (logo queda solo a la izquierda) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Agrupa el selector de idioma y el hamburger, siempre visibles a la derecha de la navbar */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 1002;
+}
+
 .logo {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
     font-weight: 700;
     font-size: 1.2rem;
     display: flex;
@@ -227,6 +252,11 @@ h3 {
     flex-direction: column;
     justify-content: flex-start;
     padding-top: 10vh;
+    /* Es solo un efecto visual, no debe poder seleccionarse como texto */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .terminal-line {
@@ -310,6 +340,11 @@ h1 {
     font-size: 1.25rem;
     max-width: 800px;
     margin-bottom: 2.5rem;
+}
+
+/* Versión condensada del subtitle: solo se muestra en mobile (ver media query) */
+.subtitle-mobile {
+    display: none;
 }
 
 .underline-link {
@@ -1026,9 +1061,7 @@ h1 {
     --mouse-x: 50%;
     --mouse-y: 50%;
     --spotlight-color: rgba(0, 229, 255, 0.12);
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 /* Overlay del spotlight (reemplaza el bordecito del hover) */
@@ -1055,7 +1088,6 @@ h1 {
 }
 
 .project-item:hover {
-    transform: translateX(10px);
     background-color: #0f0f13;
 }
 
@@ -1279,23 +1311,6 @@ h1 {
     gap: 2rem;
 }
 
-/* Footer */
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
-    border-top: 1px solid var(--card-border);
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
 /* Scroll suave para la navegación */
 html {
     scroll-behavior: smooth;
@@ -1317,6 +1332,13 @@ html {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* ========================================================================== */
+/* FAB DE CONTACTO (mail flotante, mobile)                                    */
+/* ========================================================================== */
+.mail-fab {
+    display: none;
 }
 
 /* ========================================================================== */
@@ -1365,40 +1387,76 @@ html {
         display: flex;
     }
 
-    /* Menú Desplegable tipo Dropdown */
+    /* Menú a pantalla completa, con entrada escalonada estilo "staggered menu" */
     .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        background-color: rgba(3, 3, 3, 0.95);
-        backdrop-filter: blur(15px);
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100dvh;
+        margin: 0;
+        z-index: 999;
+        background-color: rgba(3, 3, 3, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 2rem;
+        gap: 2.5rem;
         padding: 0;
-        border-bottom: 0px solid transparent;
-        transition:
-            max-height 0.4s ease,
-            padding 0.4s ease,
-            border-bottom 0.4s ease;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        counter-reset: nav-item;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
     .nav-links.active {
-        max-height: 400px;
-        padding: 2rem 0;
-        border-bottom: 1px solid var(--card-border);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
     }
+
+    /* Cada item entra con un pequeño desfasaje (stagger) al abrir el menú */
+    .nav-links li {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.08s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.14s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.20s; }
+    .nav-links.active li:nth-child(4) { transition-delay: 0.26s; }
+    .nav-links.active li:nth-child(5) { transition-delay: 0.32s; }
 
     .nav-links a {
-        font-size: 1.2rem;
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        font-size: clamp(1.6rem, 7vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: 1px;
     }
 
-    .lang-container {
-        margin-left: 0;
+    /* Numeración estilo terminal delante de cada sección (01, 02, ...) */
+    .nav-links a::before {
+        counter-increment: nav-item;
+        content: counter(nav-item, decimal-leading-zero);
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--cyan);
+        opacity: 0.7;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+        color: var(--cyan);
     }
 
     .hamburger.active span:nth-child(1) {
@@ -1454,8 +1512,35 @@ html {
         font-size: 0.8rem;
     }
 
+    /* En mobile reemplazamos el párrafo largo por bullets cortos para aliviar la carga visual */
     .subtitle {
-        font-size: 1.1rem;
+        display: none;
+    }
+
+    .subtitle-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        list-style: none;
+        max-width: 100%;
+        margin: 0 0 2.5rem;
+        padding: 0;
+    }
+
+    .subtitle-mobile li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        color: var(--text-muted);
+        font-size: 0.98rem;
+        line-height: 1.4;
+    }
+
+    .subtitle-mobile .bullet-mark {
+        color: var(--cyan);
+        font-family: var(--font-mono);
+        font-weight: 700;
+        flex-shrink: 0;
     }
 
     .filters-container {
@@ -1558,10 +1643,70 @@ html {
         gap: 1rem;
     }
 
-    footer {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+    /* Carrusel infinito de tecnologías: posición manejada 100% por JS (sin scroll nativo).
+       Las cards son absolute + top:0 para todas por igual, así ninguna puede sobresalir
+       hacia arriba (ni siquiera la del medio), sea cual sea su escala. */
+    .stats-grid {
+        position: relative;
+        display: block;
+        grid-template-columns: none;
+        overflow: hidden;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 4rem;
+    }
+
+    .stat-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 64%;
+        border-radius: 16px;
+        box-shadow: none;
+        /* El origen queda arriba: al escalar, ninguna card (ni la activa) sobresale por encima de las demás */
+        transform-origin: top center;
+        transition: background-color 0.3s ease;
+        will-change: transform;
+    }
+
+    .stat-card.is-active {
+        background-color: #16161d;
+    }
+
+    /* Anulamos las sombras diagonales heredadas del breakpoint de tablet */
+    .stat-card:first-child,
+    .stat-card:nth-child(3n + 1),
+    .stat-card:hover {
+        box-shadow: none;
+    }
+
+    /* FAB de mail: siempre visible en mobile, salvo con el menú abierto */
+    .mail-fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        right: 1.25rem;
+        bottom: 1.25rem;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background-color: var(--cyan);
+        color: #000;
+        box-shadow: 0 8px 24px rgba(0, 229, 255, 0.35);
+        z-index: 900;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .mail-fab:active {
+        transform: scale(0.94);
+    }
+
+    body.menu-open .mail-fab {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8);
     }
 }
 
@@ -1579,30 +1724,8 @@ html {
         font-size: 2.2rem;
     }
 
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* 2x2x2 */
-    }
-
     .stat-card {
         padding: 2.5rem 0.5rem;
-        /* Sombra diagonal (izquierda y arriba) */
-        box-shadow: -15px -15px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Reseteamos la regla que venía de tablet */
-    .stat-card:nth-child(3n + 1) {
-        box-shadow: -15px -15px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Aplicamos la nueva regla para 2 columnas: los impares no tienen sombra izquierda */
-    .stat-card:nth-child(2n + 1) {
-        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
-        /* Solo arriba */
-    }
-
-    .stat-card:first-child {
-        box-shadow: none;
     }
 
     /* Achicamos la caja cuadrada en celular para que haya buen aire */

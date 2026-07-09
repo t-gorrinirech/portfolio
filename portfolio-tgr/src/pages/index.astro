@@ -51,27 +51,32 @@ import tomas from '../assets/tomas.jpeg';
     <div class="container">
         <nav class="navbar" id="navbar">
             <div class="nav-content">
-                <div class="logo" translate="no">
+                <button class="logo" id="logo-home" type="button" translate="no" aria-label="Scroll to top">
                     <span class="dot"></span>
                     Tomás <span class="cursor" id="nav-cursor">_</span>
-                </div>
-                
-                <button class="hamburger" id="hamburger" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
                 </button>
 
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="#" data-i18n="nav_home">HOME</a></li>
-                    <li><a href="#experience" data-i18n="nav_experience">EXPERIENCE</a></li>
-                    <li><a href="#certifications" data-i18n="nav_certifications">CERTIFICATIONS</a></li>
-                    <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
-                    <li class="lang-container">
-                        <button id="lang-toggle" class="lang-btn">ES</button> 
-                        <img src={translateIcon.src} alt="" width="30" height="30" class="lang-icon" decoding="async" aria-hidden="true" />
-                    </li>
-                </ul>
+                <div class="nav-right">
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="#" data-i18n="nav_home">HOME</a></li>
+                        <li><a href="#experience" data-i18n="nav_experience">EXPERIENCE</a></li>
+                        <li><a href="#certifications" data-i18n="nav_certifications">CERTIFICATIONS</a></li>
+                        <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
+                    </ul>
+
+                    <div class="nav-controls">
+                        <div class="lang-container">
+                            <button id="lang-toggle" class="lang-btn">ES</button>
+                            <img src={translateIcon.src} alt="" width="30" height="30" class="lang-icon" decoding="async" aria-hidden="true" />
+                        </div>
+
+                        <button class="hamburger" id="hamburger" aria-label="Menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -105,6 +110,8 @@ import tomas from '../assets/tomas.jpeg';
             <p class="subtitle" data-i18n="hero_subtitle">
                 I'm a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I'm comfortable on international teams and I can write clear, detailed reports.
             </p>
+
+            <ul class="subtitle-mobile" data-i18n="hero_subtitle_bullets" translate="no"></ul>
 
             <div class="stats-grid" translate="no">
                 <div class="stat-card">
@@ -342,16 +349,14 @@ import tomas from '../assets/tomas.jpeg';
                 </div>
             </div>
         </section>
-
-        <footer>
-            <p class="copyright">
-                &copy; <span id="year"></span><span data-i18n="footer_dev"> Tomás G. Rech - Developed with Astro</span>
-            </p>
-            <div class="status">
-                <span class="dot cyan"></span> <span data-i18n="footer_status">Status: Updated via GitHub</span>
-            </div>
-        </footer>
     </div>
+
+    <a href="mailto:tgorrinirech@gmail.com" class="mail-fab" id="mail-fab" aria-label="Send an email">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 6-10 7L2 6"></path>
+        </svg>
+    </a>
 
     <!-- Machines data injected server-side, read by the inline script below (keeps the
          script `is:inline` so no processed-script dev URL is generated). -->
@@ -378,6 +383,7 @@ import tomas from '../assets/tomas.jpeg';
                 proj_placeholder_title: "Working on some stuff…", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I\'m comfortable on international teams and I can write clear, detailed reports.',
+                hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> 4th-year IT student at UADE, focused on Web Pentesting &amp; Red Teaming</li><li><span class="bullet-mark">&gt;</span> Currently delivering real security audits on web platforms</li><li><span class="bullet-mark">&gt;</span> Active bug bounty hunter on HackerOne &amp; YesWeHack. Constant practice on HackTheBox</li><li><span class="bullet-mark">&gt;</span> C1 level of English, resulting in clear technical reports</li>',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
                 title_machines: "Machines Completed", filter_diff: "Difficulty:", filter_os: "Operating System:",
                 opt_all: "All", opt_all_os: "All", opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", opt_insane: "Insane", opt_other: "Other",
@@ -390,7 +396,6 @@ import tomas from '../assets/tomas.jpeg';
                 cert_ongoing_date: "ONGOING",
                 path_contact: "~/network/connections", title_contact: "Get in Touch",
                 desc_contact: "I'm always open to discussing new projects or opportunities.",
-                footer_dev: " Tomás G. Rech - Developed with Astro", footer_status: "Status: Updated via GitHub",
                 card_btn: "View Details &rarr;", count_text: "Total: {count} machines"
             },
             es: {
@@ -406,6 +411,7 @@ import tomas from '../assets/tomas.jpeg';
                 proj_placeholder_title: "Trabajando en algunas cosas…", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, enfocado en Web Pentesting y Red Teaming. Recientemente realicé una <strong>auditoría de seguridad</strong> completa para un cliente real de e-commerce (39 hallazgos, evaluados con CVSS 3.1), y hago bug bounty en HackerOne y YesWeHack. Practico constantemente en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, encadenando vulnerabilidades desde la enumeración hasta la explotación. Mi inglés es nivel C1, por lo que me manejo bien en equipos internacionales, pudiendo escribir informes claros y detallados.',
+                hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> Estudiante de 4to año de IT en la UADE, enfocado en Web Pentesting y Red Teaming</li><li><span class="bullet-mark">&gt;</span> Actualmente realizando auditorías de seguridad reales en plataformas web</li><li><span class="bullet-mark">&gt;</span> Cazador de bugs activo en HackerOne y YesWeHack. Práctica constante en HackTheBox</li><li><span class="bullet-mark">&gt;</span> Nivel de inglés C1, lo que resulta en informes técnicos claros</li>',
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
                 title_machines: "Máquinas Completadas", filter_diff: "Dificultad:", filter_os: "Sistema Operativo:",
                 opt_all: "Todas", opt_all_os: "Todos", opt_easy: "Fácil", opt_medium: "Medio", opt_hard: "Difícil", opt_insane: "Insane", opt_other: "Otro",
@@ -418,7 +424,6 @@ import tomas from '../assets/tomas.jpeg';
                 cert_ongoing_date: "EN CURSO",
                 path_contact: "~/red/conexiones", title_contact: "Contáctame",
                 desc_contact: "Siempre estoy abierto a tener una conversación acerca de  nuevos proyectos u oportunidades.",
-                footer_dev: " Tomás G. Rech - Desarrollado con Astro", footer_status: "Estado: Actualizado vía GitHub",
                 card_btn: "Ver Detalles &rarr;", count_text: "Total: {count} máquinas"
             }
         };
@@ -651,23 +656,253 @@ import tomas from '../assets/tomas.jpeg';
                 });
             });
 
+            // --- Carrusel infinito de tecnologías en mobile ---
+            // Inspirado en el modelo de CircularGallery (React Bits): la posición es un
+            // número virtual (offset) manejado 100% en JS, y cada card se ubica con
+            // aritmética modular (position mod total width). No usamos scroll nativo del
+            // navegador en ningún momento, así que no hay inercia del sistema peleando
+            // contra nuestras correcciones (esa pelea era la causa de los saltos raros).
+            if (grid) {
+                const cards = Array.from(grid.querySelectorAll(".stat-card"));
+                const cardCount = cards.length;
+                const mobileQuery = window.matchMedia("(max-width: 768px)");
+                const GAP = 16; // 1rem
+
+                let active = false;
+                let containerWidth = 0;
+                let cardWidth = 0;
+                let cellWidth = 0; // cardWidth + GAP
+                let totalWidth = 0; // cellWidth * cardCount (período del wrap)
+                let offset = 0; // posición virtual, en px (crece/decrece sin límite)
+                let activeEl = null;
+
+                // Interacción (drag)
+                let dragging = false;
+                let dragAxisLocked = null; // 'x' | 'y' | null, para no robarle el scroll vertical a la página
+                let pointerId = null;
+                let startX = 0;
+                let startY = 0;
+                let startOffset = 0;
+                let lastX = 0;
+                let lastT = 0;
+                let velocity = 0; // px/frame
+
+                // Loop de animación (inercia + snap): solo corre mientras hace falta,
+                // no continuamente, para no gastar batería/CPU en reposo.
+                let rafId = null;
+                let phase = null; // 'momentum' | 'snap' | null
+                let snapTarget = 0;
+
+                function measure() {
+                    if (!cards.length) return;
+                    containerWidth = grid.clientWidth;
+                    cardWidth = cards[0].getBoundingClientRect().width;
+                    cellWidth = cardWidth + GAP;
+                    totalWidth = cellWidth * cardCount;
+                    const tallest = Math.max(...cards.map((c) => c.offsetHeight));
+                    grid.style.height = tallest + "px";
+                }
+
+                function render() {
+                    if (!cellWidth) return;
+                    let closest = null;
+                    let closestAbsPos = Infinity;
+
+                    cards.forEach((card, i) => {
+                        let pos = (i * cellWidth - offset) % totalWidth;
+                        if (pos < -totalWidth / 2) pos += totalWidth;
+                        if (pos > totalWidth / 2) pos -= totalWidth;
+
+                        const distRatio = Math.min(Math.abs(pos) / cellWidth, 1);
+                        const scale = 1 - distRatio * 0.22;
+                        const opacity = 1 - distRatio * 0.65;
+                        const left = containerWidth / 2 - cardWidth / 2 + pos;
+
+                        card.style.transform = `translateX(${left}px) scale(${scale})`;
+                        card.style.opacity = opacity;
+
+                        if (Math.abs(pos) < closestAbsPos) {
+                            closestAbsPos = Math.abs(pos);
+                            closest = card;
+                        }
+                    });
+
+                    if (closest !== activeEl) {
+                        if (activeEl) activeEl.classList.remove("is-active");
+                        closest.classList.add("is-active");
+                        activeEl = closest;
+                    }
+                }
+
+                function stopLoop() {
+                    if (rafId !== null) {
+                        cancelAnimationFrame(rafId);
+                        rafId = null;
+                    }
+                    phase = null;
+                }
+
+                function tick() {
+                    if (phase === "momentum") {
+                        offset += velocity;
+                        velocity *= 0.94;
+                        render();
+                        if (Math.abs(velocity) < 0.5) {
+                            phase = "snap";
+                            snapTarget = Math.round(offset / cellWidth) * cellWidth;
+                        }
+                        rafId = requestAnimationFrame(tick);
+                    } else if (phase === "snap") {
+                        const diff = snapTarget - offset;
+                        if (Math.abs(diff) < 0.4) {
+                            offset = snapTarget;
+                            render();
+                            stopLoop();
+                            return;
+                        }
+                        offset += diff * 0.22;
+                        render();
+                        rafId = requestAnimationFrame(tick);
+                    }
+                }
+
+                function startLoop(initialPhase) {
+                    phase = initialPhase;
+                    if (rafId === null) {
+                        rafId = requestAnimationFrame(tick);
+                    }
+                }
+
+                function onPointerDown(e) {
+                    if (!active) return;
+                    dragging = true;
+                    dragAxisLocked = null;
+                    pointerId = e.pointerId;
+                    startX = lastX = e.clientX;
+                    startY = e.clientY;
+                    startOffset = offset;
+                    lastT = performance.now();
+                    velocity = 0;
+                    stopLoop();
+                }
+
+                function onPointerMove(e) {
+                    if (!dragging || e.pointerId !== pointerId) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+
+                    if (dragAxisLocked === null) {
+                        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; // todavía no sabemos la intención
+                        dragAxisLocked = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+                        if (dragAxisLocked === "x") grid.setPointerCapture(pointerId);
+                    }
+                    if (dragAxisLocked !== "x") return; // gesto vertical: dejamos scrollear la página
+
+                    e.preventDefault();
+                    const now = performance.now();
+                    const dt = Math.max(now - lastT, 1);
+                    velocity = ((e.clientX - lastX) / dt) * -16; // px/frame aprox (16ms), signo invertido = drag natural
+                    lastX = e.clientX;
+                    lastT = now;
+
+                    offset = startOffset - dx;
+                    render();
+                }
+
+                function onPointerUp(e) {
+                    if (!dragging || e.pointerId !== pointerId) return;
+                    dragging = false;
+                    if (dragAxisLocked === "x") {
+                        startLoop("momentum");
+                    }
+                    dragAxisLocked = null;
+                }
+
+                function onResize() {
+                    if (!active) return;
+                    measure();
+                    render();
+                }
+
+                function setupTechCarousel(isMobile) {
+                    if (isMobile && !active) {
+                        active = true;
+                        offset = 0;
+                        grid.style.touchAction = "pan-y";
+                        grid.style.cursor = "grab";
+                        grid.addEventListener("pointerdown", onPointerDown);
+                        grid.addEventListener("pointermove", onPointerMove);
+                        grid.addEventListener("pointerup", onPointerUp);
+                        grid.addEventListener("pointercancel", onPointerUp);
+                        requestAnimationFrame(() => {
+                            measure();
+                            render();
+                        });
+                    } else if (!isMobile && active) {
+                        active = false;
+                        stopLoop();
+                        grid.removeEventListener("pointerdown", onPointerDown);
+                        grid.removeEventListener("pointermove", onPointerMove);
+                        grid.removeEventListener("pointerup", onPointerUp);
+                        grid.removeEventListener("pointercancel", onPointerUp);
+                        grid.style.height = "";
+                        grid.style.touchAction = "";
+                        grid.style.cursor = "";
+                        cards.forEach((card) => {
+                            card.style.transform = "";
+                            card.style.opacity = "";
+                            card.classList.remove("is-active");
+                        });
+                        activeEl = null;
+                    }
+                }
+
+                setupTechCarousel(mobileQuery.matches);
+                mobileQuery.addEventListener("change", (e) => setupTechCarousel(e.matches));
+                window.addEventListener("resize", onResize, { passive: true });
+            }
+
             // --- Lógica del Menú Hamburguesa ---
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('nav-links');
             const navLinksItems = document.querySelectorAll('.nav-links a');
 
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+
             // Abrir/Cerrar menú
             hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
+                const isOpen = hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active', isOpen);
+                document.body.classList.toggle('menu-open', isOpen);
             });
 
-            // Cerrar menú al hacer clic en un enlace (muy importante en mobile)
+            // --- Scroll suave a las secciones SIN modificar la URL (sin #seccion) ---
+            function scrollToTarget(hash) {
+                const target = hash && hash !== '#' ? document.querySelector(hash) : null;
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            // Cerrar menú y scrollear al hacer clic en un enlace (muy importante en mobile)
             navLinksItems.forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    closeMobileMenu();
+                    scrollToTarget(link.getAttribute('href'));
                 });
+            });
+
+            // El nombre en la navbar siempre lleva al principio, sin tocar la URL
+            document.getElementById('logo-home').addEventListener('click', () => {
+                closeMobileMenu();
+                scrollToTarget(null);
             });
 
             // OPTIMIZACIÓN: Navbar Scroll Pasivo para no bloquear el Main Thread
@@ -684,7 +919,6 @@ import tomas from '../assets/tomas.jpeg';
             }, { passive: true });   
             
             initBackgroundGL(reduceMotion);
-            document.getElementById("year").textContent = new Date().getFullYear();
 
             const navCursor = document.getElementById("nav-cursor");
             if (!reduceMotion) {
