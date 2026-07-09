@@ -1,5 +1,6 @@
 ---
 // Importamos tus estilos (Astro lo maneja en el servidor)
+import { Image } from 'astro:assets';
 import '../styles/style.css';
 import machinesData from '../data/machines.json';
 import pdfIcon from '../assets/pdf-icon.svg';
@@ -33,7 +34,9 @@ import tomas from '../assets/tomas.jpeg';
     <link rel="icon" href={tomas.src} type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" /></noscript>
 
     <!-- Resolve the `ogl` bare import for the inline module script below. The script is
          kept `is:inline` on purpose so Astro never generates its processed-script dev URL
@@ -67,7 +70,7 @@ import tomas from '../assets/tomas.jpeg';
                     <div class="nav-controls">
                         <div class="lang-container">
                             <button id="lang-toggle" class="lang-btn">ES</button>
-                            <img src={translateIcon.src} alt="" width="30" height="30" class="lang-icon" decoding="async" aria-hidden="true" />
+                            <Image src={translateIcon} format="webp" alt="" width={30} height={30} class="lang-icon" decoding="async" aria-hidden="true" />
                         </div>
 
                         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -116,37 +119,37 @@ import tomas from '../assets/tomas.jpeg';
             <div class="stats-grid" translate="no">
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={pythonIcon.src} alt="Python" width="100" height="100" decoding="async" />
+                        <Image src={pythonIcon} format="webp" alt="Python" width={100} height={100} decoding="async" />
                     </div>
                     <h3>Python</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={bashIcon.src} alt="Bash" width="100" height="100" decoding="async" />
+                        <Image src={bashIcon} format="webp" alt="Bash" width={100} height={100} decoding="async" />
                     </div>
                     <h3>Bash Scripting</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={linuxIcon.src} alt="Linux" width="100" height="100" decoding="async" />
+                        <Image src={linuxIcon} format="webp" alt="Linux" width={100} height={100} decoding="async" />
                     </div>
                     <h3>Linux Systems</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={caidoLogo.src} alt="Caido" width="100" height="100" decoding="async" />
+                        <Image src={caidoLogo} format="webp" alt="Caido" width={100} height={100} decoding="async" />
                     </div>
                     <h3>Caido</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={wireLogo.src} alt="Wireshark" width="100" height="100" decoding="async" />
+                        <Image src={wireLogo} format="webp" alt="Wireshark" width={100} height={100} decoding="async" />
                     </div>
                     <h3>Wireshark</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <img src={nmapIcon.src} alt="Nmap" width="100" height="100" decoding="async" />
+                        <Image src={nmapIcon} format="webp" alt="Nmap" width={100} height={100} decoding="async" />
                     </div>
                     <h3 data-i18n="stat_tools">Offensive Security Tooling</h3>
                 </div>
@@ -167,7 +170,7 @@ import tomas from '../assets/tomas.jpeg';
                     <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
                     <div class="exp-card exp-doc-card">
                         <button class="doc-thumb" data-doc="/redacted_writeup.pdf" aria-label="Preview security audit report">
-                            <img src={reportThumb.src} alt="" width="140" height="140" class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
+                            <Image src={reportThumb} format="webp" alt="" width={140} height={140} class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
                         </button>
                         <div class="doc-actions">
                             <button class="btn-primary doc-btn" data-doc="/redacted_writeup.pdf">
@@ -190,14 +193,14 @@ import tomas from '../assets/tomas.jpeg';
                             <p class="text-muted" data-i18n="exp_bugbounty_desc">Active bug bounty hunter under the handle <strong>tgxrech</strong> on:</p>
                             <ul class="exp-accounts">
                                 <li>
-                                    <img src={hackeroneIcon.src} alt="" width="42" height="42" class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
+                                    <Image src={hackeroneIcon} format="webp" alt="" width={42} height={42} class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
                                     <div class="exp-account-text">
                                         <span class="exp-platform" translate="no">HackerOne</span>
                                         <a href="https://hackerone.com/tgxrech?type=user" target="_blank" rel="noopener" class="underline-link" translate="no">tgxrech</a>
                                     </div>
                                 </li>
                                 <li>
-                                    <img src={yeswehackIcon.src} alt="" width="42" height="42" class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
+                                    <Image src={yeswehackIcon} format="webp" alt="" width={42} height={42} class="exp-account-icon" loading="lazy" decoding="async" aria-hidden="true" />
                                     <div class="exp-account-text">
                                         <span class="exp-platform" translate="no">YesWeHack</span>
                                         <a href="https://yeswehack.com/hunters/tgxrech#latest-hacktivity" target="_blank" rel="noopener" class="underline-link" translate="no">tgxrech</a>
@@ -207,7 +210,7 @@ import tomas from '../assets/tomas.jpeg';
 
                             <button class="doc-strip" data-doc="/openredirect_writeup.pdf" aria-label="Preview Open Redirect writeup">
                                 <span class="doc-strip-thumb">
-                                    <img src={writeupThumb.src} alt="" width="96" height="72" class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
+                                    <Image src={writeupThumb} format="webp" alt="" width={96} height={72} class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
                                 </span>
                                 <span class="doc-strip-info">
                                     <span class="doc-strip-title" data-i18n="bb_writeup_title" translate="no">Open Redirect (CWE-601) Writeup</span>
@@ -296,7 +299,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_4_issuer" target="_blank">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={hack4uIcon.src} alt="Hack4u Logo" width="70" height="70" loading="lazy" decoding="async" />
+                        <Image src={hack4uIcon} format="webp" alt="Hack4u Logo" width={70} height={70} loading="lazy" decoding="async" />
                     </div>
                 </div>
                 <div class="cert-item">
@@ -306,7 +309,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://www.cambridgeenglish.org/exams-and-tests/qualifications/advanced/" class="underline-link" data-i18n="cert_1_issuer" target="_blank">Cambridge University</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={cambridgeIcon.src} alt="Cambridge Logo" width="70" height="70" loading="lazy" decoding="async" />
+                        <Image src={cambridgeIcon} format="webp" alt="Cambridge Logo" width={70} height={70} loading="lazy" decoding="async" />
                     </div>
                 </div>
 
@@ -317,7 +320,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_2_issuer" target="_blank">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={hack4uIcon.src} alt="Hack4u Logo" width="70" height="70" loading="lazy" decoding="async" />
+                        <Image src={hack4uIcon} format="webp" alt="Hack4u Logo" width={70} height={70} loading="lazy" decoding="async" />
                     </div>
                 </div>
 
@@ -328,7 +331,7 @@ import tomas from '../assets/tomas.jpeg';
                         <p class="text-muted"><a href="https://www.udemy.com" class="underline-link" target="_blank" rel="noopener">Udemy</a></p>
                     </div>
                     <div class="cert-logo">
-                        <img src={udemyLogo.src} alt="Udemy Logo" width="70" height="70" loading="lazy" decoding="async" />
+                        <Image src={udemyLogo} format="webp" alt="Udemy Logo" width={70} height={70} loading="lazy" decoding="async" />
                     </div>
                 </div>
             </div>

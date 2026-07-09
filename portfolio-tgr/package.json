@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "vendor:ogl": "esbuild node_modules/ogl/src/index.js --bundle --format=esm --outfile=public/vendor/ogl.js"
+    "vendor:ogl": "esbuild scripts/ogl-vendor-entry.js --bundle --minify --format=esm --outfile=public/vendor/ogl.js"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
