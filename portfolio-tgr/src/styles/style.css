@@ -801,9 +801,9 @@ h1 {
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg,
-            rgba(3, 3, 3, 0.15) 0%,
-            rgba(3, 3, 3, 0.55) 55%,
-            rgba(3, 3, 3, 0.8) 100%);
+            rgba(3, 3, 3, 0.08) 0%,
+            rgba(3, 3, 3, 0.35) 55%,
+            rgba(3, 3, 3, 0.55) 100%);
     pointer-events: none;
 }
 
@@ -1495,6 +1495,7 @@ html {
 
     .hamburger.active span:nth-child(2) {
         opacity: 0;
+        transform: scaleX(0);
     }
 
     .hamburger.active span:nth-child(3) {
