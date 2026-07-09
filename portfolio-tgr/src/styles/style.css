@@ -1417,6 +1417,15 @@ html {
         display: flex;
     }
 
+    /* El fondo animado se ve más tapado en mobile (las cards ocupan casi todo
+       el ancho), así que acá el scrim va bastante más claro que en desktop. */
+    .global-bg::after {
+        background: linear-gradient(180deg,
+                rgba(3, 3, 3, 0.03) 0%,
+                rgba(3, 3, 3, 0.18) 55%,
+                rgba(3, 3, 3, 0.32) 100%);
+    }
+
     /* Menú a pantalla completa, con entrada escalonada estilo "staggered menu" */
     .nav-links {
         position: fixed;

@@ -529,11 +529,14 @@ import tomas from '../assets/tomas.jpeg';
             const container = document.getElementById('faulty-terminal-bg');
             if (!container) return;
 
+            // En mobile las cards tapan casi todo el viewport, así que el fondo necesita
+            // más brillo propio para notarse en la poca área que asoma.
+            const isMobileBg = window.matchMedia('(max-width: 768px)').matches;
             const config = {
                 scale: 1, gridMul: [2, 1], digitSize: 2.3, timeScale: 0.5,
                 scanlineIntensity: 0.3, glitchAmount: 0, flickerAmount: 0.4,
                 noiseAmp: 1, chromaticAberration: 0, dither: 0, curvature: 0.05,
-                tint: '#62a0ea', brightness: 0.22
+                tint: '#62a0ea', brightness: isMobileBg ? 0.32 : 0.22
             };
 
             // OPTIMIZACIÓN: Renderiza el canvas a una resolución mucho menor y deja que CSS lo estire
@@ -756,7 +759,7 @@ import tomas from '../assets/tomas.jpeg';
                 function tick() {
                     if (phase === "momentum") {
                         offset += velocity;
-                        velocity *= 0.82;
+                        velocity *= 0.85;
                         render();
                         if (Math.abs(velocity) < 0.5) {
                             phase = "snap";
@@ -771,7 +774,9 @@ import tomas from '../assets/tomas.jpeg';
                             stopLoop();
                             return;
                         }
-                        offset += diff * 0.3;
+                        // Coeficiente bajo a propósito: la card central debe acomodarse con un
+                        // ease suave y controlado, sin el tirón/rebote de un snap agresivo.
+                        offset += diff * 0.1;
                         render();
                         rafId = requestAnimationFrame(tick);
                     }
@@ -792,7 +797,7 @@ import tomas from '../assets/tomas.jpeg';
                 const MAX_VELOCITY = 34; // px/frame, evita que un pico ruidoso mande el carrusel a volar
                 // El drag se amplifica un poco: así no hace falta arrastrar el dedo casi un
                 // ancho de card entero para pasar a la siguiente, se siente más sensible/liviano.
-                const DRAG_MULTIPLIER = 1.4;
+                const DRAG_MULTIPLIER = 1.8;
 
                 function onPointerDown(e) {
                     if (!active) return;
