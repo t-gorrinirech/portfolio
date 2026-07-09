@@ -411,6 +411,10 @@ h1 {
     position: relative;
     /* IMPORTANTE para contener el efecto */
     overflow: hidden;
+    /* En cualquier ancho/orientación: el navegador dibuja un recuadro de "tap highlight"
+       por defecto en cualquier elemento que reciba toques (en el carrusel lo manejamos a mano). */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .stats-grid::before {
@@ -439,9 +443,12 @@ h1 {
     transition: opacity 0.3s ease;
 }
 
-/* Solo mostramos el borde brillante cuando pasamos el mouse por la grilla */
-.stats-grid:hover::before {
-    opacity: 1;
+/* Solo mostramos el borde brillante cuando pasamos el mouse por la grilla (solo con mouse real:
+   en touch, ":hover" se simula al tocar y se queda pegado hasta el próximo toque en otro lado) */
+@media (hover: hover) {
+    .stats-grid:hover::before {
+        opacity: 1;
+    }
 }
 
 .stat-card {
@@ -456,6 +463,8 @@ h1 {
     position: relative;
     border: none;
     /* CHAU LÍNEAS */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 
     /* SOMBRAS PARA SIMULAR SEPARACIÓN */
     /* Proyectamos la sombra hacia la IZQUIERDA (-20px) para que caiga sobre la tarjeta anterior */
@@ -976,19 +985,26 @@ h1 {
     z-index: 0;
 }
 
-.exp-card:hover::before,
 .exp-card:focus-within::before {
     opacity: 1;
+}
+
+/* El glow y el cambio de fondo, solo con mouse real: en touch, ":hover" se simula al
+   tocar y se queda pegado hasta el próximo toque en otro lado. */
+@media (hover: hover) {
+    .exp-card:hover::before {
+        opacity: 1;
+    }
+
+    .exp-card:hover {
+        background-color: #0f0f13;
+    }
 }
 
 /* El contenido queda por encima del glow */
 .exp-card > * {
     position: relative;
     z-index: 1;
-}
-
-.exp-card:hover {
-    background-color: #0f0f13;
 }
 
 .exp-card p {
@@ -1084,19 +1100,25 @@ h1 {
     z-index: 0;
 }
 
-.project-item:hover::before,
 .project-item:focus-within::before {
     opacity: 1;
+}
+
+/* El glow y el cambio de fondo, solo con mouse real (ver nota en .exp-card) */
+@media (hover: hover) {
+    .project-item:hover::before {
+        opacity: 1;
+    }
+
+    .project-item:hover {
+        background-color: #0f0f13;
+    }
 }
 
 /* El contenido queda por encima del glow */
 .project-item > * {
     position: relative;
     z-index: 1;
-}
-
-.project-item:hover {
-    background-color: #0f0f13;
 }
 
 .project-info {
@@ -1667,10 +1689,6 @@ html {
         border-radius: 0;
         box-shadow: none;
         margin-bottom: 4rem;
-        /* El navegador dibuja un recuadro de "tap highlight" por defecto en cualquier
-           elemento que reciba toques; como manejamos el drag a mano, lo desactivamos. */
-        -webkit-tap-highlight-color: transparent;
-        outline: none;
     }
 
     .stat-card {
@@ -1684,8 +1702,6 @@ html {
         transform-origin: top center;
         transition: background-color 0.3s ease;
         will-change: transform;
-        -webkit-tap-highlight-color: transparent;
-        outline: none;
         user-select: none;
         -webkit-user-select: none;
     }
