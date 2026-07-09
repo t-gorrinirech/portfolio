@@ -34,9 +34,9 @@ import tomas from '../assets/tomas.jpeg';
     <link rel="icon" href={tomas.src} type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet" /></noscript>
 
     <!-- Resolve the `ogl` bare import for the inline module script below. The script is
          kept `is:inline` on purpose so Astro never generates its processed-script dev URL
@@ -114,42 +114,42 @@ import tomas from '../assets/tomas.jpeg';
                 I'm a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I'm comfortable on international teams and I can write clear, detailed reports.
             </p>
 
-            <ul class="subtitle-mobile" data-i18n="hero_subtitle_bullets" translate="no"></ul>
+            <ul class="subtitle-mobile" data-i18n="hero_subtitle_bullets" translate="no"><li><span class="bullet-mark">&gt;</span> 4th-year IT student at UADE, focused on Web Pentesting &amp; Red Teaming</li><li><span class="bullet-mark">&gt;</span> Currently delivering real security audits on web platforms</li><li><span class="bullet-mark">&gt;</span> Active bug bounty hunter on HackerOne &amp; YesWeHack. Constant practice on HackTheBox</li><li><span class="bullet-mark">&gt;</span> C1 level of English, resulting in clear technical reports</li></ul>
 
             <div class="stats-grid" translate="no">
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={pythonIcon} format="webp" alt="Python" width={100} height={100} decoding="async" />
+                        <Image src={pythonIcon} format="webp" alt="Python" width={80} height={80} decoding="async" />
                     </div>
                     <h3>Python</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={bashIcon} format="webp" alt="Bash" width={100} height={100} decoding="async" />
+                        <Image src={bashIcon} format="webp" alt="Bash" width={80} height={80} decoding="async" />
                     </div>
                     <h3>Bash Scripting</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={linuxIcon} format="webp" alt="Linux" width={100} height={100} decoding="async" />
+                        <Image src={linuxIcon} format="webp" alt="Linux" width={80} height={80} decoding="async" />
                     </div>
                     <h3>Linux Systems</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={caidoLogo} format="webp" alt="Caido" width={100} height={100} decoding="async" />
+                        <Image src={caidoLogo} format="webp" alt="Caido" width={80} height={80} decoding="async" />
                     </div>
                     <h3>Caido</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={wireLogo} format="webp" alt="Wireshark" width={100} height={100} decoding="async" />
+                        <Image src={wireLogo} format="webp" alt="Wireshark" width={80} height={80} decoding="async" />
                     </div>
                     <h3>Wireshark</h3>
                 </div>
                 <div class="stat-card">
                     <div class="icon-box">
-                        <Image src={nmapIcon} format="webp" alt="Nmap" width={100} height={100} decoding="async" />
+                        <Image src={nmapIcon} format="webp" alt="Nmap" width={80} height={80} decoding="async" />
                     </div>
                     <h3 data-i18n="stat_tools">Offensive Security Tooling</h3>
                 </div>
