@@ -1320,9 +1320,9 @@ h1 {
 }
 
 .project-repo-logo {
-    filter: invert(1);
     opacity: 0.85;
     margin-left: -10px;
+    margin-top: -5px;
 }
 
 .project-item-empty {
@@ -1903,6 +1903,19 @@ html {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+    }
+
+    /* En mobile el logo y el botón pasan a fila: botón a la izquierda,
+       logo a la derecha, ambos alineados y ocupando todo el ancho. */
+    .project-repo-link {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .project-repo-logo {
+        margin-left: 0;
     }
 
     /* Carrusel infinito de tecnologías: posición manejada 100% por JS (sin scroll nativo).
