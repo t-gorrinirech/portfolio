@@ -956,16 +956,9 @@ h1 {
     will-change: transform;
 }
 
-@media (hover: hover) {
-    .cert-item:hover {
-        transform: translateX(10px);
-        background-color: #0f0f13;
-    }
-}
-
-/* Mobile: no hay hover real, así que el "hover" lo dispara solo el JS
-   (setupCertElectricBorders), saltando de card en card. Ahí no queremos el
-   translateX de mover hacia la derecha, sino que la card crezca un poco. */
+/* Sin hover real: la animación de borde eléctrico la dispara solo el JS
+   (setupCertElectricBorders), saltando de card en card, en todos los
+   tamaños de pantalla. */
 .cert-item.auto-hover {
     transform: scale(1.035);
     background-color: #0f0f13;
@@ -995,38 +988,7 @@ h1 {
     opacity: 0.1;
 }
 
-/* Aro estático completo: solo en hover real de desktop (queda prendido
-   entero mientras dura el hover, sin animación). */
-.cert-eb-static-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
-
-.cert-eb-glow-1,
-.cert-eb-glow-2 {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    box-sizing: border-box;
-}
-
-.cert-eb-glow-1 {
-    border: 1.5px solid rgba(125, 249, 255, 0.6);
-    filter: blur(1px);
-}
-
-.cert-eb-glow-2 {
-    border: 1.5px solid #7df9ff;
-    filter: blur(4px);
-}
-
-/* Punto de luz que viaja el perímetro (mobile, modo automático): un único
+/* Punto de luz que viaja el perímetro (modo automático): un único
    radial-gradient movido vía --eb-spot-x/--eb-spot-y (seteadas en JS por
    frame), enmascarado para que solo se vea como un aro fino, no un círculo
    relleno. Grosor bajo (1.5px) a propósito, más fino que el aro estático. */
@@ -1035,7 +997,9 @@ h1 {
     inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    background: radial-gradient(80px circle at var(--eb-spot-x, 50%) var(--eb-spot-y, 0%), #7df9ff, transparent 70%);
+    background: radial-gradient(80px circle at var(--eb-spot-x, 50%) var(--eb-spot-y, 0%),
+            #7df9ff,
+            transparent 70%);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -1094,17 +1058,7 @@ h1 {
         transform 0.3s ease;
 }
 
-@media (hover: hover) {
-    .cert-item:hover .cert-logo img {
-        opacity: 1;
-        filter: grayscale(0%);
-        transform: scale(1.1);
-    }
-}
-
-/* Mobile: la foto se enciende junto con el borde eléctrico automático, no
-   con el tap (los navegadores táctiles "pegan" el :hover al tocar, por eso
-   la regla de arriba está encerrada en @media (hover: hover) y no dispara acá). */
+/* La foto se enciende junto con el borde eléctrico automático. */
 .cert-item.auto-hover .cert-logo img {
     opacity: 1;
     filter: grayscale(0%);

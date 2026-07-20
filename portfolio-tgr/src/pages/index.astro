@@ -1408,17 +1408,15 @@ import githubIcon from '../assets/githublogo.png';
             // mask nativo el borde-radius del navegador es siempre perfecto,
             // sin importar el radio. Un solo punto de luz viajando alrededor
             // del borde se ve además más moderno/fluido que dos líneas.
-            // En desktop (hover real) el aro entero queda prendido mientras
-            // dura el hover, sin animación (no hace falta rAF ahí). En
-            // mobile no hay hover, así que un solo punto de luz recorre todo
-            // el perímetro una vez por certificado, 2s cada uno, en loop
-            // infinito — y ahí, en vez del translateX(10px) del hover de
-            // mouse, la card se agranda un poquito (clase .auto-hover).
+            // Sin hover en desktop: en todos los tamaños de pantalla, un solo
+            // punto de luz recorre todo el perímetro una vez por certificado,
+            // 2s cada uno, en loop infinito (misma animación que antes era
+            // exclusiva de mobile), con la card agrandándose un poquito
+            // (clase .auto-hover).
             (function setupCertElectricBorders() {
                 const certItems = document.querySelectorAll('.cert-item');
                 if (!certItems.length) return;
 
-                const supportsHover = window.matchMedia('(hover: hover)').matches;
                 const perCard = [];
 
                 function getCornerPoint(cx, cy, radius, startAngle, arcLength, progress) {
@@ -1492,20 +1490,14 @@ import githubIcon from '../assets/githublogo.png';
                     const bgGlow = document.createElement("div");
                     bgGlow.className = "cert-eb-background-glow";
 
-                    const staticRing = document.createElement("div");
-                    staticRing.className = "cert-eb-static-ring";
-                    staticRing.innerHTML = '<div class="cert-eb-glow-1"></div><div class="cert-eb-glow-2"></div>';
-
                     const spot = document.createElement("div");
                     spot.className = "cert-eb-spot";
 
                     item.appendChild(bgGlow);
-                    item.appendChild(staticRing);
                     item.appendChild(spot);
 
                     let rafId = null;
-                    let hovering = false;
-                    let autoMode = false;
+                    let active = false;
                     let lapStart = null;
 
                     function moveSpot(t) {
@@ -1518,7 +1510,7 @@ import githubIcon from '../assets/githublogo.png';
                     }
 
                     function loop(currentTime) {
-                        if (!hovering || !autoMode) return;
+                        if (!active) return;
                         if (lapStart === null) lapStart = currentTime;
                         const t = (currentTime - lapStart) / EB_AUTO_LAP_MS;
                         moveSpot(Math.min(t, 1));
@@ -1529,27 +1521,18 @@ import githubIcon from '../assets/githublogo.png';
                         }
                     }
 
-                    function start(isAuto) {
-                        if (hovering) return;
-                        hovering = true;
-                        autoMode = !!isAuto;
+                    function start() {
+                        if (active) return;
+                        active = true;
+                        lapStart = null;
                         bgGlow.classList.add("is-visible");
-                        if (autoMode) {
-                            lapStart = null;
-                            spot.style.opacity = "1";
-                            rafId = requestAnimationFrame(loop);
-                        } else {
-                            // Desktop: el aro entero, quieto, mientras dura el hover real.
-                            // No hace falta animar nada acá.
-                            staticRing.style.opacity = "1";
-                        }
+                        spot.style.opacity = "1";
+                        rafId = requestAnimationFrame(loop);
                     }
 
                     function stop() {
-                        hovering = false;
-                        autoMode = false;
+                        active = false;
                         bgGlow.classList.remove("is-visible");
-                        staticRing.style.opacity = "0";
                         spot.style.opacity = "0";
                         if (rafId !== null) {
                             cancelAnimationFrame(rafId);
@@ -1557,21 +1540,12 @@ import githubIcon from '../assets/githublogo.png';
                         }
                     }
 
-                    if (supportsHover) {
-                        // OJO: no pasar `start` directo como listener. mouseenter invoca
-                        // el handler con el MouseEvent como primer argumento, y start()
-                        // usa ese primer argumento como flag "isAuto" — pasarlo tal cual
-                        // haría que !!event sea true y el hover de mouse entrara en modo
-                        // sweep en vez de mostrar el aro entero.
-                        item.addEventListener("mouseenter", () => start(false));
-                        item.addEventListener("mouseleave", stop);
-                    }
                     perCard.push({ item, start, stop });
                 });
 
-                // Mobile/touch: no hay hover real, así que el efecto se dispara solo,
-                // saltando de card en card cada EB_AUTO_LAP_MS en loop infinito.
-                if (!supportsHover && !reduceMotion && perCard.length) {
+                // El efecto se dispara solo, saltando de card en card cada
+                // EB_AUTO_LAP_MS en loop infinito, en todos los tamaños de pantalla.
+                if (!reduceMotion && perCard.length) {
                     let activeIdx = -1;
                     function activateNext() {
                         if (activeIdx >= 0) {
@@ -1580,7 +1554,7 @@ import githubIcon from '../assets/githublogo.png';
                         }
                         activeIdx = (activeIdx + 1) % perCard.length;
                         perCard[activeIdx].item.classList.add("auto-hover");
-                        perCard[activeIdx].start(true);
+                        perCard[activeIdx].start();
                     }
                     activateNext();
                     setInterval(activateNext, EB_AUTO_LAP_MS);
