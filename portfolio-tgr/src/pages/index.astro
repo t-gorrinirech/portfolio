@@ -20,6 +20,7 @@ import yeswehackIcon from '../assets/yeswehacklogo.png';
 import reportThumb from '../assets/thumb_report.jpg';
 import writeupThumb from '../assets/thumb_writeup.jpg';
 import tomas from '../assets/tomas.jpeg';
+import githubIcon from '../assets/githublogo.png';
 
 
 ---
@@ -230,10 +231,14 @@ import tomas from '../assets/tomas.jpeg';
                     <div class="exp-block">
                         <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_projects">Personal Projects</span></h3>
                         <div class="projects-list">
-                            <div class="project-item project-item-empty">
+                            <div class="project-item">
                                 <div class="project-info">
-                                    <h4 data-i18n="proj_placeholder_title">Working on some stuff…</h4>
-                                    <p class="text-muted" data-i18n="proj_placeholder_desc">Scripts and tools are on the way. Check back soon.</p>
+                                    <h4 translate="no">RECH</h4>
+                                    <p class="text-muted" data-i18n="proj_rech_desc">Personalized wordlist generator for authorized pentesting — builds password candidates by modeling how a specific target persona actually constructs passwords, instead of relying on generic rules.</p>
+                                </div>
+                                <div class="project-repo-link">
+                                    <Image src={githubIcon} format="webp" alt="" width={80} height={80} class="project-repo-logo" loading="lazy" decoding="async" aria-hidden="true" />
+                                    <a href="https://github.com/t-gorrinirech/RECH" target="_blank" rel="noopener noreferrer" class="card-link" data-i18n="proj_repo_link">View Repository &rarr;</a>
                                 </div>
                             </div>
                         </div>
@@ -397,7 +402,7 @@ import tomas from '../assets/tomas.jpeg';
                 btn_preview: "Preview", btn_download: "Download",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click to preview",
                 exp_projects: "Personal Projects",
-                proj_placeholder_title: "Working on some stuff…", proj_placeholder_desc: "Scripts and tools are on the way. Check back soon.",
+                proj_rech_desc: "Personalized wordlist generator for authorized pentesting. It takes what you know about a target (names, dates, pets, nicknames, teams, that kind of thing) and turns it into a wordlist.", proj_repo_link: "View Repository &rarr;",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I\'m comfortable on international teams and I can write clear, detailed reports.',
                 hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> 4th-year IT student at UADE, focused on Web Pentesting &amp; Red Teaming</li><li><span class="bullet-mark">&gt;</span> Currently delivering real security audits on web platforms</li><li><span class="bullet-mark">&gt;</span> Active bug bounty hunter on HackerOne &amp; YesWeHack. Constant practice on HackTheBox</li><li><span class="bullet-mark">&gt;</span> C1 level of English, resulting in clear technical reports</li>',
@@ -425,7 +430,7 @@ import tomas from '../assets/tomas.jpeg';
                 btn_preview: "Vista previa", btn_download: "Descargar",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click para previsualizar",
                 exp_projects: "Proyectos Personales",
-                proj_placeholder_title: "Trabajando en algunas cosas…", proj_placeholder_desc: "Scripts y herramientas en camino. Volvé pronto.",
+                proj_rech_desc: "Generador de wordlists personalizado para pentesting autorizado. Toma lo que sabés de un target (nombres, fechas, mascotas, apodos, equipos, ese tipo de cosas) y lo convierte en una wordlist.", proj_repo_link: "Ver Repositorio &rarr;",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
                 hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, enfocado en Web Pentesting y Red Teaming. Recientemente realicé una <strong>auditoría de seguridad</strong> completa para un cliente real de e-commerce (39 hallazgos, evaluados con CVSS 3.1), y hago bug bounty en HackerOne y YesWeHack. Practico constantemente en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, encadenando vulnerabilidades desde la enumeración hasta la explotación. Mi inglés es nivel C1, por lo que me manejo bien en equipos internacionales, pudiendo escribir informes claros y detallados.',
                 hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> Estudiante de 4to año de IT en la UADE, enfocado en Web Pentesting y Red Teaming</li><li><span class="bullet-mark">&gt;</span> Actualmente realizando auditorías de seguridad reales en plataformas web</li><li><span class="bullet-mark">&gt;</span> Cazador de bugs activo en HackerOne y YesWeHack. Práctica constante en HackTheBox</li><li><span class="bullet-mark">&gt;</span> Nivel de inglés C1, lo que resulta en informes técnicos claros</li>',
@@ -1390,7 +1395,7 @@ import tomas from '../assets/tomas.jpeg';
             if (getCardsPerView() === 1) setupMachDrag();
 
             // ==========================================
-            // ELECTRIC BORDER: hover de las certificaciones
+            // ELECTRIC BORDER: animación automática de las certificaciones
             // ==========================================
             // Efecto de borde inspirado en un componente React con canvas de
             // @BalintFerenczy (https://codepen.io/BalintFerenczy/pen/KwdoyEN),

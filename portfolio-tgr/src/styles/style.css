@@ -1357,6 +1357,20 @@ h1 {
     gap: 0.4rem;
 }
 
+.project-repo-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.project-repo-logo {
+    filter: invert(1);
+    opacity: 0.85;
+    margin-left: -10px;
+}
+
 .project-item-empty {
     justify-content: flex-start;
 }
