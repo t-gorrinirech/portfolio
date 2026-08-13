@@ -19,8 +19,11 @@ import hackeroneIcon from '../assets/hackeronelogo.png';
 import yeswehackIcon from '../assets/yeswehacklogo.png';
 import reportThumb from '../assets/thumb_report.jpg';
 import writeupThumb from '../assets/thumb_writeup.jpg';
-import tomas from '../assets/tomas.jpeg';
 import githubIcon from '../assets/githublogo.png';
+import mainLogo from '../assets/mainlogo2.png';
+
+const siteUrl = 'https://tomasgrech.com';
+const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
 
 
 ---
@@ -33,7 +36,21 @@ import githubIcon from '../assets/githublogo.png';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#030303" />
     <title>Tomas G. Rech | Pentester</title>
-    <link rel="icon" href={tomas.src} type="image/x-icon">
+    <link rel="icon" href={mainLogo.src} type="image/png">
+    <link rel="apple-touch-icon" href={mainLogo.src}>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tomas G. Rech | Pentester" />
+    <meta property="og:description" content="Portfolio de pentesting y ciberseguridad ofensiva de Tomás G. Rech." />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1350" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tomas G. Rech | Pentester" />
+    <meta name="twitter:description" content="Portfolio de pentesting y ciberseguridad ofensiva de Tomás G. Rech." />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" />
