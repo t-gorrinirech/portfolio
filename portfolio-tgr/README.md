@@ -1,46 +1,16 @@
-# Astro Starter Kit: Basics
+# Tomas G. Rech - Pentester Portfolio
 
-```sh
-npm create astro@latest -- --template basics
-```
+This is my personal portfolio site, built to show off my work in offensive security: certifications, completed HTB/THM machines, writeups, and general pentesting stuff. It's bilingual (English/Spanish), fully static, and deploys to Cloudflare Pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## What's on the site
 
-## 🚀 Project Structure
+- Experience section with writeups (PDFs open in a modal)
+- Certifications
+- A carousel of completed HTB/THM machines, pulled from a JSON file and filterable by difficulty and OS
+- Contact info and links (LinkedIn, GitHub, etc)
 
-Inside of your Astro project, you'll see the following folders and files:
+## Stack
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+Built with [Astro](https://astro.build). The React integration is installed but not actually used, everything is server rendered HTML plus a single vanilla JS block that runs all the interactivity on the page. No component framework, no state library, just one big `index.astro` file doing the work.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Styling is hand written CSS, no Tailwind or any framework. There's also a WebGL shader running in the background (a CRT/terminal effect) using the `ogl` library.
