@@ -403,6 +403,11 @@ h1 {
     color: var(--text-main);
 }
 
+.linkedin-link {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 .separator {
     color: #333;
 }

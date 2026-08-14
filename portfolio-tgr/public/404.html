@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030303" />
+    <title>404 — Not Found | Tomas G. Rech</title>
+    <meta name="robots" content="noindex" />
+    <style>
+        :root {
+            --bg-color: #030303;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --cyan: #00e5ff;
+            --font-mono: "Fira Code", "Courier New", monospace;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 { font-size: 4rem; margin: 0; color: var(--cyan); }
+        p { color: var(--text-muted); margin: 0; }
+        a { color: var(--cyan); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>curl: (22) The requested resource was not found on this server.</p>
+    <p><a href="/">cd ~/</a></p>
+</body>
+</html>

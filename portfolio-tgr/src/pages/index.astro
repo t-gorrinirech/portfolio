@@ -54,8 +54,10 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
+    <link id="font-stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet" media="print" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet" /></noscript>
+
+    <link rel="canonical" href={siteUrl} />
 
     <!-- Resolve the `ogl` bare import for the inline module script below. The script is
          kept `is:inline` on purpose so Astro never generates its processed-script dev URL
@@ -118,9 +120,9 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     <img src={pdfIcon.src} alt="" width="20" height="20" aria-hidden="true" />
                 </button>
                 
-                <a href="https://github.com/t-gorrinirech" target="_blank" class="text-link">GitHub</a>
+                <a href="https://github.com/t-gorrinirech" target="_blank" rel="noopener" class="text-link">GitHub</a>
                 <span class="separator">|</span>
-                <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" rel="noopener" class="text-link">LinkedIn</a>
             </div>
 
             <p class="terminal-path" data-i18n="path_whois">~/who-is/Tomás</p>
@@ -130,7 +132,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
             </h1>
 
             <p class="subtitle" data-i18n="hero_subtitle">
-                I'm a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I'm comfortable on international teams and I can write clear, detailed reports.
+                I'm a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" rel="noopener" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" rel="noopener" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I'm comfortable on international teams and I can write clear, detailed reports.
             </p>
 
             <ul class="subtitle-mobile" data-i18n="hero_subtitle_bullets" translate="no"><li><span class="bullet-mark">&gt;</span> 4th-year IT student at UADE, focused on Web Pentesting &amp; Red Teaming</li><li><span class="bullet-mark">&gt;</span> Currently delivering real security audits on web platforms</li><li><span class="bullet-mark">&gt;</span> Active bug bounty hunter on HackerOne &amp; YesWeHack. Constant practice on HackTheBox</li><li><span class="bullet-mark">&gt;</span> C1 level of English, resulting in clear technical reports</li></ul>
@@ -332,7 +334,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     <div class="cert-date" id="cert-ongoing" data-i18n="cert_ongoing_date">ONGOING</div>
                     <div class="cert-details">
                         <h3 data-i18n="cert_4_title">Introduction to Hacking</h3>
-                        <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_4_issuer" target="_blank">Hack4u</a></p>
+                        <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_4_issuer" target="_blank" rel="noopener">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
                         <Image src={hack4uIcon} format="webp" alt="Hack4u Logo" width={70} height={70} loading="lazy" decoding="async" />
@@ -342,7 +344,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     <div class="cert-date">2022</div>
                     <div class="cert-details">
                         <h3 data-i18n="cert_1_title">C1 Advanced</h3>
-                        <p class="text-muted"><a href="https://www.cambridgeenglish.org/exams-and-tests/qualifications/advanced/" class="underline-link" data-i18n="cert_1_issuer" target="_blank">Cambridge University</a></p>
+                        <p class="text-muted"><a href="https://www.cambridgeenglish.org/exams-and-tests/qualifications/advanced/" class="underline-link" data-i18n="cert_1_issuer" target="_blank" rel="noopener">Cambridge University</a></p>
                     </div>
                     <div class="cert-logo">
                         <Image src={cambridgeIcon} format="webp" alt="Cambridge Logo" width={70} height={70} loading="lazy" decoding="async" />
@@ -353,7 +355,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     <div class="cert-date">2026</div>
                     <div class="cert-details">
                         <h3 data-i18n="cert_2_title">Introduction to Linux</h3>
-                        <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_2_issuer" target="_blank">Hack4u</a></p>
+                        <p class="text-muted"><a href="https://hack4u.io/" class="underline-link" data-i18n="cert_2_issuer" target="_blank" rel="noopener">Hack4u</a></p>
                     </div>
                     <div class="cert-logo">
                         <Image src={hack4uIcon} format="webp" alt="Hack4u Logo" width={70} height={70} loading="lazy" decoding="async" />
@@ -384,7 +386,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 <p class="text-muted" data-i18n="desc_contact">I'm always open to discussing new projects or opportunities.</p>
                 <div class="contact-links">
                     <a href="mailto:tgorrinirech@gmail.com" class="btn-primary">tgorrinirech@gmail.com</a>
-                    <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" class="text-link" style="font-size: 1rem; font-weight: 600;">LinkedIn Profile &rarr;</a>
+                    <a href="https://www.linkedin.com/in/tomasgorrini/" target="_blank" rel="noopener" class="text-link linkedin-link">LinkedIn Profile &rarr;</a>
                 </div>
             </div>
         </section>
@@ -405,6 +407,29 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
         import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
         const machinesData = JSON.parse(document.getElementById('machines-data').textContent);
 
+        // Termina el patrón de carga no bloqueante de la fuente (antes hecho con
+        // onload="this.media='all'" inline, movido acá para permitir un CSP sin 'unsafe-inline').
+        const fontStylesheet = document.getElementById('font-stylesheet');
+        if (fontStylesheet) fontStylesheet.media = 'all';
+
+        // Escapa texto antes de insertarlo vía innerHTML (defensa en profundidad: hoy
+        // machines.json es 100% contenido propio, pero evita que un dato mal formado rompa el HTML).
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, (c) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+        }
+
+        // Solo permite links http(s): bloquea esquemas como javascript: en machine.link.
+        function safeHref(url) {
+            try {
+                const parsed = new URL(url, window.location.origin);
+                return (parsed.protocol === 'http:' || parsed.protocol === 'https:') ? parsed.href : '#';
+            } catch {
+                return '#';
+            }
+        }
+
         // ==========================================
         // 0. SISTEMA DE TRADUCCIÓN (DICCIONARIO)
         // ==========================================
@@ -421,7 +446,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 exp_projects: "Personal Projects",
                 proj_rech_desc: "Personalized wordlist generator for authorized pentesting. It takes what you know about a target (names, dates, pets, nicknames, teams, that kind of thing) and turns it into a wordlist.", proj_repo_link: "View Repository &rarr;",
                 hero_title: "IT Student and<br /><span class=\"text-cyan\">Pentester</span>",
-                hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I\'m comfortable on international teams and I can write clear, detailed reports.',
+                hero_subtitle: 'I\'m a 4th-year IT student at <a href="https://uade.edu.ar/" target="_blank" rel="noopener" class="underline-link">UADE</a>, focused on Web Pentesting and Red Teaming. I recently delivered a full <strong>security audit</strong> for a real e-commerce client (39 findings, scored with CVSS 3.1), and I hunt bugs on HackerOne and YesWeHack. I practice constantly on <a href="https://app.hackthebox.com" target="_blank" rel="noopener" class="underline-link">HackTheBox</a>, chaining vulnerabilities from enumeration to exploitation. My English is C1 level, so I\'m comfortable on international teams and I can write clear, detailed reports.',
                 hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> 4th-year IT student at UADE, focused on Web Pentesting &amp; Red Teaming</li><li><span class="bullet-mark">&gt;</span> Currently delivering real security audits on web platforms</li><li><span class="bullet-mark">&gt;</span> Active bug bounty hunter on HackerOne &amp; YesWeHack. Constant practice on HackTheBox</li><li><span class="bullet-mark">&gt;</span> C1 level of English, resulting in clear technical reports</li>',
                 stat_tools: "Offensive Security Tooling", path_achievements: "~/my/recent/achievements",
                 title_machines: "Machines Completed", filter_diff: "Difficulty:", filter_os: "Operating System:",
@@ -449,7 +474,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 exp_projects: "Proyectos Personales",
                 proj_rech_desc: "Generador de wordlists personalizado para pentesting autorizado. Toma lo que sabés de un target (nombres, fechas, mascotas, apodos, equipos, ese tipo de cosas) y lo convierte en una wordlist.", proj_repo_link: "Ver Repositorio &rarr;",
                 hero_title: "Estudiante de IT y<br /><span class=\"text-cyan\">Pentester</span>",
-                hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" class="underline-link">UADE</a>, enfocado en Web Pentesting y Red Teaming. Recientemente realicé una <strong>auditoría de seguridad</strong> completa para un cliente real de e-commerce (39 hallazgos, evaluados con CVSS 3.1), y hago bug bounty en HackerOne y YesWeHack. Practico constantemente en <a href="https://app.hackthebox.com" target="_blank" class="underline-link">HackTheBox</a>, encadenando vulnerabilidades desde la enumeración hasta la explotación. Mi inglés es nivel C1, por lo que me manejo bien en equipos internacionales, pudiendo escribir informes claros y detallados.',
+                hero_subtitle: 'Soy estudiante de 4to año de IT en la <a href="https://uade.edu.ar/" target="_blank" rel="noopener" class="underline-link">UADE</a>, enfocado en Web Pentesting y Red Teaming. Recientemente realicé una <strong>auditoría de seguridad</strong> completa para un cliente real de e-commerce (39 hallazgos, evaluados con CVSS 3.1), y hago bug bounty en HackerOne y YesWeHack. Practico constantemente en <a href="https://app.hackthebox.com" target="_blank" rel="noopener" class="underline-link">HackTheBox</a>, encadenando vulnerabilidades desde la enumeración hasta la explotación. Mi inglés es nivel C1, por lo que me manejo bien en equipos internacionales, pudiendo escribir informes claros y detallados.',
                 hero_subtitle_bullets: '<li><span class="bullet-mark">&gt;</span> Estudiante de 4to año de IT en la UADE, enfocado en Web Pentesting y Red Teaming</li><li><span class="bullet-mark">&gt;</span> Actualmente realizando auditorías de seguridad reales en plataformas web</li><li><span class="bullet-mark">&gt;</span> Cazador de bugs activo en HackerOne y YesWeHack. Práctica constante en HackTheBox</li><li><span class="bullet-mark">&gt;</span> Nivel de inglés C1, lo que resulta en informes técnicos claros</li>',
                 stat_tools: "Herramientas Ofensivas", path_achievements: "~/mis/logros/recientes",
                 title_machines: "Máquinas Completadas", filter_diff: "Dificultad:", filter_os: "Sistema Operativo:",
@@ -1068,17 +1093,17 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 // OPTIMIZACIÓN: Batch DOM updates construyendo el HTML en un string
                 let htmlString = "";
                 currentFilteredMachines.forEach(machine => {
-                    const diffClass = machine.difficulty.toLowerCase();
-                    const badgesHTML = machine.badges.map(b => `<span class="badge">${b}</span>`).join("");
+                    const diffClass = escapeHtml(machine.difficulty.toLowerCase());
+                    const badgesHTML = machine.badges.map(b => `<span class="badge">${escapeHtml(b)}</span>`).join("");
                     htmlString += `
                         <div class="machine-card">
                             <div class="card-header">
-                                <span class="platform">${machine.platform}</span>
-                                <span class="difficulty ${diffClass}">${machine.difficulty}</span>
+                                <span class="platform">${escapeHtml(machine.platform)}</span>
+                                <span class="difficulty ${diffClass}">${escapeHtml(machine.difficulty)}</span>
                             </div>
-                            <h3>${machine.title}</h3>
+                            <h3>${escapeHtml(machine.title)}</h3>
                             <div class="badges">${badgesHTML}</div>
-                            <a href="${machine.link}" target="_blank" class="card-link">${viewBtnText}</a>
+                            <a href="${safeHref(machine.link)}" target="_blank" rel="noopener" class="card-link">${viewBtnText}</a>
                         </div>
                     `;
                 });

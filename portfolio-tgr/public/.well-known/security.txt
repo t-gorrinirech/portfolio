@@ -1,0 +1,4 @@
+Contact: mailto:tgorrinirech@gmail.com
+Expires: 2027-08-14T00:00:00.000Z
+Canonical: https://tomasgrech.com/.well-known/security.txt
+Preferred-Languages: en, es
