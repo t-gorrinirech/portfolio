@@ -68,5 +68,20 @@
             "SSH Tunneling"
         ],
         "link": "https://app.hackthebox.com/machines/CCTV"
+    },
+    {
+        "title": "Nexus",
+        "platform": "HACKTHEBOX",
+        "difficulty": "EASY",
+        "os": "linux",
+        "badges": [
+            "Linux",
+            "CVE-2026-38526",
+            "RCE",
+            "CVE-2026-60004",
+            "Systemd Timers",
+            "Credential Harvesting"
+        ],
+        "link": "https://app.hackthebox.com/machines/Nexus"
     }
 ]
