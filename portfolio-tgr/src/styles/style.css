@@ -1089,7 +1089,7 @@ h1 {
     margin-bottom: 5rem;
 }
 
-/* Estructura distinta al resto: fila ancha arriba + dos columnas abajo */
+/* Estructura distinta al resto: dos filas de dos columnas */
 .experience-grid {
     display: flex;
     flex-direction: column;
@@ -1101,10 +1101,6 @@ h1 {
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     align-items: start;
-}
-
-.exp-block-full {
-    width: 100%;
 }
 
 .exp-block {
@@ -1448,6 +1444,83 @@ h1 {
     font-size: 1rem;
     line-height: 1.55;
     margin: 0;
+}
+
+/* Variante a media columna (Trabajo Freelance): thumbnail + botones en fila, resumen debajo */
+.exp-doc-card-stacked {
+    flex-wrap: wrap;
+}
+
+.exp-doc-card-stacked .doc-summary {
+    flex-basis: 100%;
+    align-self: flex-start;
+}
+
+/* Fila superior: ambas tarjetas con la misma altura */
+.exp-row-stretch {
+    align-items: stretch;
+}
+
+.exp-row-stretch .exp-card {
+    flex: 1 1 auto;
+}
+
+/* --- TARJETA DE PUESTO (Trabajo Profesional): logo + rol + fecha (+ bullets a futuro) --- */
+.exp-job-card {
+    justify-content: center;
+    gap: 1.4rem;
+}
+
+.job-logo {
+    width: 180px;
+    height: auto;
+    display: block;
+}
+
+.job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.job-role {
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+.exp-card .job-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.job-sep {
+    color: var(--cyan);
+    margin: 0 0.3rem;
+}
+
+.job-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.job-bullets li {
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.job-bullets li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    color: var(--cyan);
 }
 
 /* --- TIRA DE DOCUMENTO (Bug Bounty writeup): thumbnail largo + título, clickeable --- */

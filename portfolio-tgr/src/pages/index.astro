@@ -20,6 +20,7 @@ import yeswehackIcon from '../assets/yeswehacklogo.png';
 import reportThumb from '../assets/thumb_report.jpg';
 import writeupThumb from '../assets/thumb_writeup.jpg';
 import githubIcon from '../assets/githublogo.png';
+import accentureLogo from '../assets/accenturelogo.png';
 import mainLogo from '../assets/mainlogo2.png';
 
 const siteUrl = 'https://tomasgrech.com';
@@ -192,23 +193,41 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
             </div>
 
             <div class="experience-grid">
-                <!-- Arriba (ancho completo): Trabajo Profesional -->
-                <div class="exp-block exp-block-full">
-                    <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
-                    <div class="exp-card exp-doc-card">
-                        <button class="doc-thumb" data-doc="/redacted_writeup.pdf" aria-label="Preview security audit report">
-                            <Image src={reportThumb} format="webp" alt="" width={140} height={140} class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
-                        </button>
-                        <div class="doc-actions">
-                            <button class="btn-primary doc-btn" data-doc="/redacted_writeup.pdf">
-                                <span data-i18n="btn_preview">Preview</span>
-                                <img src={pdfIcon.src} alt="" width="18" height="18" aria-hidden="true" />
+                <!-- Fila superior: Trabajo Freelance (izq) | Trabajo Profesional (der) -->
+                <div class="exp-row exp-row-stretch">
+                    <div class="exp-block">
+                        <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_freelance">Freelance Work</span></h3>
+                        <div class="exp-card exp-doc-card exp-doc-card-stacked">
+                            <button class="doc-thumb" data-doc="/redacted_writeup.pdf" aria-label="Preview security audit report">
+                                <Image src={reportThumb} format="webp" alt="" width={140} height={140} class="doc-thumb-img" loading="lazy" decoding="async" aria-hidden="true" />
                             </button>
-                            <a class="doc-btn doc-btn-outline" href="/redacted_writeup.pdf" download>
-                                <span data-i18n="btn_download">Download</span>
-                            </a>
+                            <div class="doc-actions">
+                                <button class="btn-primary doc-btn" data-doc="/redacted_writeup.pdf">
+                                    <span data-i18n="btn_preview">Preview</span>
+                                    <img src={pdfIcon.src} alt="" width="18" height="18" aria-hidden="true" />
+                                </button>
+                                <a class="doc-btn doc-btn-outline" href="/redacted_writeup.pdf" download>
+                                    <span data-i18n="btn_download">Download</span>
+                                </a>
+                            </div>
+                            <p class="doc-summary text-muted" data-i18n="exp_freelance_desc">Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.</p>
                         </div>
-                        <p class="doc-summary text-muted" data-i18n="exp_professional_desc">Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.</p>
+                    </div>
+
+                    <div class="exp-block">
+                        <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
+                        <div class="exp-card exp-job-card">
+                            <Image src={accentureLogo} format="webp" alt="Accenture" width={180} height={47} class="job-logo" loading="lazy" decoding="async" />
+                            <div class="job-info">
+                                <h4 class="job-role" translate="no">Security Transformation Associate</h4>
+                                <p class="job-meta"><span translate="no">Accenture</span> <span class="job-sep">|</span> <span data-i18n="job_accenture_date">Sep 2026 — Present</span></p>
+                            </div>
+                            <!-- Descripción del puesto (a futuro): agregar keys job_accenture_b1, b2... en en/es
+                            <ul class="job-bullets">
+                                <li data-i18n="job_accenture_b1">...</li>
+                            </ul>
+                            -->
+                        </div>
                     </div>
                 </div>
 
@@ -440,7 +459,8 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 btn_view: "Resume", path_whois: "~/who-is/Tomás",
                 path_experience: "~/var/log/experience", title_experience: "Experience",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Active bug bounty hunter under the handle <strong>tgxrech</strong> on:",
-                exp_professional: "Professional Work", exp_professional_desc: "Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.",
+                exp_freelance: "Freelance Work", exp_professional: "Professional Work", job_accenture_date: "Sep 2026 — Present",
+                exp_freelance_desc: "Delivered a comprehensive security audit report for an argentine E-Commerce, documenting 39 vulnerabilities (13 Critical, 8 High via CVSS 3.1), providing root-cause analyses, technical evidence, and actionable remediation measures for each finding.",
                 btn_preview: "Preview", btn_download: "Download",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click to preview",
                 exp_projects: "Personal Projects",
@@ -468,7 +488,8 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 btn_view: "CV", path_whois: "~/quien-es/Tomás",
                 path_experience: "~/var/log/experiencia", title_experience: "Experiencia",
                 exp_bugbounty: "Bug Bounty", exp_bugbounty_desc: "Cazador activo de bug bounty bajo el usuario <strong>tgxrech</strong> en:",
-                exp_professional: "Trabajo Profesional", exp_professional_desc: "Entregué un informe completo de auditoría de seguridad para un E-Commerce argentino, documentando 39 vulnerabilidades (13 Críticas, 8 Altas según CVSS 3.1), con análisis de causa raíz, evidencia técnica y medidas de remediación accionables para cada hallazgo.",
+                exp_freelance: "Trabajo Freelance", exp_professional: "Trabajo Profesional", job_accenture_date: "Sep 2026 — Actualidad",
+                exp_freelance_desc: "Entregué un informe completo de auditoría de seguridad para un E-Commerce argentino, documentando 39 vulnerabilidades (13 Críticas, 8 Altas según CVSS 3.1), con análisis de causa raíz, evidencia técnica y medidas de remediación accionables para cada hallazgo.",
                 btn_preview: "Vista previa", btn_download: "Descargar",
                 bb_writeup_title: "Open Redirect (CWE-601) Writeup", bb_writeup_hint: "Click para previsualizar",
                 exp_projects: "Proyectos Personales",
