@@ -796,16 +796,13 @@ h1 {
     width: 100%;
 }
 
-/* Paginación numerada del carrusel de máquinas. Es una "cadena" con TODOS los
-   números; el viewport recorta a 5 y el track se traslada para mostrar la
-   ventana correcta (ver renderPagination en el JS). Cada número es una posición
-   alcanzable del carrusel, así que en desktop convive con las flechas: una
-   flecha mueve exactamente un número. */
+/* Paginación numerada del carrusel de máquinas: solo existe en mobile
+   (donde el carrusel se maneja arrastrando en vez de con flechas). Es una
+   "cadena" con TODOS los números; el viewport recorta a 5 y el track se
+   traslada para mostrar la ventana correcta (ver renderPagination en el JS). */
 .machines-pagination {
     position: relative;
-    display: flex;
-    justify-content: center;
-    margin-top: 1.25rem;
+    display: none;
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
@@ -1896,6 +1893,12 @@ html {
     .carousel-btn.prev,
     .carousel-btn.next {
         display: none;
+    }
+
+    .machines-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.25rem;
     }
 
     .cert-item {
