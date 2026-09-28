@@ -217,7 +217,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     <div class="exp-block">
                         <h3 class="exp-label"><span class="exp-prompt">&gt;</span> <span data-i18n="exp_professional">Professional Work</span></h3>
                         <div class="exp-card exp-job-card">
-                            <Image src={accentureLogo} format="webp" alt="Accenture" width={180} height={47} class="job-logo" loading="lazy" decoding="async" />
+                            <Image src={accentureLogo} format="webp" alt="Accenture" width={180} height={47} densities={[1, 2, 3]} class="job-logo" loading="lazy" decoding="async" />
                             <div class="job-info">
                                 <h4 class="job-role" translate="no">Security Transformation Associate</h4>
                                 <p class="job-meta"><span translate="no">Accenture</span> <span class="job-sep">|</span> <span data-i18n="job_accenture_date">Sep 2026 — Present</span></p>
@@ -275,7 +275,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                                     <p class="text-muted" data-i18n="proj_rech_desc">Personalized wordlist generator for authorized pentesting — builds password candidates by modeling how a specific target persona actually constructs passwords, instead of relying on generic rules.</p>
                                 </div>
                                 <div class="project-repo-link">
-                                    <Image src={githubIcon} format="webp" alt="" width={80} height={80} class="project-repo-logo" loading="lazy" decoding="async" aria-hidden="true" />
+                                    <Image src={githubIcon} format="webp" alt="" width={80} height={80} densities={[1, 2, 3]} class="project-repo-logo" loading="lazy" decoding="async" aria-hidden="true" />
                                     <a href="https://github.com/t-gorrinirech/RECH" target="_blank" rel="noopener noreferrer" class="card-link" data-i18n="proj_repo_link">View Repository &rarr;</a>
                                 </div>
                             </div>
