@@ -73,7 +73,7 @@
         "title": "Nexus",
         "platform": "HACKTHEBOX",
         "difficulty": "EASY",
-        "os": "linux",
+        "os": "Linux",
         "badges": [
             "Linux",
             "CVE-2026-38526",

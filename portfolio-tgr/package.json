@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/gen-csp-hash.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "vendor:ogl": "esbuild scripts/ogl-vendor-entry.js --bundle --minify --format=esm --outfile=public/vendor/ogl.js"
