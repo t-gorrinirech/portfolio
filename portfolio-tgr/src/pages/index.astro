@@ -1106,6 +1106,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                     noResultsMsg.classList.remove("hidden");
                     btnPrev.disabled = true;
                     btnNext.disabled = true;
+                    renderPagination();
                     return;
                 }
                 noResultsMsg.classList.add("hidden");
@@ -1159,7 +1160,7 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
                 renderPagination();
             }
 
-            // Paginación numerada (solo mobile): una "cadena" horizontal con TODOS los
+            // Paginación numerada: una "cadena" horizontal con TODOS los
             // números (no solo los 5 visibles). El viewport recorta a 5 slots y el
             // track se traslada para mostrar la ventana correcta. El círculo de
             // selección es HERMANO del viewport (no vive adentro, así el overflow:hidden
@@ -1178,9 +1179,16 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
             const PAGINATION_WINDOW = 5;
             let paginationNumberSpans = [];
 
+            // Última posición a la que el carrusel puede desplazarse sin dejar huecos:
+            // con 6 máquinas y 3 por vista, la última vista arranca en la 4ta (índice 3).
+            function maxMachineIndex() {
+                return Math.max(0, currentFilteredMachines.length - cardsPerView);
+            }
+
             function goToMachine(index) {
-                if (index === currentIndex || !currentFilteredMachines.length) return;
-                currentIndex = Math.max(0, Math.min(index, currentFilteredMachines.length - 1));
+                const target = Math.max(0, Math.min(index, maxMachineIndex()));
+                if (target === currentIndex || !currentFilteredMachines.length) return;
+                currentIndex = target;
                 track.style.transition = MACH_SETTLE_TRANSITION;
                 track.style.transform = `translateX(${-currentIndex * machCellWidth()}px)`;
                 btnPrev.disabled = currentIndex === 0;
@@ -1189,12 +1197,16 @@ const ogImageUrl = new URL(mainLogo.src, siteUrl).href;
             }
 
             function renderPagination() {
-                const total = currentFilteredMachines.length;
-                if (total === 0) {
+                if (currentFilteredMachines.length === 0) {
                     paginationTrack.querySelectorAll(".machines-pagination-number").forEach(el => el.remove());
                     paginationNumberSpans = [];
                     return;
                 }
+
+                // Un número por posición alcanzable, no por máquina: así cada número
+                // corresponde a un click de flecha y ninguno queda muerto. En mobile
+                // cardsPerView es 1, con lo cual esto da un número por máquina.
+                const total = maxMachineIndex() + 1;
 
                 // (Re)construye los números solo si cambió el total (cambio de filtro),
                 // no en cada movimiento: así los mismos <span> persisten y se puede
